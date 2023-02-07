@@ -1,0 +1,22 @@
+import { Request, Response } from "express";
+import { OrderRepository } from "../repositories/OrderRepository";
+export class OrderController {
+  async create(req: Request, res: Response) {
+    const { orderUsername, startDate, endDate, printer, state } = req.body;
+
+    try {
+      const newOrder = OrderRepository.create({
+        orderUsername,
+        startDate,
+        endDate,
+        printer,
+      });
+      await OrderRepository.save(newOrder);
+
+      return res.status(201).json(newOrder);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
+}

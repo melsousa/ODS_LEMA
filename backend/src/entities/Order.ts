@@ -9,13 +9,13 @@ export class Order{
     @Column({type: "text"})
     orderUsername: string
 
-    @Column({type: 'timestamptz'})
+    @Column({type: 'timestamptz', nullable: true})
     startDate: Date
 
-    @Column({type: "timestamptz"})
+    @Column({type: "timestamptz", nullable: true})
     endDate: Date
 
-    @Column({type: "text"})
+    @Column({type: "text", nullable: true})
     printer: string
 
     @Column({type: "text"})
