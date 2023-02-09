@@ -11,9 +11,11 @@ export class OrderController {
         endDate,
         printer,
       });
+      
       await OrderRepository.save(newOrder);
 
       return res.status(201).json(newOrder);
+
     } catch (error) {
       console.log(error);
       return res.status(500).json({ message: "Internal Server Error" });
