@@ -5,5 +5,5 @@ import { Router } from "express";
 const routes = Router();
 
 routes.post("/user", new UserController().create);
-routes.post("/order", new OrderController().create)
+routes.post("/user/:id_user/create", new UserController().createOrder)
 export default routes;

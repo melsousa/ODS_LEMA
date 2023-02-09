@@ -3,6 +3,7 @@ import { OrderRepository } from "../repositories/OrderRepository";
 export class OrderController {
   async create(req: Request, res: Response) {
     const { orderUsername, startDate, endDate, printer, state } = req.body;
+    const {id_user} = req.params
 
     try {
       const newOrder = OrderRepository.create({
@@ -10,6 +11,7 @@ export class OrderController {
         startDate,
         endDate,
         printer,
+        state
       });
       
       await OrderRepository.save(newOrder);
