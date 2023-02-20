@@ -1,5 +1,13 @@
+import { Office } from "./Office";
 import { Order } from "./Order";
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToOne,
+  JoinColumn,
+} from "typeorm";
 
 @Entity("users")
 export class User {
@@ -15,6 +23,13 @@ export class User {
   @Column({ type: "text", unique: true })
   password: string;
 
-  @OneToMany(() => Order, (order) => order.idUser)
-  orders: Order[];
+  @ManyToOne(() => Office, (office) => office.id_user)
+  @JoinColumn({ name: "id_office" })
+  id_office: Office;
+
+  @OneToMany(() => Order, (order) => order.author_id)
+  ordersAuthor: Order[];
+
+  @OneToMany(() => Order, (order) => order.requester_id)
+  ordersRequester: Order[];
 }
