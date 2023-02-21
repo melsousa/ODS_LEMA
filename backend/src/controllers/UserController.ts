@@ -1,13 +1,15 @@
 import { OrderRepository } from '../repositories/OrderRepository';
 import { userRepository } from "../repositories/UserRepository";
 import { Request, Response } from "express";
+import { User } from '../entities/User';
 
 export class UserController {
   async create(req: Request, res: Response) {
     // criando usuário
     const { name, email, password } = req.body;
-
-    if (!name) {
+    let newUser = new User(name, email, password)
+    
+    if (!newUser.Name) {
       return res.status(400).json({ message: "O nome é obrigatório" });
     }
 

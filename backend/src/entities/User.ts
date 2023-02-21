@@ -4,17 +4,58 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 @Entity("users")
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  readonly id: number;
 
   @Column({ type: "text" })
-  name: string;
+  readonly name: string;
 
   @Column({ type: "text" })
-  email: string;
+  readonly email: string;
 
   @Column({ type: "text", unique: true })
-  password: string;
+  readonly password: string;
 
   @OneToMany(() => Order, (order) => order.idUser)
-  orders: Order[];
+  readonly orders: Order[];
+
+  constructor(name: string, email: string, password: string) {
+
+    Object.assign(this, {name, email, password})
+    this.validate()
+    
+  }
+  
+  
+  private validate() {
+    
+    const validatePassword = new RegExp("^(?=.*[A-Za-z])(?=.*?[0-9]).{6,}$")
+
+    if(this.name == "" || this.name == null) {
+      throw new Error("nome é obrigatorio")
+    }
+    if(this.email == "" || this.email == null) {
+      throw new Error("email é obrigatorio")
+    }
+    if(this.password == "" || this.password == null || !(validatePassword.test(this.password))) {
+      
+      throw new Error("senha é obrigatorio, devendo conter números, simbolos e letras maiusculas e minusculas ")
+    }
+    
+  }
+
+  get Id() {
+    return this.id
+  }
+  get Name() {
+    return this.name
+  }
+  get Email() {
+    return this.email
+  }
+  get Password() {
+    return this.password
+  }
+  get getOrders() {
+    return this.orders
+  }
 }
