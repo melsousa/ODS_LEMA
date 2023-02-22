@@ -29,12 +29,13 @@ export class User {
   private validate() {
     
     const validatePassword = new RegExp("^(?=.*[A-Za-z])(?=.*?[0-9]).{6,}$")
+    const validateEmail = new RegExp("(([a-z]+\.?[a-z]+\.?[a-z]+[0-9]{2})+)(@aluno.ifce.edu.br)")
 
     if(this.name == "" || this.name == null) {
       throw new Error("nome é obrigatorio")
     }
-    if(this.email == "" || this.email == null) {
-      throw new Error("email é obrigatorio")
+    if(this.email == "" || this.email == null || !(validateEmail.test(this.email))) {
+      throw new Error("crie o email apartir do email institucional")
     }
     if(this.password == "" || this.password == null || !(validatePassword.test(this.password))) {
       

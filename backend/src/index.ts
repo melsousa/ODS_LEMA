@@ -1,5 +1,4 @@
 import express from "express";
-import { resolve } from "path";
 import { AppDataSource } from "./data-source";
 import routes from "./routes";
 
