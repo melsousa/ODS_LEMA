@@ -9,5 +9,6 @@ const routes = Router();
 routes.post("/usuario", new UsuarioController().create);
 routes.post("/cargo", new CargoController().createCargo);
 routes.post("/horario", new HorarioController().createHorario);
+routes.post("/pedido", new PedidoController().createPedido); // pensei em n passar por user, porque pode ter pedido sem  user 
 // routes.post("/user/:id_user/create", new PedidoController().createPedido)
 export default routes;
