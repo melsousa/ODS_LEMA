@@ -5,41 +5,41 @@ import { HoraDisponivel } from './horaDisponivel';
 @Entity('Orders')
 export class Pedido{
     @PrimaryGeneratedColumn()
-  id_pedido: number;
+  readonly id_pedido: number;
 
   @Column({ type: "text", nullable:true })
-  material: string;
+  readonly material: string;
   
   @Column({type: "text"})
-  prioridade: string
+  readonly prioridade: Prioridade
 
   @Column({ type: "text", nullable: true })
-  maquina: string;
+  readonly maquina: string;
 
   @Column({ type: "text", nullable: true })
-  estado: string;
+  readonly estado: Estado;
   
   @Column({type: 'bytea', nullable:true})
-  arquivo: Buffer
+  readonly arquivo: Buffer
   
   @Column({type:"text", nullable:true})
-  medida: string
+  readonly medida: string
   
   @ManyToOne(() => HoraDisponivel, (horaDisponivel) => horaDisponivel.horas)
   @JoinColumn({name: "id_horaDisponivel"})
-  id_horaDisponivel: HoraDisponivel
+  readonly id_horaDisponivel: HoraDisponivel
 
-  @ManyToOne(() => Usuario, (usuario) => usuario.AutorPedido)
+  @ManyToOne(() => Usuario, (usuario) => usuario.autorPedido)
   @JoinColumn({name: "id_autorPedido"})
-  id_autorPedido: Usuario
+  readonly id_autorPedido: Usuario
   
-  @ManyToOne(() => Usuario, (usuario) => usuario.AutorAutorizador)
+  @ManyToOne(() => Usuario, (usuario) => usuario.autorAutorizador)
   @JoinColumn({ name: "id_autorAutorizador" })
-  id_autorAutorizador: Usuario;
+  readonly id_autorAutorizador: Usuario;
 
   
-    constructor(id_pedido: number, material: string, prioridade: string, maquina: string,
-                estado: string, arquivo: Buffer, medida: string, id_horaDisponivel: HoraDisponivel, 
+    constructor(id_pedido: number, material: string, prioridade: Prioridade, maquina: string,
+                estado: Estado, arquivo: Buffer, medida: string, id_horaDisponivel: HoraDisponivel, 
                 id_autorPedido: Usuario, id_autorAutorizador: Usuario) {
 
         this.id_pedido = id_pedido
@@ -60,13 +60,13 @@ export class Pedido{
     public get Material(): string {
         return this.material
     }
-    public get Prioridade(): string {
+    public get Prioridade(): Prioridade {
         return this.prioridade
     }
     public get Maquina(): string {
         return this.maquina
     }
-    public get Estado(): string {
+    public get Estado(): Estado {
         return this.estado
     }
     public get Arquivo(): Buffer {
@@ -90,7 +90,7 @@ export class Pedido{
     
 }
 
-export enum State {
+export enum Estado {
     pendete,
     aprovado,
     concluido,

@@ -2,10 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppDataSource = void 0;
 require("dotenv/config");
-const User_1 = require("./models/User");
-const Order_1 = require("./models/Order");
+const Usuario_1 = require("./models/Usuario");
+const Pedido_1 = require("./models/Pedido");
 require("reflect-metadata");
 const typeorm_1 = require("typeorm");
+const Cargo_1 = require("./models/Cargo");
+const horaDisponivel_1 = require("./models/horaDisponivel");
 const port = process.env.DB_PORT;
 exports.AppDataSource = new typeorm_1.DataSource({
     type: "mysql",
@@ -14,7 +16,7 @@ exports.AppDataSource = new typeorm_1.DataSource({
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
-    entities: [User_1.User, Order_1.Order],
+    entities: [Usuario_1.Usuario, Pedido_1.Pedido, Cargo_1.Cargo, horaDisponivel_1.HoraDisponivel],
     migrations: [`${__dirname}/**/migrations/*.{ts,js}`],
     "synchronize": true,
     "logging": false

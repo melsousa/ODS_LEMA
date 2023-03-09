@@ -17,34 +17,33 @@ export class Usuario {
   readonly id_usuario: number;
 
   @Column({ type: "text" })
-  readonly name: string;
+  readonly  nome: string;
 
   @Column({ type: "text" })
   readonly email: string;
 
   @Column({ type: "text", unique: true })
-  readonly senha: string;
+  readonly  senha: string;
 
   @ManyToOne(() => Cargo, (cargo) => cargo.id_usuario)
   @JoinColumn({ name: "id_cargo" })
-  readonly id_cargo: Cargo;
+  id_cargo: Cargo;
 
-  @OneToMany(() => Pedido, (order) => order.id_autorPedido)
-  readonly orders: Pedido[] | null;
+  @OneToMany(() => Pedido, (pedido) => pedido.id_autorPedido)
+  autorPedido: Pedido[] | null;
 
   @OneToMany(() => Pedido, (pedido) => pedido.id_autorAutorizador)
-  readonly autorAutorizador: Pedido[];
-
-
+  autorAutorizador: Pedido[] | null;
   
-  constructor(id_usuario: number, name: string, email: string, senha: string, id_cargo: Cargo, orders: Pedido[] | null, autorAutorizador: Pedido[]) {
+  constructor(nome: string, email: string, 
+              senha: string, id_cargo: Cargo, autorPedido: Pedido[] | null,
+              autorAutorizador: Pedido[] | null) {
 
-    this.id_usuario = id_usuario
-    this.name = name
+    this.nome = nome
     this.email = email
     this.senha = senha
     this.id_cargo = id_cargo
-    this.orders = orders
+    this.autorPedido = autorPedido
     this.autorAutorizador = autorAutorizador
     this.validate()
     
@@ -56,7 +55,7 @@ export class Usuario {
     const validatesenha = new RegExp("^(?=.*[A-Za-z])(?=.*?[0-9]).{6,}$")
     const validateEmail = new RegExp("(([a-z]+\.?[a-z]+\.?[a-z]+[0-9]{2})+)(@aluno.ifce.edu.br)")
 
-    if(this.name == "" || this.name == null) {
+    if(this.nome == "" || this.nome == null) {
       throw new Error("nome é obrigatorio")
     }
     if(this.email == "" || this.email == null || !(validateEmail.test(this.email))) {
@@ -68,19 +67,30 @@ export class Usuario {
     
   }
 
-  get Id() {
+  public get Id_usuario() {
     return this.id_usuario
   }
-  get Name() {
-    return this.name
+  public get Nome() {
+    return this.nome
   }
-  get Email() {
+  public get Email() {
     return this.email
   }
-  get Senha() {
+  public get Senha() {
     return this.senha
   }
-  get getOrders() {
-    return this.orders
+    
+  public get Id_cargo(){
+    return this.id_cargo
   }
+  
+  public get AutorPedido() {
+    return this.autorPedido
+  }
+  
+  public get AutorAutorizador() {
+    return this.autorAutorizador
+  }
+  
+  
 }

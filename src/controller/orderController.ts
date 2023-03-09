@@ -1,18 +1,13 @@
 import { Request, Response } from "express";
+import { Pedido } from "../models/Pedido";
 import { OrderRepository } from "../repositories/orderRepositories";
 export class OrderController {
   async create(req: Request, res: Response) {
     const { orderUsername, startDate, endDate, printer, state } = req.body;
     const {id_user} = req.params
-
+    let pedido = new Pedido()
     try {
-      const newOrder = OrderRepository.create({
-        orderUsername,
-        startDate,
-        endDate,
-        printer,
-        state
-      });
+      const newOrder = OrderRepository.create(pedido);
       
       await OrderRepository.save(newOrder);
 

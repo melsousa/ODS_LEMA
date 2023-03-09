@@ -15,3 +15,15 @@ AppDataSource.initialize().then(() => {
   console.log(`resultado variavel de ambiente ${result.error}`)
   return app.listen(process.env.PORT);
 });
+// import { Cargo } from "./models/Cargo";
+// import { Pedido } from "./models/Pedido";
+// import { Usuario } from "./models/Usuario";
+
+
+// let usuario = new Usuario("gabriel", 
+//               "gabriel.silva.pimentel08@aluno.ifce.edu.br",
+//               "G1a2b3r4i5e6l7,.",
+//               new Cargo(1, "bolsista", null),
+//               null, null)
+
+// console.log(usuario)
