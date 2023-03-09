@@ -1,10 +1,20 @@
 import { Pedido } from "./Pedido";
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Cargo } from "./Cargo"
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToOne,
+  JoinColumn,
+} from "typeorm";
+
+
 
 @Entity({database: "User"})
 export class Usuario {
   @PrimaryGeneratedColumn()
-  readonly id: number;
+  readonly id_usuario: number;
 
   @Column({ type: "text" })
   readonly name: string;
@@ -13,26 +23,37 @@ export class Usuario {
   readonly email: string;
 
   @Column({ type: "text", unique: true })
-  readonly password: string;
+  readonly senha: string;
 
-  @OneToMany(() => Pedido, (order) => order.idUser)
+  @ManyToOne(() => Cargo, (cargo) => cargo.id_usuario)
+  @JoinColumn({ name: "id_cargo" })
+  readonly id_cargo: Cargo;
+
+  @OneToMany(() => Pedido, (order) => order.id_autorPedido)
   readonly orders: Pedido[] | null;
 
-  constructor(id: number, name: string, email: string, password: string, orders: Pedido[] | null) {
+  @OneToMany(() => Pedido, (pedido) => pedido.id_autorAutorizador)
+  readonly autorAutorizador: Pedido[];
 
-    this.id = id
+
+  
+  constructor(id_usuario: number, name: string, email: string, senha: string, id_cargo: Cargo, orders: Pedido[] | null, autorAutorizador: Pedido[]) {
+
+    this.id_usuario = id_usuario
     this.name = name
     this.email = email
-    this.password = password
+    this.senha = senha
+    this.id_cargo = id_cargo
     this.orders = orders
-    //this.validate()
+    this.autorAutorizador = autorAutorizador
+    this.validate()
     
   }
   
   
   private validate() {
     
-    const validatePassword = new RegExp("^(?=.*[A-Za-z])(?=.*?[0-9]).{6,}$")
+    const validatesenha = new RegExp("^(?=.*[A-Za-z])(?=.*?[0-9]).{6,}$")
     const validateEmail = new RegExp("(([a-z]+\.?[a-z]+\.?[a-z]+[0-9]{2})+)(@aluno.ifce.edu.br)")
 
     if(this.name == "" || this.name == null) {
@@ -41,14 +62,14 @@ export class Usuario {
     if(this.email == "" || this.email == null || !(validateEmail.test(this.email))) {
       throw new Error("crie o email apartir do email institucional")
     }
-    if(this.password == "" || this.password == null || !(validatePassword.test(this.password))) {
+    if(this.senha == "" || this.senha == null || !(validatesenha.test(this.senha))) {
       throw new Error("senha é obrigatorio, devendo conter números, simbolos e letras maiusculas e minusculas ")
     }
     
   }
 
   get Id() {
-    return this.id
+    return this.id_usuario
   }
   get Name() {
     return this.name
@@ -56,8 +77,8 @@ export class Usuario {
   get Email() {
     return this.email
   }
-  get Password() {
-    return this.password
+  get Senha() {
+    return this.senha
   }
   get getOrders() {
     return this.orders
