@@ -78,7 +78,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Pedido.prototype, "estado", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'bytea', nullable: true }),
+    (0, typeorm_1.Column)({ type: 'text', nullable: true }),
     __metadata("design:type", Buffer)
 ], Pedido.prototype, "arquivo", void 0);
 __decorate([

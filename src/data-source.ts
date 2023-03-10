@@ -1,4 +1,5 @@
-import "dotenv/config";
+import dotenv from 'dotenv'
+const result = dotenv.config()
 import { Usuario } from "./models/Usuario";
 import { Pedido } from "./models/Pedido";
 import "reflect-metadata";
@@ -7,6 +8,8 @@ import { Cargo } from "./models/Cargo";
 import { HoraDisponivel } from "./models/horaDisponivel";
 
 const port = process.env.DB_PORT as number | undefined;
+
+
 
 export const AppDataSource = new DataSource({
   type: "mysql",
@@ -22,4 +25,10 @@ export const AppDataSource = new DataSource({
 });
 
 
-AppDataSource.initialize()
+AppDataSource.initialize().then(()=>{
+  console.log("data source has been initialized!")
+})
+.catch((err)=> {
+  console.error(err)
+  console.log(result)
+})

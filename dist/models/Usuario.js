@@ -21,7 +21,7 @@ let Usuario = class Usuario {
         this.id_cargo = id_cargo;
         this.autorPedido = autorPedido;
         this.autorAutorizador = autorAutorizador;
-        this.validate();
+        //this.validate();
     }
     validate() {
         const validatesenha = new RegExp("^(?=.*[A-Za-z])(?=.*?[0-9]).{6,}$");

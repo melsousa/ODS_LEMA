@@ -8,10 +8,10 @@ export class HoraDisponivel {
   @PrimaryGeneratedColumn()
   id_hora: number;
 
-  @Column({ type: "timestamptz" })
+  @Column({ type: "text" })
   dataInicio: Date;
 
-  @Column({ type: "timestamptz" })
+  @Column({ type: "text" })
   dataFim: Date;
 
   @Column()

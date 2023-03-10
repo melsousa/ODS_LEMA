@@ -45,7 +45,7 @@ export class Usuario {
     this.id_cargo = id_cargo
     this.autorPedido = autorPedido
     this.autorAutorizador = autorAutorizador
-    this.validate()
+    //this.validate()
     
   }
   

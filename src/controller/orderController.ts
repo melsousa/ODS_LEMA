@@ -5,9 +5,9 @@ export class OrderController {
   async create(req: Request, res: Response) {
     const { orderUsername, startDate, endDate, printer, state } = req.body;
     const {id_user} = req.params
-    let pedido = new Pedido()
+    let pedido: Pedido
     try {
-      const newOrder = OrderRepository.create(pedido);
+      const newOrder = OrderRepository.create();
       
       await OrderRepository.save(newOrder);
 

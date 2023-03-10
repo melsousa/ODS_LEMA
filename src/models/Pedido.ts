@@ -19,7 +19,7 @@ export class Pedido{
   @Column({ type: "text", nullable: true })
   readonly estado: Estado;
   
-  @Column({type: 'bytea', nullable:true})
+  @Column({type: "text", nullable:true})
   readonly arquivo: Buffer
   
   @Column({type:"text", nullable:true})
