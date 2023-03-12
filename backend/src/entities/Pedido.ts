@@ -41,6 +41,6 @@ export class Pedido {
   id_autorPedido: Usuario
   
   @ManyToOne(() => Usuario, (usuario) => usuario.AutorAutorizador)
-  @JoinColumn({ name: "id_autorAutorizador" })
+  @JoinColumn({ name: "id_autorAutorizador"})
   id_autorAutorizador: Usuario;
 }
