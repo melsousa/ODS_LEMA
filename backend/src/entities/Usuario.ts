@@ -1,3 +1,4 @@
+import { PedidoAnonimo } from "./PedidoAnonimo";
 import { Cargo } from "./Cargo";
 import { Pedido } from "./Pedido";
 import {
@@ -32,4 +33,10 @@ export class Usuario {
 
   @OneToMany(() => Pedido, (pedido) => pedido.id_autorAutorizador)
   AutorAutorizador: Pedido[];
+
+  @OneToMany(
+    () => PedidoAnonimo,
+    (pedidoanonimo) => pedidoanonimo.id_autorAutorizadorAnonimo
+  )
+  AutorAutorizadorAnonimo: PedidoAnonimo[];
 }

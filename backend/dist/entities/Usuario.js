@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Usuario = void 0;
+const PedidoAnonimo_1 = require("./PedidoAnonimo");
 const Cargo_1 = require("./Cargo");
 const Pedido_1 = require("./Pedido");
 const typeorm_1 = require("typeorm");
@@ -44,6 +45,10 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => Pedido_1.Pedido, (pedido) => pedido.id_autorAutorizador),
     __metadata("design:type", Array)
 ], Usuario.prototype, "AutorAutorizador", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => PedidoAnonimo_1.PedidoAnonimo, (pedidoanonimo) => pedidoanonimo.id_autorAutorizadorAnonimo),
+    __metadata("design:type", Array)
+], Usuario.prototype, "AutorAutorizadorAnonimo", void 0);
 Usuario = __decorate([
     (0, typeorm_1.Entity)("usuarios")
 ], Usuario);

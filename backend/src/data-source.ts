@@ -1,3 +1,4 @@
+import { PedidoAnonimo } from './entities/PedidoAnonimo';
 import { Usuario } from './entities/Usuario';
 import { Pedido } from './entities/Pedido';
 import { HoraDisponivel } from './entities/HoraDisponivel';
@@ -15,7 +16,7 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
-  entities: [Cargo,HoraDisponivel,Pedido,Usuario],
+  entities: [Cargo,HoraDisponivel,Pedido,Usuario, PedidoAnonimo],
   migrations: [`dist/migrations/*.{js, ts}`],
   "synchronize": true, 
   "logging": false, 
