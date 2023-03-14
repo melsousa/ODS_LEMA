@@ -1,11 +1,11 @@
 import dotenv from 'dotenv'
 const result = dotenv.config()
-import { Usuario } from "./models/Usuario";
-import { Pedido } from "./models/Pedido";
+import { Usuario } from "./entities/Usuario";
+import { Pedido } from "./entities/Pedido";
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { Cargo } from "./models/Cargo";
-import { HoraDisponivel } from "./models/horaDisponivel";
+import { Cargo } from "./entities/Cargo";
+import { HoraDisponivel } from "./entities/HoraDisponivel";
 
 const port = process.env.DB_PORT as number | undefined;
 
@@ -28,7 +28,8 @@ export const AppDataSource = new DataSource({
 AppDataSource.initialize().then(()=>{
   console.log("data source has been initialized!")
 })
-.catch((err)=> {
+.catch((err)=> { //em caso de erro em achar o .env ou se acontecer algum problema na conexao com o bd
+  
   console.error(err)
   console.log(result)
 })

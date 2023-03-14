@@ -1,9 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const userController_1 = require("./controller/userController");
+const UsuarioController_1 = require("./controller/UsuarioController");
 const express_1 = require("express");
+const CargoController_1 = require("./controller/CargoController");
+const HorarioController_1 = require("./controller/HorarioController");
+const PedidoController_1 = require("./controller/PedidoController");
 const routes = (0, express_1.Router)();
-routes.post("/user", new userController_1.UserController().create);
-routes.post("/user/:id_user/create", new userController_1.UserController().createOrder);
+routes.post("/usuario", new UsuarioController_1.UsuarioController().create);
+routes.post("/cargo", new CargoController_1.CargoController().createCargo);
+routes.post("/horario", new HorarioController_1.HorarioController().createHorario);
+routes.post("/pedido", new PedidoController_1.PedidoController().createPedido);
 routes.get("/home");
 exports.default = routes;

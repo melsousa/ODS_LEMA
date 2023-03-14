@@ -1,15 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrderController = void 0;
-const Pedido_1 = require("../models/Pedido");
 const orderRepositories_1 = require("../repositories/orderRepositories");
 class OrderController {
     async create(req, res) {
         const { orderUsername, startDate, endDate, printer, state } = req.body;
         const { id_user } = req.params;
-        let pedido = new Pedido_1.Pedido();
+        let pedido;
         try {
-            const newOrder = orderRepositories_1.OrderRepository.create(pedido);
+            const newOrder = orderRepositories_1.OrderRepository.create();
             await orderRepositories_1.OrderRepository.save(newOrder);
             return res.status(201).json(newOrder);
         }

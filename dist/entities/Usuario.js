@@ -13,14 +13,16 @@ exports.Usuario = void 0;
 const Pedido_1 = require("./Pedido");
 const Cargo_1 = require("./Cargo");
 const typeorm_1 = require("typeorm");
+const PedidoAnonomo_1 = require("./PedidoAnonomo");
 let Usuario = class Usuario {
-    constructor(nome, email, senha, id_cargo, autorPedido, autorAutorizador) {
+    constructor(nome, email, senha, id_cargo, autorPedido, autorAutorizador, autorAutorizadorAnonimo) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.id_cargo = id_cargo;
         this.autorPedido = autorPedido;
         this.autorAutorizador = autorAutorizador;
+        this.autorAutorizadorAnonimo = autorAutorizadorAnonimo;
         //this.validate()
     }
     validate() {
@@ -87,8 +89,12 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => Pedido_1.Pedido, (pedido) => pedido.id_autorAutorizador),
     __metadata("design:type", Object)
 ], Usuario.prototype, "autorAutorizador", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => PedidoAnonomo_1.PedidoAnonimo, (pedidoanonimo) => pedidoanonimo.id_autorAutorizadorAnonimo),
+    __metadata("design:type", Object)
+], Usuario.prototype, "autorAutorizadorAnonimo", void 0);
 Usuario = __decorate([
     (0, typeorm_1.Entity)({ database: "User" }),
-    __metadata("design:paramtypes", [String, String, String, Cargo_1.Cargo, Object, Object])
+    __metadata("design:paramtypes", [String, String, String, Cargo_1.Cargo, Object, Object, Object])
 ], Usuario);
 exports.Usuario = Usuario;

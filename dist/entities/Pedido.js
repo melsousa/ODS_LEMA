@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Prioridade = exports.Estado = exports.Pedido = void 0;
 const Usuario_1 = require("./Usuario");
 const typeorm_1 = require("typeorm");
-const horaDisponivel_1 = require("./horaDisponivel");
+const HoraDisponivel_1 = require("./HoraDisponivel");
 let Pedido = class Pedido {
     constructor(id_pedido, material, prioridade, maquina, estado, arquivo, medida, id_horaDisponivel, id_autorPedido, id_autorAutorizador) {
         this.id_pedido = id_pedido;
@@ -86,9 +86,9 @@ __decorate([
     __metadata("design:type", String)
 ], Pedido.prototype, "medida", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => horaDisponivel_1.HoraDisponivel, (horaDisponivel) => horaDisponivel.horas),
+    (0, typeorm_1.ManyToOne)(() => HoraDisponivel_1.HoraDisponivel, (horaDisponivel) => horaDisponivel.horas),
     (0, typeorm_1.JoinColumn)({ name: "id_horaDisponivel" }),
-    __metadata("design:type", horaDisponivel_1.HoraDisponivel)
+    __metadata("design:type", HoraDisponivel_1.HoraDisponivel)
 ], Pedido.prototype, "id_horaDisponivel", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => Usuario_1.Usuario, (usuario) => usuario.autorPedido),
@@ -102,7 +102,7 @@ __decorate([
 ], Pedido.prototype, "id_autorAutorizador", void 0);
 Pedido = __decorate([
     (0, typeorm_1.Entity)('Orders'),
-    __metadata("design:paramtypes", [Number, String, Number, String, Number, Buffer, String, horaDisponivel_1.HoraDisponivel,
+    __metadata("design:paramtypes", [Number, String, Number, String, Number, Buffer, String, HoraDisponivel_1.HoraDisponivel,
         Usuario_1.Usuario, Usuario_1.Usuario])
 ], Pedido);
 exports.Pedido = Pedido;
