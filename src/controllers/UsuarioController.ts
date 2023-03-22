@@ -1,6 +1,5 @@
-import { usuarioRepository } from "../repositories/UsuarioRepository";
+import { usuarioRepository } from "./../repositories/UsuarioRepository";
 import { Response, Request } from "express";
-import { Usuario } from "../entities/Usuario";
 
 export class UsuarioController {
   async create(req: Request, res: Response) {
@@ -13,7 +12,12 @@ export class UsuarioController {
     }
 
     try {
-      const newUsuario = usuarioRepository.create(new Usuario(nome, email, senha, id_cargo, null, null, null));
+      const newUsuario = usuarioRepository.create({
+        nome,
+        email,
+        senha,
+        id_cargo
+      });
 
       await usuarioRepository.save(newUsuario);
 

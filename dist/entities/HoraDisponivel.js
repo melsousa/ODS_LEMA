@@ -22,11 +22,11 @@ __decorate([
     __metadata("design:type", Number)
 ], HoraDisponivel.prototype, "id_hora", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "text" }),
+    (0, typeorm_1.Column)({ type: "timestamptz" }),
     __metadata("design:type", Date)
 ], HoraDisponivel.prototype, "dataInicio", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "text" }),
+    (0, typeorm_1.Column)({ type: "timestamptz" }),
     __metadata("design:type", Date)
 ], HoraDisponivel.prototype, "dataFim", void 0);
 __decorate([

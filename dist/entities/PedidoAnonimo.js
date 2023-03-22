@@ -32,7 +32,7 @@ __decorate([
     __metadata("design:type", String)
 ], PedidoAnonimo.prototype, "estado", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "text", nullable: true }),
+    (0, typeorm_1.Column)({ type: "bytea", nullable: true }),
     __metadata("design:type", Buffer)
 ], PedidoAnonimo.prototype, "arquivo", void 0);
 __decorate([
@@ -49,7 +49,7 @@ __decorate([
     __metadata("design:type", HoraDisponivel_1.HoraDisponivel)
 ], PedidoAnonimo.prototype, "id_horaDisponivel", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => Usuario_1.Usuario, (usuario) => usuario.autorAutorizadorAnonimo),
+    (0, typeorm_1.ManyToOne)(() => Usuario_1.Usuario, (usuario) => usuario.AutorAutorizadorAnonimo),
     (0, typeorm_1.JoinColumn)({ name: "id_autorAutorizadorAnonimo" }),
     __metadata("design:type", Usuario_1.Usuario)
 ], PedidoAnonimo.prototype, "id_autorAutorizadorAnonimo", void 0);

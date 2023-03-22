@@ -1,9 +1,7 @@
 import express from "express";
+import { resolve } from "path";
 import { AppDataSource } from "./data-source";
-import routes from "./router";
-
-import * as dotenv from 'dotenv'
-const result = dotenv.config()
+import routes from "./routes";
 
 AppDataSource.initialize().then(() => {
   const app = express();
@@ -11,7 +9,7 @@ AppDataSource.initialize().then(() => {
   app.use(express.json());
 
   app.use(routes);
-  console.log(`executando em localhost:${process.env.PORT}`)
-  console.log(`resultado variavel de ambiente ${result.error}`)
+
+  console.log(process.env.PORT)
   return app.listen(process.env.PORT);
 });

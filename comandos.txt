@@ -1,2 +1,0 @@
-para compilar precisa executar no terminal
-- npx tsc
