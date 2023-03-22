@@ -15,16 +15,16 @@ import { PedidoAnonimo } from "./PedidoAnonimo";
 @Entity({database: "User"})
 export class Usuario {
   @PrimaryGeneratedColumn()
-  readonly id_usuario: number;
+  id_usuario: number;
 
   @Column({ type: "text" })
-  readonly  nome: string;
+  nome: string;
 
   @Column({ type: "text" })
-  readonly email: string;
+  email: string;
 
   @Column({ type: "text", unique: true })
-  readonly  senha: string;
+  senha: string;
 
   @ManyToOne(() => Cargo, (cargo) => cargo.id_usuario)
   @JoinColumn({ name: "id_cargo" })
@@ -36,12 +36,8 @@ export class Usuario {
   @OneToMany(() => Pedido, (pedido) => pedido.id_autorAutorizador)
   autorAutorizador: Pedido[] | null;
 
-  @OneToMany(
-    () => PedidoAnonimo,
-    (pedidoanonimo) => pedidoanonimo.id_autorAutorizadorAnonimo
-  )
+  @OneToMany(() => PedidoAnonimo, (pedidoanonimo) => pedidoanonimo.id_autorAutorizadorAnonimo)
   autorAutorizadorAnonimo: PedidoAnonimo[] | null;
-
   
   constructor(nome: string, email: string, 
               senha: string, id_cargo: Cargo, autorPedido: Pedido[] | null,

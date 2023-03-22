@@ -29,11 +29,14 @@ export class PedidoAnonimo {
   @Column({ type: "text", nullable: true })
   medida: string;
 
+  @Column({ type: "text", nullable: true })
+  codigo: string;
+  
   @ManyToOne(() => HoraDisponivel, (horaDisponivel) => horaDisponivel.horas)
   @JoinColumn({ name: "id_horaDisponivel" })
   id_horaDisponivel: HoraDisponivel;
 
   @ManyToOne(() => Usuario, (usuario) => usuario.autorAutorizadorAnonimo)
   @JoinColumn({ name: "id_autorAutorizadorAnonimo" })
-  id_autorAutorizadorAnonimo: Usuario;
+  id_autorAutorizadorAnonimo: Usuario; 
 }
