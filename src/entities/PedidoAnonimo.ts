@@ -23,7 +23,7 @@ export class PedidoAnonimo {
   @Column({ type: "text", nullable: true })
   estado: string;
 
-  @Column({ type: "bytea", nullable: true })
+  @Column({ type: "text", nullable: true })
   arquivo: Buffer;
 
   @Column({ type: "text", nullable: true })

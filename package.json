@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon --exec ts-node ./src/index.ts",
-    "migration:generate": "typeorm-ts-node-commonjs -d ./dist/data-source.js migration:generate ./dist/migrations/default",
-    "migration:run": "typeorm-ts-node-commonjs -d ./dist/data-source.js migration:run"
+    "migration:generate": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:generate ./src/migrations/default",
+    "migration:run": "typeorm-ts-node-commonjs -d ./src/data-source.js migration:run"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",

@@ -12,7 +12,7 @@ class UsuarioController {
             return res.status(400).json({ message: "O nome é obrigatório" });
         }
         try {
-            const newUsuario = UsuarioRepository_1.usuarioRepository.create(new Usuario_1.Usuario(nome, email, senha, id_cargo, null, null));
+            const newUsuario = UsuarioRepository_1.usuarioRepository.create(new Usuario_1.Usuario(nome, email, senha, id_cargo, null, null, null));
             await UsuarioRepository_1.usuarioRepository.save(newUsuario);
             return res.status(201).json(newUsuario);
         }

@@ -13,7 +13,7 @@ exports.Usuario = void 0;
 const Pedido_1 = require("./Pedido");
 const Cargo_1 = require("./Cargo");
 const typeorm_1 = require("typeorm");
-const PedidoAnonomo_1 = require("./PedidoAnonomo");
+const PedidoAnonimo_1 = require("./PedidoAnonimo");
 let Usuario = class Usuario {
     constructor(nome, email, senha, id_cargo, autorPedido, autorAutorizador, autorAutorizadorAnonimo) {
         this.nome = nome;
@@ -90,7 +90,7 @@ __decorate([
     __metadata("design:type", Object)
 ], Usuario.prototype, "autorAutorizador", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => PedidoAnonomo_1.PedidoAnonimo, (pedidoanonimo) => pedidoanonimo.id_autorAutorizadorAnonimo),
+    (0, typeorm_1.OneToMany)(() => PedidoAnonimo_1.PedidoAnonimo, (pedidoanonimo) => pedidoanonimo.id_autorAutorizadorAnonimo),
     __metadata("design:type", Object)
 ], Usuario.prototype, "autorAutorizadorAnonimo", void 0);
 Usuario = __decorate([

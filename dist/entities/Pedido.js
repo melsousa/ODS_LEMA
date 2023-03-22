@@ -101,7 +101,7 @@ __decorate([
     __metadata("design:type", Usuario_1.Usuario)
 ], Pedido.prototype, "id_autorAutorizador", void 0);
 Pedido = __decorate([
-    (0, typeorm_1.Entity)('Orders'),
+    (0, typeorm_1.Entity)('pedidos'),
     __metadata("design:paramtypes", [Number, String, Number, String, Number, Buffer, String, HoraDisponivel_1.HoraDisponivel,
         Usuario_1.Usuario, Usuario_1.Usuario])
 ], Pedido);

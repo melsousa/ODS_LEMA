@@ -12,6 +12,7 @@ require("reflect-metadata");
 const typeorm_1 = require("typeorm");
 const Cargo_1 = require("./entities/Cargo");
 const HoraDisponivel_1 = require("./entities/HoraDisponivel");
+const PedidoAnonimo_1 = require("./entities/PedidoAnonimo");
 const port = process.env.DB_PORT;
 exports.AppDataSource = new typeorm_1.DataSource({
     type: "mysql",
@@ -20,7 +21,7 @@ exports.AppDataSource = new typeorm_1.DataSource({
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
-    entities: [Usuario_1.Usuario, Pedido_1.Pedido, Cargo_1.Cargo, HoraDisponivel_1.HoraDisponivel],
+    entities: [Usuario_1.Usuario, Pedido_1.Pedido, Cargo_1.Cargo, HoraDisponivel_1.HoraDisponivel, PedidoAnonimo_1.PedidoAnonimo],
     migrations: [`${__dirname}/**/migrations/*.{ts,js}`],
     "synchronize": true,
     "logging": false
