@@ -36,7 +36,7 @@ export class PedidoAnonimo {
   @JoinColumn({ name: "id_horaDisponivel" })
   id_horaDisponivel: HoraDisponivel;
 
-  @ManyToOne(() => Usuario, (usuario) => usuario.AutorAutorizadorAnonimo)
+  @ManyToOne(() => Usuario, (usuario) => usuario.autorAutorizadorAnonimo)
   @JoinColumn({ name: "id_autorAutorizadorAnonimo" })
   id_autorAutorizadorAnonimo: Usuario;
 }

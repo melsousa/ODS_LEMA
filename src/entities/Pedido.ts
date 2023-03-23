@@ -49,17 +49,17 @@ export class Pedido {
     estado: Estado, arquivo: Buffer, medida: string, id_horaDisponivel: HoraDisponivel, 
     id_autorPedido: Usuario, id_autorAutorizador: Usuario) {
 
-this.id_pedido = id_pedido
-this.material = material
-this.prioridade = prioridade
-this.maquina = maquina
-this.estado = estado
-this.arquivo = arquivo
-this.medida = medida
-this.id_horaDisponivel = id_horaDisponivel
-this.id_autorPedido = id_autorPedido
-this.id_autorAutorizador = id_autorAutorizador
-}   
+    this.id_pedido = id_pedido
+    this.material = material
+    this.prioridade = prioridade
+    this.maquina = maquina
+    this.estado = estado
+    this.arquivo = arquivo
+    this.medida = medida
+    this.id_horaDisponivel = id_horaDisponivel
+    this.id_autorPedido = id_autorPedido
+    this.id_autorAutorizador = id_autorAutorizador
+  }   
 
 public get Id() : number {
 return this.id_pedido

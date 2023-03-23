@@ -9,16 +9,17 @@ const Cargo_1 = require("./entities/Cargo");
 require("dotenv/config");
 require("reflect-metadata");
 const typeorm_1 = require("typeorm");
+const _1679541259198_default_1 = require("./migrations/1679541259198-default");
 const port = process.env.DB_PORT;
 exports.AppDataSource = new typeorm_1.DataSource({
-    type: "postgres",
+    type: "mysql",
     host: process.env.DB_HOST,
     port: port,
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
     entities: [Cargo_1.Cargo, HoraDisponivel_1.HoraDisponivel, Pedido_1.Pedido, Usuario_1.Usuario, PedidoAnonimo_1.PedidoAnonimo],
-    migrations: [`dist/migrations/*.{js, ts}`],
+    migrations: [_1679541259198_default_1.default1679541259198],
     "synchronize": true,
     "logging": false,
 });

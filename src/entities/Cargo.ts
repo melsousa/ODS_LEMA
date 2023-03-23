@@ -5,7 +5,6 @@ import {
   Column,
   PrimaryGeneratedColumn,
   OneToMany,
-  JoinColumn,
 } from "typeorm";
 
 @Entity("cargos")

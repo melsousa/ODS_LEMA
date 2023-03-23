@@ -21,7 +21,7 @@ export class Usuario {
   @Column({ type: "text" })
   email: string;
 
-  @Column({ type: "text", unique: true })
+  @Column({ type: "text"})
   senha: string;
 
   @ManyToOne(() => Cargo, (cargo) => cargo.id_usuario)

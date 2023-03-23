@@ -3,7 +3,7 @@ import { Pedido } from './Pedido';
 
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 
-@Entity("HoraDisponivel")
+@Entity("horaDisponivel")
 export class HoraDisponivel {
   @PrimaryGeneratedColumn()
   id_hora: number;
@@ -15,8 +15,16 @@ export class HoraDisponivel {
   dataFim: Date;
 
   @Column()
-  Disponivel: boolean = false;
+  disponivel: boolean = false;
 
   @OneToMany(() => Pedido, (pedido) => pedido.id_horaDisponivel)
-  horas: HoraDisponivel[];
+  horas: HoraDisponivel[] | null;
+
+  constructor(id_hora: number, dataInicio: Date, dataFim: Date, disponivel: boolean, horas: HoraDisponivel[] | null) {
+    this.id_hora = id_hora
+    this.dataInicio = dataInicio
+    this.dataFim = dataFim
+    this.disponivel = disponivel
+    this.horas = horas
+  }
 }

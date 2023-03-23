@@ -6,6 +6,8 @@ import { Cargo } from './entities/Cargo';
 import "dotenv/config";
 import "reflect-metadata";
 import { DataSource } from "typeorm";
+import { default1679541259198 } from './migrations/1679541259198-default';
+
 
 const port = process.env.DB_PORT as number | undefined;
 
@@ -17,9 +19,8 @@ export const AppDataSource = new DataSource({
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
   entities: [Cargo, HoraDisponivel, Pedido, Usuario, PedidoAnonimo],
-  migrations: [`dist/migrations/*.{js, ts}`],
-  "synchronize": true, 
-  "logging": false, 
+  migrations: [default1679541259198],
+  subscribers: []
 });
 
 AppDataSource.initialize()
