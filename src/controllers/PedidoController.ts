@@ -1,4 +1,4 @@
-import { Pedido } from "./../entities/Pedido";
+import { Pedido } from "../entities/Pedido.entities";
 import { pedidoRepository } from "./../repositories/PedidoRepository";
 import { Request, Response } from "express";
 // import { Usuario } from "../entities/Usuario";

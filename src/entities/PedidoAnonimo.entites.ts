@@ -1,5 +1,5 @@
-import { HoraDisponivel } from "./HoraDisponivel";
-import { Usuario } from "./Usuario";
+import { HoraDisponivel } from "./HoraDisponivel.entities";
+import { Usuario } from "./Usuario.entities";
 
 import {
   Column,

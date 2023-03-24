@@ -1,6 +1,4 @@
-import { Pedido } from './Pedido';
-
-
+import { Pedido } from './Pedido.entities';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 
 @Entity("horaDisponivel")
@@ -20,11 +18,4 @@ export class HoraDisponivel {
   @OneToMany(() => Pedido, (pedido) => pedido.id_horaDisponivel)
   horas: HoraDisponivel[] | null;
 
-  constructor(id_hora: number, dataInicio: Date, dataFim: Date, disponivel: boolean, horas: HoraDisponivel[] | null) {
-    this.id_hora = id_hora
-    this.dataInicio = dataInicio
-    this.dataFim = dataFim
-    this.disponivel = disponivel
-    this.horas = horas
-  }
 }

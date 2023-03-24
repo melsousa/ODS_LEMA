@@ -20,7 +20,6 @@ exports.AppDataSource = new typeorm_1.DataSource({
     database: process.env.DB_NAME,
     entities: [Cargo_1.Cargo, HoraDisponivel_1.HoraDisponivel, Pedido_1.Pedido, Usuario_1.Usuario, PedidoAnonimo_1.PedidoAnonimo],
     migrations: [_1679541259198_default_1.default1679541259198],
-    "synchronize": true,
-    "logging": false,
+    subscribers: []
 });
 exports.AppDataSource.initialize();

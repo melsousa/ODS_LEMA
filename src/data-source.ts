@@ -1,8 +1,8 @@
-import { PedidoAnonimo } from './entities/PedidoAnonimo';
-import { Usuario } from './entities/Usuario';
-import { Pedido } from './entities/Pedido';
-import { HoraDisponivel } from './entities/HoraDisponivel';
-import { Cargo } from './entities/Cargo';
+import { PedidoAnonimo } from './entities/PedidoAnonimo.entites';
+import { Usuario } from './entities/Usuario.entities';
+import { Pedido } from './entities/Pedido.entities';
+import { HoraDisponivel } from './entities/HoraDisponivel.entities';
+import { Cargo } from './entities/Cargo.entities';
 import "dotenv/config";
 import "reflect-metadata";
 import { DataSource } from "typeorm";
