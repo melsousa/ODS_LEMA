@@ -7,7 +7,7 @@ export class Usuario {
   readonly id_usuario: number;
   readonly nome: string;
   readonly email: string;
-  readonly senha: string;
+  senha: string;
   readonly id_cargo: Cargo;
   readonly autorPedido: Pedido[] | null;
   readonly autorAutorizador: Pedido[] | null;

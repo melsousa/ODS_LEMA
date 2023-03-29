@@ -43,7 +43,7 @@ export class Usuario {
   autorAutorizadorAnonimo: PedidoAnonimo[] | null;
 
 
-  public transform() {
-    Object.assign(Usuario, User)
+  static transform(user: User) {
+    Object.assign(Usuario, user)
   }
 }
