@@ -23,23 +23,19 @@ export function Home() {
     return (
         <HomeContainer>
             <HeaderContainer>
-
                 <LogoContainer>
                     LOGO
                 </LogoContainer>
                 <MenuButton onClick={() => setIsOpen(!isOpen)} >
                     <List size={32} color='#fff' />
                 </MenuButton>
-
                 <HeaderButtonContainer>
                     <HeaderButton>Inicio</HeaderButton>
                     <HeaderButton>Agendar</HeaderButton>
                     <HeaderButton>Entrar</HeaderButton>
                     <HeaderButton>Cadastrar</HeaderButton>
                 </HeaderButtonContainer>
-
             </HeaderContainer>
-
             <Body>
                 {
                     isOpen ? <NavMenuContainer>
@@ -65,14 +61,9 @@ export function Home() {
                             metus tellus placerat massa
                         </Text>
                     </TextContainer>
-
                     <Button>Agendar <ArrowRight size={32} color='#fff' style={{ position: 'absolute', right: `3rem` }} /></Button>
                 </MainLeft>
-
-
-
                 <MainRight>
-
                 </MainRight>
             </Body>
             <Footer>

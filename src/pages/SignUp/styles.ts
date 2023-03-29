@@ -24,7 +24,7 @@ export const LoginContrainer = styled.div `
 
 export const LoginWrap = styled.div`
   width: 34.375rem;
-  height: 34.375rem;
+  height: 36.375rem;
   background-color: ${props=>props.theme.colors["background-light"]};
   border-radius: 5px;
   overflow: hidden;
@@ -41,6 +41,7 @@ export const TextTitle = styled.div`
   display: flex;
   justify-content: left;
   align-items: left;
+  top: 415px;
 `; 
 
 export const LoginTitle = styled.span`
@@ -49,8 +50,11 @@ export const LoginTitle = styled.span`
   color:  ${props=>props.theme.colors["text-dark"]};
   line-height: 1.2;
   text-align: left;
+  justify-content: left;
+  align-items: left;
   margin-bottom: 20px;
   font-weight: bold;
+  
 `;
 
 export const Input = styled.input`
@@ -61,7 +65,7 @@ export const Input = styled.input`
   width: 100%;
   height: 60px;
   background-color: ${props=>props.theme.colors["green-light"]};
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   border-radius: 5px;
   border-bottom:1px solid ${props => props.theme.colors["green-dark"]};
   padding-left: 10px; 
@@ -71,6 +75,7 @@ export const Input = styled.input`
 export const ButtonDrpDwon = styled.select`
   font-size: 15px;
   color: ${props=>props.theme.colors["text-dark"]};
+  margin-bottom: 15px;
   border: none;
   display: block;
   width: 100%;
@@ -103,4 +108,9 @@ export const LoginButton = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+
+  :hover{
+        background-color: ${props => props.theme.colors['hover-green-dark']};
+        transition: 200ms;
+    }
 `;

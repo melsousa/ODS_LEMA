@@ -42,7 +42,6 @@ export const MainRight = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-
     @media (max-width: 768px) {
         display: none;
     }
@@ -99,7 +98,6 @@ export const Button = styled.button`
     font-size: 32px;
     font-weight: 500;
     border-radius: 5px;
-
     :hover{
         background-color: ${props => props.theme.colors['hover-green-dark']};
         transition: 200ms;
@@ -133,12 +131,10 @@ export const HeaderButton = styled.button`
     font-size: 24px;
     font-weight: 400;
     margin-left: 2rem;
-
     :hover{
         color: ${props => props.theme.colors["hover-text-light"]};
         transition: 200ms;
     }
-
     @media(max-width: 768px){
         margin: 0;
         margin-top: 2rem;

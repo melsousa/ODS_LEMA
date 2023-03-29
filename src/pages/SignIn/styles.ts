@@ -93,13 +93,18 @@ export const LoginButton = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  
+  :hover{
+        background-color: ${props => props.theme.colors['hover-green-dark']};
+        transition: 200ms;
+    }
 `;
 
 export const TextCenter = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5px;
+  /* margin-top: 5px; */
 `;
 
 export const Text1 = styled.span`
@@ -124,7 +129,7 @@ export const TextSenha = styled.div`
 
 export const ForgotPassword = styled.p`
   position: absolute;
-  top: 295px;
+  top: 415px;
   text-align: right;
   color: ${props=>props.theme.colors["text-dark"]};
   cursor: pointer;
