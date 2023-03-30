@@ -46,7 +46,7 @@ export function Solitacoes(){
                     <option value="Preto">Preto</option>
                     <option value="Vermelho">Vermelho</option>
                     <option value="Amarelo">Amarelo</option>
-                    <option value="Azul">Azul</option>
+                    <option value="Rosa">Azul</option>
                 </DropDwon>
             </DropDwonWrapper>
             <Input type="text" placeholder="Descrição" />
