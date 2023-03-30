@@ -140,7 +140,6 @@ export const HeaderButton = styled.button`
         margin-top: 2rem;
         
     }
-
 `;
 
 export const MenuButton = styled.button`
@@ -172,12 +171,10 @@ export const NavMenuContainer = styled.div`
         from {
             right: -50%;
         }
-
         to{
             right: 0;
         }
     }
-
     animation-duration: 300ms;
     animation-name: slideIn;
 `;

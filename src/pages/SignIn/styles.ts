@@ -129,7 +129,7 @@ export const TextSenha = styled.div`
 
 export const ForgotPassword = styled.p`
   position: absolute;
-  top: 415px;
+  top: 295px;
   text-align: right;
   color: ${props=>props.theme.colors["text-dark"]};
   cursor: pointer;
