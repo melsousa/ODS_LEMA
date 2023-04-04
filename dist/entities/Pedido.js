@@ -10,9 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Prioridade = exports.Estado = exports.Pedido = void 0;
+const HoraDisponivel_1 = require("./HoraDisponivel");
 const Usuario_1 = require("./Usuario");
 const typeorm_1 = require("typeorm");
-const HoraDisponivel_1 = require("./HoraDisponivel");
 let Pedido = class Pedido {
     constructor(id_pedido, material, prioridade, maquina, estado, arquivo, medida, id_horaDisponivel, id_autorPedido, id_autorAutorizador) {
         this.id_pedido = id_pedido;
@@ -78,7 +78,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Pedido.prototype, "estado", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "text", nullable: true }),
+    (0, typeorm_1.Column)({ type: 'text', nullable: true }),
     __metadata("design:type", Buffer)
 ], Pedido.prototype, "arquivo", void 0);
 __decorate([
@@ -91,17 +91,17 @@ __decorate([
     __metadata("design:type", HoraDisponivel_1.HoraDisponivel)
 ], Pedido.prototype, "id_horaDisponivel", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => Usuario_1.Usuario, (usuario) => usuario.autorPedido),
+    (0, typeorm_1.ManyToOne)(() => Usuario_1.Usuario, (usuario) => usuario.AutorPedido),
     (0, typeorm_1.JoinColumn)({ name: "id_autorPedido" }),
     __metadata("design:type", Usuario_1.Usuario)
 ], Pedido.prototype, "id_autorPedido", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => Usuario_1.Usuario, (usuario) => usuario.autorAutorizador),
+    (0, typeorm_1.ManyToOne)(() => Usuario_1.Usuario, (usuario) => usuario.AutorAutorizador),
     (0, typeorm_1.JoinColumn)({ name: "id_autorAutorizador" }),
     __metadata("design:type", Usuario_1.Usuario)
 ], Pedido.prototype, "id_autorAutorizador", void 0);
 Pedido = __decorate([
-    (0, typeorm_1.Entity)('Orders'),
+    (0, typeorm_1.Entity)("pedidos"),
     __metadata("design:paramtypes", [Number, String, Number, String, Number, Buffer, String, HoraDisponivel_1.HoraDisponivel,
         Usuario_1.Usuario, Usuario_1.Usuario])
 ], Pedido);

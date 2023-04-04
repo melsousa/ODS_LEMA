@@ -1,51 +1,22 @@
-import { Pedido } from "./Pedido";
-import { Cargo } from "./Cargo"
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToMany,
-  ManyToOne,
-  JoinColumn,
-} from "typeorm";
 import { PedidoAnonimo } from "./PedidoAnonimo";
-
-
-
-@Entity({database: "User"})
+import { Cargo } from "./Cargo";
+import { Pedido } from "./Pedido";
+import * as bcrypt from "bcrypt"
 export class Usuario {
-  @PrimaryGeneratedColumn()
+
   readonly id_usuario: number;
-
-  @Column({ type: "text" })
-  readonly  nome: string;
-
-  @Column({ type: "text" })
+  readonly nome: string;
   readonly email: string;
-
-  @Column({ type: "text", unique: true })
-  readonly  senha: string;
-
-  @ManyToOne(() => Cargo, (cargo) => cargo.id_usuario)
-  @JoinColumn({ name: "id_cargo" })
-  id_cargo: Cargo;
-
-  @OneToMany(() => Pedido, (pedido) => pedido.id_autorPedido)
-  autorPedido: Pedido[] | null;
-
-  @OneToMany(() => Pedido, (pedido) => pedido.id_autorAutorizador)
-  autorAutorizador: Pedido[] | null;
-
-  @OneToMany(
-    () => PedidoAnonimo,
-    (pedidoanonimo) => pedidoanonimo.id_autorAutorizadorAnonimo
-  )
-  autorAutorizadorAnonimo: PedidoAnonimo[] | null;
+  senha: string;
+  readonly id_cargo: Cargo;
+  readonly autorPedido: Pedido[] | null;
+  readonly autorAutorizador: Pedido[] | null;
+  readonly autorAutorizadorAnonimo: PedidoAnonimo[] | null;
 
   
-  constructor(nome: string, email: string, 
+  private constructor(nome: string, email: string, 
               senha: string, id_cargo: Cargo, autorPedido: Pedido[] | null,
-              autorAutorizador: Pedido[] | null, autorAutorizadorAnonimo: PedidoAnonimo[]  | null) {
+              autorAutorizador: Pedido[] | null, autorAutorizadorAnonimo: PedidoAnonimo[]  | null) {                
 
     this.nome = nome
     this.email = email
@@ -54,11 +25,20 @@ export class Usuario {
     this.autorPedido = autorPedido
     this.autorAutorizador = autorAutorizador
     this.autorAutorizadorAnonimo = autorAutorizadorAnonimo
-    //this.validate()
+    this.validate()
     
   }
+
+  static create(nome: string, email: string, 
+    senha: string, id_cargo: Cargo, autorPedido: Pedido[] | null,
+    autorAutorizador: Pedido[] | null, autorAutorizadorAnonimo: PedidoAnonimo[]  | null) {
+
+    return new Usuario(nome, email, senha, id_cargo, autorPedido, autorAutorizador, autorAutorizadorAnonimo)
+
+  }
   
-  
+
+
   private validate() {
     
     const validatesenha = new RegExp("^(?=.*[A-Za-z])(?=.*?[0-9]).{6,}$")
@@ -72,10 +52,12 @@ export class Usuario {
     }
     if(this.senha == "" || this.senha == null || !(validatesenha.test(this.senha))) {
       throw new Error("senha é obrigatorio, devendo conter números, simbolos e letras maiusculas e minusculas ")
+
     }
     
   }
 
+  
   public get Id_usuario() {
     return this.id_usuario
   }
@@ -100,6 +82,5 @@ export class Usuario {
   public get AutorAutorizador() {
     return this.autorAutorizador
   }
-  
   
 }

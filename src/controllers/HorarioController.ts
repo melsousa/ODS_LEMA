@@ -4,13 +4,13 @@ import { Request, Response } from 'express';
 // import {}
 export class HorarioController {
     async createHorario(req: Request, res: Response){
-        const {dataInicio, dataFim, Disponivel} = req.body
+        const {dataInicio, dataFim, disponivel} = req.body
 
         try {
             const newHorario = horarioRepository.create({
                 dataInicio,
                 dataFim,
-                Disponivel
+                disponivel
             })
 
             await horarioRepository.save(newHorario)

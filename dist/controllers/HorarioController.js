@@ -5,12 +5,12 @@ const HorarioRepository_1 = require("./../repositories/HorarioRepository");
 // import {}
 class HorarioController {
     async createHorario(req, res) {
-        const { dataInicio, dataFim, Disponivel } = req.body;
+        const { dataInicio, dataFim, disponivel } = req.body;
         try {
             const newHorario = HorarioRepository_1.horarioRepository.create({
                 dataInicio,
                 dataFim,
-                Disponivel
+                disponivel
             });
             await HorarioRepository_1.horarioRepository.save(newHorario);
             return res.status(201).json(newHorario);

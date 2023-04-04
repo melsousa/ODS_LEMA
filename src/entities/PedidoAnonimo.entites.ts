@@ -1,5 +1,5 @@
-import { HoraDisponivel } from "./HoraDisponivel";
-import { Usuario } from "./Usuario";
+import { HoraDisponivel } from "./HoraDisponivel.entities";
+import { Usuario } from "./Usuario.entities";
 
 import {
   Column,
@@ -23,12 +23,15 @@ export class PedidoAnonimo {
   @Column({ type: "text", nullable: true })
   estado: string;
 
-  @Column({ type: "bytea", nullable: true })
+  @Column({ type: "text", nullable: true })
   arquivo: Buffer;
 
   @Column({ type: "text", nullable: true })
   medida: string;
 
+  @Column({ type: "text", nullable: true })
+  codigo: string;
+  
   @ManyToOne(() => HoraDisponivel, (horaDisponivel) => horaDisponivel.horas)
   @JoinColumn({ name: "id_horaDisponivel" })
   id_horaDisponivel: HoraDisponivel;

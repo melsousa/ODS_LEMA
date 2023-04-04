@@ -10,10 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Usuario = void 0;
-const Pedido_1 = require("./Pedido");
+const PedidoAnonimo_1 = require("./PedidoAnonimo");
 const Cargo_1 = require("./Cargo");
+const Pedido_1 = require("./Pedido");
 const typeorm_1 = require("typeorm");
-const PedidoAnonomo_1 = require("./PedidoAnonomo");
 let Usuario = class Usuario {
     constructor(nome, email, senha, id_cargo, autorPedido, autorAutorizador, autorAutorizadorAnonimo) {
         this.nome = nome;
@@ -73,7 +73,7 @@ __decorate([
     __metadata("design:type", String)
 ], Usuario.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "text", unique: true }),
+    (0, typeorm_1.Column)({ type: "text" }),
     __metadata("design:type", String)
 ], Usuario.prototype, "senha", void 0);
 __decorate([
@@ -90,11 +90,11 @@ __decorate([
     __metadata("design:type", Object)
 ], Usuario.prototype, "autorAutorizador", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => PedidoAnonomo_1.PedidoAnonimo, (pedidoanonimo) => pedidoanonimo.id_autorAutorizadorAnonimo),
+    (0, typeorm_1.OneToMany)(() => PedidoAnonimo_1.PedidoAnonimo, (pedidoanonimo) => pedidoanonimo.id_autorAutorizadorAnonimo),
     __metadata("design:type", Object)
 ], Usuario.prototype, "autorAutorizadorAnonimo", void 0);
 Usuario = __decorate([
-    (0, typeorm_1.Entity)({ database: "User" }),
+    (0, typeorm_1.Entity)("usuarios"),
     __metadata("design:paramtypes", [String, String, String, Cargo_1.Cargo, Object, Object, Object])
 ], Usuario);
 exports.Usuario = Usuario;

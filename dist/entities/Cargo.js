@@ -13,11 +13,13 @@ exports.Cargo = void 0;
 const Usuario_1 = require("./Usuario");
 const typeorm_1 = require("typeorm");
 let Cargo = class Cargo {
-    constructor(id_cargo, cargo, id_usuario) {
+    constructor() {
         this.cargo = "Membro da Comunidade";
-        this.id_cargo = id_cargo;
-        this.cargo = cargo;
-        this.id_usuario = id_usuario;
+        // constructor(id_cargo:number, cargo:string, id_usuario: Cargo[] | null){
+        //   this.id_cargo = id_cargo
+        //   this.cargo = cargo
+        //   this.id_usuario = id_usuario
+        // }
     }
 };
 __decorate([
@@ -33,7 +35,6 @@ __decorate([
     __metadata("design:type", Object)
 ], Cargo.prototype, "id_usuario", void 0);
 Cargo = __decorate([
-    (0, typeorm_1.Entity)("cargos"),
-    __metadata("design:paramtypes", [Number, String, Object])
+    (0, typeorm_1.Entity)("cargos")
 ], Cargo);
 exports.Cargo = Cargo;

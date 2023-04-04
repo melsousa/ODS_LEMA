@@ -32,13 +32,17 @@ __decorate([
     __metadata("design:type", String)
 ], PedidoAnonimo.prototype, "estado", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "bytea", nullable: true }),
+    (0, typeorm_1.Column)({ type: "text", nullable: true }),
     __metadata("design:type", Buffer)
 ], PedidoAnonimo.prototype, "arquivo", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: "text", nullable: true }),
     __metadata("design:type", String)
 ], PedidoAnonimo.prototype, "medida", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "text", nullable: true }),
+    __metadata("design:type", String)
+], PedidoAnonimo.prototype, "codigo", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => HoraDisponivel_1.HoraDisponivel, (horaDisponivel) => horaDisponivel.horas),
     (0, typeorm_1.JoinColumn)({ name: "id_horaDisponivel" }),
