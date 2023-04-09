@@ -11,8 +11,7 @@ export function Router(){
                 <Route path="/" element={<Home/>} />
             </Route>
 
-            <Route path="/home" >
-                <Route  path="/home" element={<DefaultTheme/>} />
+            <Route path="/home" element={<DefaultTheme/>} >
                 <Route path="/home/allorders" element={<AllOrders/>} />
             </Route>
         </Routes>
