@@ -52,6 +52,7 @@ export const LoginTitle = styled.span`
   color:  ${props=>props.theme.colors["text-dark"]};
   line-height: 1.2;
   text-align: left;
+  font-weight: bold;
   margin-bottom: 20px;
 `;
 
