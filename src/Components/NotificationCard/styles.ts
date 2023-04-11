@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.button`
-    width: 353px;
+    width: 22.063rem;
     height: 7.375rem;
     display: flex;
     background-color: ${props => props.theme.colors["background-dark"]};
@@ -18,7 +18,7 @@ export const Container = styled.button`
 `;
 
 export const TextContainer = styled.div`
-    width: 275px;
+    width: 17.188rem;
 `;
 
 export const Dot = styled.div`

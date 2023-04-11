@@ -5,6 +5,7 @@ import { Home } from "./pages/Home";
 import { SignIn } from "./pages/SignIn";
 import {SignUp} from "./pages/SignUp";
 import {Solitacoes} from "./pages/Solitacoes";
+import { UserAcceptedOrders } from "./pages/UserAcceptedOrders";
 
 export function Router(){
     return(
@@ -16,8 +17,9 @@ export function Router(){
                 <Route path="/solitacoes" element={<Solitacoes/>} />
             </Route>
 
-            <Route path="/home" element={<DefaultTheme/>} >
-                <Route path="/home/allorders" element={<AllOrders/>} />
+            <Route path="/userhome" element={<DefaultTheme/>} >
+                <Route path="/userhome/acceptedorders" element={ <UserAcceptedOrders/> } />
+                <Route path="/userhome/allorders" element={<AllOrders/>} />
             </Route>
         </Routes>
     );
