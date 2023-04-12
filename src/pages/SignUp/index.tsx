@@ -53,13 +53,3 @@ export function SignUp(){
     )
 }
 
-{/* <Input type="text" placeholder="Nome Completo" />
-                        <Input type="text" placeholder="E-mail" />
-                        <Input type="text" placeholder="Matrícula" /> */}
- {/* <ButtonDrpDwon>
-                            <option value="" disabled selected>Cargo</option>
-                            <option value="Professor">Professor</option>
-                            <option value="Professor">Aluno</option>
-                            <option value="Professor">Externo</option>
-                        </ButtonDrpDwon> */}
-                        {/* <Input type="password" placeholder="Senha" /> */}

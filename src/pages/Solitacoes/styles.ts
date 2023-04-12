@@ -75,8 +75,8 @@ export const ButtonDrpDwon = styled.select`
   border-radius: 5px;
   border-bottom:1px solid ${props => props.theme.colors["green-dark"]};
   padding-left: 10px;
-  outline: none
-  cursor: pointer;
+  outline: none;
+  cursor: pointer
 `;
 
 export const Calendario = styled.button`
@@ -91,8 +91,8 @@ export const Calendario = styled.button`
   border-radius: 5px;
   border-bottom:1px solid ${props => props.theme.colors["green-dark"]};
   padding-left: 10px;
-  outline: none
-  cursor: pointer;
+  outline: none;
+  cursor: pointer
 `;
 
 export const DropDwonWrapper = styled.div`
@@ -116,6 +116,13 @@ export const DropDwon = styled.select`
   border-radius: 5px;
   border-bottom:1px solid ${props => props.theme.colors["green-dark"]};
   padding-left: 10px;
-  outline: none
-  cursor: pointer;
+  outline: none;
+  cursor: pointer
+`;
+
+export const GapContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
 `;

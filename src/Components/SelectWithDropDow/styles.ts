@@ -14,6 +14,7 @@ export const Container = styled.div<SelectProps>`
 export const Select = styled.select`
     width: 100%;
     height: 100%;
+    padding-left: 10px;
     background-color: transparent;
     border:none;
     outline: none;
