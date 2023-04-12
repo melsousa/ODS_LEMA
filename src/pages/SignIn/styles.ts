@@ -16,8 +16,8 @@ export const LoginContrainer = styled.div `
   min-height: 100vh;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
+  align-items: center; 
+  justify-content: center; 
   padding: 15px;
   background-color: ${props => props.theme.colors["background-dark"]};
 `;
@@ -32,6 +32,7 @@ export const LoginWrap = styled.div`
   box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.2) ;
   display: flex;
   flex-wrap: wrap; 
+  position: relative;
   justify-content: center; 
   align-items: center;  
 `;
@@ -106,6 +107,9 @@ export const TextCenter = styled.div`
   justify-content: center;
   align-items: center;
   /* margin-top: 5px; */
+  justify-content: right;
+  align-items: right;
+  
 `;
 
 export const Text1 = styled.span`
@@ -113,9 +117,11 @@ export const Text1 = styled.span`
   color:  ${props=>props.theme.colors["text-dark"]};
   line-height: 1.2;
   padding-right: 5px;
+  /* position: absolute; */
   text-decoration: none;
 `;
 export const Text2 = styled.p`
+  /* position: absolute; */
   font-size: 16px;
   color:  ${props=>props.theme.colors["green-dark"]};
   line-height: 1.2;
@@ -129,8 +135,9 @@ export const TextSenha = styled.div`
 `; 
 
 export const ForgotPassword = styled.p`
+  /* display: flex; */
   position: absolute;
-  top: 295px;
+  top: 16rem;
   text-align: right;
   color: ${props=>props.theme.colors["text-dark"]};
   cursor: pointer;

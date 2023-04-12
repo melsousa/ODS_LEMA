@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 interface SelectProps {
     size: 'small' | 'medium' | 'large'
 }

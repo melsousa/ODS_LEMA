@@ -22,7 +22,6 @@ export function SelectWithBorderBottom({size, data, ...rest}: SelectProps){
                     ))
                 }
             </Select>
-            
         </Container>
     )
 }

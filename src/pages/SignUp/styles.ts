@@ -75,7 +75,7 @@ export const Input = styled.input`
 export const ButtonDrpDwon = styled.select`
   font-size: 15px;
   color: ${props=>props.theme.colors["text-dark"]};
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
   border: none;
   display: block;
   width: 100%;
@@ -85,7 +85,7 @@ export const ButtonDrpDwon = styled.select`
   border-radius: 5px;
   border-bottom:1px solid ${props => props.theme.colors["green-dark"]};
   padding-left: 10px;
-  outline: none
+  outline: none;
   cursor: pointer;
 `;
 
