@@ -12,22 +12,23 @@ interface DataProps{
 interface SelectProps {
     size: 'small' | 'medium' | 'large'
     data: Array<DataProps>
+    onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-export function SelectWithBorderBottom({size, data, ...rest}: SelectProps){
+export function SelectWithBorderBottom({size, data, onChange, ...rest}: SelectProps){
     return(
         <Container size={size} >
-            <Select {...rest} defaultValue="">
-                {
-                    data.map((value) =>(
-                        <option 
+            <Select {...rest} onChange={onChange} defaultValue="">
+                {data.map((value) => (
+                    <option 
                         key={value.key} 
                         value={value.value}
                         disabled={value.disabled}
-                        selected={value.selected}>
-                        {value.label}</option>
-                    ))
-                }
+                        selected={value.selected}
+                    >
+                        {value.label}
+                    </option>
+                    ))}
             </Select>
         </Container>
     )

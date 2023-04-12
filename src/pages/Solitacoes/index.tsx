@@ -5,13 +5,14 @@ import { Contrainer,
     TextSolitacao,
     TextLeft,
     DropDwonWrapper,
-    GapContainer,
+    GapContainer, ButtonRight,
     InputCalendarWrapper, Calendario} from './styles'
 import  {useState} from 'react';
 import { Calendar } from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'
 import { SelectWithBorderBottom } from "../../Components/SelectWithBorderBottom";
 import { SelectWithDropDow } from "../../Components/SelectWithDropDow";
+import { Button } from "../../Components/Button";
 
 export function Solitacoes(){
     const [date,setDate] = useState(new Date())
@@ -20,6 +21,7 @@ export function Solitacoes(){
     const handleButtonClick = () => {
         setShowCalendar(!showCalendar);
     }
+    
     const [type, setType] = useState('');
 
     const Tipo_de_Maquina = [
@@ -51,6 +53,10 @@ export function Solitacoes(){
         { value: 'Azul', label: 'Azul' }
     ]
 
+    // const handleTipoChange = (event) => {
+    //     setType(event.target.value);
+    // }
+
     return (
         <>
         <Header/>
@@ -62,28 +68,29 @@ export function Solitacoes(){
                     <InputWithBorderBottom size="large" type="text" placeholder="Matricula" />
                     <InputWithBorderBottom size="large" type="text" placeholder="E-mail" />
                     <InputCalendarWrapper>
-                        <SelectWithBorderBottom  data={Tipo_de_Maquina} size="medium"/>
-                        <Calendario onClick={handleButtonClick}>Selecione uma Data</Calendario>
+                        <SelectWithBorderBottom  data={Tipo_de_Maquina} size="medium" onChange={(e) => setType(e.target.value)}/>
+                        {/* <Calendario onClick={handleButtonClick}>Selecione uma Data</Calendario>
                         {showCalendar && (
                             <Calendar/>
-                        )}
+                        )} */}
                     </InputCalendarWrapper>
-                        {type === '2' &&(
-                            <div><DropDwonWrapper>
+                        {(type === '2' || type === 'Impressora de Resina' || type === 'Impressora de PLA' || type === 'Impressora de ABS') && (
+                            <DropDwonWrapper>
                                 <SelectWithDropDow  data={Turno_de_Preferencia} size="small"/>
                                 <SelectWithDropDow  data={Necessidade} size="small"/>
                                 <SelectWithDropDow  data={Cor_para_Impressao} size="small"/>
-                            </DropDwonWrapper></div>
+                            </DropDwonWrapper>
                         )}
-                        {type === '3' &&(
-                            <div><DropDwonWrapper>
-                                <SelectWithDropDow  data={Turno_de_Preferencia} size="small"/>
-                                <SelectWithDropDow  data={Necessidade} size="small"/>
-                                <SelectWithDropDow  data={Cor_para_Impressao} size="small"/>
-                            </DropDwonWrapper></div>
+                        { (type === '3' || type === 'Maquina de Corte' || type === 'Scanner 3D') && (
+                            <DropDwonWrapper>
+                                <SelectWithDropDow  data={Turno_de_Preferencia} size="medium"/>
+                                <SelectWithDropDow  data={Necessidade} size="medium"/>
+                            </DropDwonWrapper>
                         )}
                     <InputWithBorderBottom size="large" type="text" placeholder="Descrição" />
                     <InputWithBorderBottom size="large" type="text" placeholder="Procurar arquivos" />
+                    <ButtonRight><Button size="small" buttonType="reject" title="CANCELAR"/>
+                    <Button size="small" buttonType="accept" title="ENVIAR"/></ButtonRight> 
                 </GapContainer>
             </LoginWrap>
         </Contrainer>
