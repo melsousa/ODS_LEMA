@@ -1,7 +1,9 @@
 import styled from "styled-components";
+
 interface SelectProps {
     size: 'small' | 'medium' | 'large'
 }
+
 export const Container = styled.div<SelectProps>`
     height: 60px;
     width: ${props => props.size === 'small' ? (`25%`) : (props.size === 'medium'? (`50%`):(`100%`))};

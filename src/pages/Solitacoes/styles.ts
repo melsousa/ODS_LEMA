@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 
 export const Contrainer = styled.div `
   width: 100%;
@@ -35,11 +35,9 @@ export const TextSolitacao = styled.span`
 
 export const InputCalendarWrapper = styled.div`
   width: 100%;
-  display: flex;
+  gap: 1rem;
+  display: flex; 
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
 `;
 
 export const Calendario = styled.button`
@@ -64,14 +62,13 @@ export const DropDwonWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  /* margin-bottom: 20px; */
   gap: 1rem;
 `;
 
 export const GapContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
   width: 100%;
 `;
 

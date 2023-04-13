@@ -1,26 +1,17 @@
-import { Header } from '../../Components/Header'
-import { InputWithBorderBottom } from "../../Components/InputWithBorderBottom";
-import { Contrainer,
-    LoginWrap,
-    TextSolitacao,
-    TextLeft,
-    DropDwonWrapper,
-    GapContainer, ButtonRight,
-    InputCalendarWrapper, Calendario} from './styles'
 import  {useState} from 'react';
-import { Calendar } from 'react-calendar';
-import 'react-calendar/dist/Calendar.css'
 import { SelectWithBorderBottom } from "../../Components/SelectWithBorderBottom";
 import { SelectWithDropDow } from "../../Components/SelectWithDropDow";
 import { Button } from "../../Components/Button";
+import { CalendarComponent } from "../../Components/CalendarComponents";
+import { Header } from '../../Components/Header'
+import { InputWithBorderBottom } from "../../Components/InputWithBorderBottom";
+import { Contrainer,
+    LoginWrap, TextSolitacao,
+    TextLeft, DropDwonWrapper,
+    GapContainer, ButtonRight,
+    InputCalendarWrapper} from './styles'
 
 export function Solitacoes(){
-    const [date,setDate] = useState(new Date())
-    const [showCalendar, setShowCalendar] = useState(false);
-    const [value, onChange] = useState(new Date());
-    const handleButtonClick = () => {
-        setShowCalendar(!showCalendar);
-    }
     
     const [type, setType] = useState('');
 
@@ -53,10 +44,6 @@ export function Solitacoes(){
         { value: 'Azul', label: 'Azul' }
     ]
 
-    // const handleTipoChange = (event) => {
-    //     setType(event.target.value);
-    // }
-
     return (
         <>
         <Header/>
@@ -69,10 +56,7 @@ export function Solitacoes(){
                     <InputWithBorderBottom size="large" type="text" placeholder="E-mail" />
                     <InputCalendarWrapper>
                         <SelectWithBorderBottom  data={Tipo_de_Maquina} size="medium" onChange={(e) => setType(e.target.value)}/>
-                        {/* <Calendario onClick={handleButtonClick}>Selecione uma Data</Calendario>
-                        {showCalendar && (
-                            <Calendar/>
-                        )} */}
+                        <CalendarComponent size='medium' />
                     </InputCalendarWrapper>
                         {(type === '2' || type === 'Impressora de Resina' || type === 'Impressora de PLA' || type === 'Impressora de ABS') && (
                             <DropDwonWrapper>
