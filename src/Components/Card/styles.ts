@@ -5,8 +5,7 @@ interface CardColorProps{
     borderColor: 'background-blue' | 'background-green' | 'background-red' | 'background-yellow'
 }
 
-export const CardContainer = styled.div<CardColorProps>`
-    width: 100%;
+export const CardContainer = styled.tr<CardColorProps>`
     height: 4.375rem;
     display: flex;
     align-items: center;
@@ -14,12 +13,4 @@ export const CardContainer = styled.div<CardColorProps>`
     background-color: ${props => props.theme.colors[props.backgroundColor]};
     border: solid 1px ${props => props.theme.colors[props.borderColor]};
     border-radius: 5px;
-    padding: 0 1rem;
-`;
-
-export const Text = styled.p`
-    color: ${props => props.theme.colors["text-dark"]};
-    font-size: 1rem;
-    font-weight: 600;
-
 `;

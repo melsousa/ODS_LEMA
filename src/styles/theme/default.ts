@@ -18,6 +18,7 @@ export const defaultTheme = {
         'background-green-light': '#DAF3CB',
         'background-red-light': '#FECECA',
         'background-gray-light': '#E9E9E9',
+        'transparent': 'transparent'
 
 
 

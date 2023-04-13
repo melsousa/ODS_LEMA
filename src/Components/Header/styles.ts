@@ -87,4 +87,11 @@ export const Logo = styled.div`
     background-size: cover;
 `;
 
+export const MenuTitle = styled.h1`
+    color: #fff;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 1rem 2rem 1rem;
+`;
+
 

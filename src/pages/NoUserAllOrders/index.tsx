@@ -8,7 +8,7 @@ import { RightNavBar } from "../../Components/RightNavBar";
 import { ConfirmOverlay } from "../../Components/ConfirmOverlay";
 import { SelectWithBorderBottom } from "../../Components/SelectWithBorderBottom";
 
-export function AllOrders() {
+export function NoUserAllOrders() {
     const [text, setText] = useState('');
     const [type, setType] = useState('');
 
