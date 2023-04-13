@@ -19,8 +19,7 @@ export function NoUserAllOrders() {
     return (
         <OrderContainer>
             <Content>
-                <SelectWithBorderBottom  data={options} size="medium"
-                />
+                <SelectWithBorderBottom  data={options} size="medium"/>
                 {
                     type === '1' ?
                         (<div><Button buttonType="accept" size="large" title="Confirmar" />

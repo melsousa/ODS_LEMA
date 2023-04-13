@@ -16,8 +16,8 @@ export const LoginContrainer = styled.div `
   min-height: 100vh;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
+  align-items: center; 
+  justify-content: center; 
   padding: 15px;
   background-color: ${props => props.theme.colors["background-dark"]};
 `;
@@ -32,14 +32,15 @@ export const LoginWrap = styled.div`
   box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.2) ;
   display: flex;
   flex-wrap: wrap; 
+  position: relative;
   justify-content: center; 
   align-items: center;  
 `;
 
 export const LoginForm = styled.form`
   width: 100%;
-
 `;
+
 export const TextTitle = styled.div`
   width: 100%;
   display: flex;
@@ -52,6 +53,7 @@ export const LoginTitle = styled.span`
   color:  ${props=>props.theme.colors["text-dark"]};
   line-height: 1.2;
   text-align: left;
+  font-weight: bold;
   margin-bottom: 20px;
 `;
 
@@ -105,6 +107,9 @@ export const TextCenter = styled.div`
   justify-content: center;
   align-items: center;
   /* margin-top: 5px; */
+  justify-content: right;
+  align-items: right;
+  
 `;
 
 export const Text1 = styled.span`
@@ -112,9 +117,11 @@ export const Text1 = styled.span`
   color:  ${props=>props.theme.colors["text-dark"]};
   line-height: 1.2;
   padding-right: 5px;
+  /* position: absolute; */
   text-decoration: none;
 `;
 export const Text2 = styled.p`
+  /* position: absolute; */
   font-size: 16px;
   color:  ${props=>props.theme.colors["green-dark"]};
   line-height: 1.2;
@@ -128,53 +135,10 @@ export const TextSenha = styled.div`
 `; 
 
 export const ForgotPassword = styled.p`
+  /* display: flex; */
   position: absolute;
-  top: 295px;
+  top: 16rem;
   text-align: right;
   color: ${props=>props.theme.colors["text-dark"]};
   cursor: pointer;
 `;
-/* export const TextoDireita = styled.span`
-  text-align: right;
-  color: ${props=>props.theme.colors["text-dark"]};
-  cursor: pointer;
-`; */
-
-/* export const FocusInput = styled.span`
-   position: absolute;
-  display: block;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  color: ${props=>props.theme.colors["text-dark"]}; 
-`; */
-
-// export const theme = {
-//     colors:{
-//         "background-dark": "#292929",
-//     },
-// };
-
-// export const Container = styled.div`
-//     width: 100%;
-//     height: 100%;
-//     display: flex;
-//     background-color: ${props => props.theme.colors["background-dark"]}
-//     position: relative;
-// `;
-
-// export const 
-
-/* export const Wrap_login = styled.div`
-    width: 750px;
-    height: 650px;
-    background-color: ${props => props.theme.colors["background-light"]};
-    
-    /* background-color: ${props => props.theme.colors["background-light"]};
-    border-radius: 5px;
-    overflow: hidden;
-    padding: 70px 55px 33px 55px;
-    box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.2) ; 
-`; */
