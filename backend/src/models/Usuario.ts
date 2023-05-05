@@ -48,9 +48,11 @@ export class Usuario {
     if(this.nome == "" || this.nome == null) {
       throw new Error("nome é obrigatorio")
     }
+    
     if(this.email == "" || this.email == null || !(validateEmail.test(this.email) || !(validateEmail1.test(this.email)))) {
       throw new Error("crie o email apartir do email institucional")
     }
+
     if(this.senha == "" || this.senha == null || !(validatesenha.test(this.senha))) {
       throw new Error("senha é obrigatorio, devendo conter números, simbolos e letras maiusculas e minusculas ")
 
