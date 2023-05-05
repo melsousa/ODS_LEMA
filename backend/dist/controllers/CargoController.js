@@ -10,7 +10,6 @@ class CargoController {
         if (!cargo) {
             return res.status(400).json({ message: "O cargo é obrigatório" });
         }
-<<<<<<< HEAD
         try {
             const newCargo = CargoRepository_1.cargoRepository.create({ cargo });
             await CargoRepository_1.cargoRepository.save(newCargo);
@@ -20,11 +19,6 @@ class CargoController {
             console.log(error);
             return res.status(500).json({ message: "Internal Server Error" });
         }
-=======
-        const newCargo = CargoRepository_1.cargoRepository.create({ cargo });
-        await CargoRepository_1.cargoRepository.save(newCargo);
-        return res.status(201).json(newCargo);
->>>>>>> origin/Melissa
     }
 }
 exports.CargoController = CargoController;
