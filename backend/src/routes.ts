@@ -7,9 +7,29 @@ import { Router } from "express";
 
 const routes = Router();
 
+// Cadastro de usuário
 routes.post("/usuario", new UsuarioController().create);
+// Login Usuario
+routes.post("/login", new UsuarioController().login);
+//Buscanco informações do usuário
+routes.get("/profile", new UsuarioController().getProfile)
+
+// Cadastro de cargo
 routes.post("/cargo", new CargoController().createCargo);
+
+// Cadastro de horário
 routes.post("/horario", new HorarioController().createHorario);
-routes.post("/pedidoanonimo", new PedidoAnonimoController().createPedidoAnonimo); 
-routes.post("/pedido/:id_autorPedido/create", new PedidoController().createPedido)
+
+// Cadastro de pedido anônimo
+routes.post(
+  "/pedidoanonimo",
+  new PedidoAnonimoController().createPedidoAnonimo
+);
+
+// Cadastro de pedido com login
+routes.post(
+  "/pedido/:id_autorPedido/create",
+  new PedidoController().createPedido
+);
+
 export default routes;

@@ -1,6 +1,7 @@
 import { Pedido } from "../entities/Pedido.entities";
 import { pedidoRepository } from "./../repositories/PedidoRepository";
 import { Request, Response } from "express";
+import { BadRequestError } from "../helpers/api-erros";
 // import { Usuario } from "../entities/Usuario";
 export class PedidoController {
   async createPedido(req: Request, res: Response) {
@@ -17,14 +18,14 @@ export class PedidoController {
     } = req.body;
 
     const { id_autorPedido } = req.params;
-    try {
+    
       const pedido = await pedidoRepository.findOneBy({
         id_pedido: Number(id_autorPedido),
       });
 
-      // if(!pedido){
-      //   return res.status(404).json({message: 'Usuário não existe' }) //refazer a verificação
-      // }
+      if (!pedido) { 
+        throw new BadRequestError("Pedido não existe");
+      }
 
       const novoPedido = pedidoRepository.create({
         material,
@@ -41,10 +42,7 @@ export class PedidoController {
       await pedidoRepository.save(novoPedido);
 
       return res.status(201).json(novoPedido);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({ message: "Internal Server Error" });
-    }
+    
   }
   
 
