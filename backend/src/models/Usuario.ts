@@ -43,11 +43,12 @@ export class Usuario {
     
     const validatesenha = new RegExp("^(?=.*[A-Za-z])(?=.*?[0-9]).{6,}$")
     const validateEmail = new RegExp("(([a-z]+\.?[a-z]+\.?[a-z]+[0-9]{2})+)(@aluno.ifce.edu.br)")
+    const validateEmail1 = new RegExp("(([a-z]+\.?[a-z]+\.?[a-z]+[0-9]{2})+)(@ifce.edu.br)")
 
     if(this.nome == "" || this.nome == null) {
       throw new Error("nome é obrigatorio")
     }
-    if(this.email == "" || this.email == null || !(validateEmail.test(this.email))) {
+    if(this.email == "" || this.email == null || !(validateEmail.test(this.email) || !(validateEmail1.test(this.email)))) {
       throw new Error("crie o email apartir do email institucional")
     }
     if(this.senha == "" || this.senha == null || !(validatesenha.test(this.senha))) {
