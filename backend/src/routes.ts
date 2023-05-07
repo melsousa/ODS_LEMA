@@ -4,13 +4,24 @@ import { CargoController } from './controllers/CargoController';
 import { PedidoController } from './controllers/PedidoController';
 import { UsuarioController } from "./controllers/UsuarioController";
 import { Router } from "express";
+import { autenticaoToken } from './middlewares/autenticacaoToken';
+import { adminController } from './controllers/adminController';
 
 const routes = Router();
 
-// Cadastro de usuário
-routes.post("/usuario", new UsuarioController().create);
 // Login Usuario
 routes.post("/login", new UsuarioController().login);
+
+routes.post("/usuario", new UsuarioController().create);
+// Cadastro de usuário
+
+
+routes.use(autenticaoToken)
+//a partir daqui tds as rotas so sao acessadas apenas com a token
+
+routes.get("/adminPedidos/estado=:estado", new adminController().readPedidos)
+
+
 //Buscanco informações do usuário
 routes.get("/profile", new UsuarioController().getProfile)
 

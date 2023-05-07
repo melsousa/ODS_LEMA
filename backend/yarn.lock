@@ -101,15 +101,9 @@
     "@types/node" "*"
 
 "@types/body-parser@*":
-<<<<<<< HEAD
   "integrity" "sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g=="
   "resolved" "https://registry.npmjs.org/@types/body-parser/-/body-parser-1.19.2.tgz"
   "version" "1.19.2"
-=======
-  version "1.19.2"
-  resolved "https://registry.npmjs.org/@types/body-parser/-/body-parser-1.19.2.tgz"
-  integrity sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==
->>>>>>> origin/Melissa
   dependencies:
     "@types/connect" "*"
     "@types/node" "*"

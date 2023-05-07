@@ -43,7 +43,8 @@ export class UsuarioController {
 
     const user = await usuarioRepository.findOneBy({ email });
 
-    if (!user) {
+    console.log(email, senha, user)
+    if (!user) {  
       throw new BadRequestError("E-mail ou senha inválidos ");
     }
 
@@ -93,8 +94,8 @@ export class UsuarioController {
     }
 
     const { senha: _, ...loggedUser } = user;
-
-    return res.json(loggedUser);
     console.log(token);
+    return res.json(loggedUser);
+    
   }
 }

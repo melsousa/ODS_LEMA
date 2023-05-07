@@ -70,10 +70,10 @@ export class Pedido {
 }
 
 export enum Estado {
-  pendete,
-  aprovado,
-  concluido,
-  reprovado,
+  pendete= 'pendente',
+  aprovado = 'aprovado',
+  concluido = 'concluido',
+  reprovado = 'reprovado',
 }
 
 export enum Prioridade {
