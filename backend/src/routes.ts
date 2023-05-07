@@ -20,6 +20,9 @@ routes.use(autenticaoToken)
 //a partir daqui tds as rotas so sao acessadas apenas com a token
 
 routes.get("/adminPedidos/estado=:estado", new adminController().readPedidos)
+//retornar os pedidos a partir do estado
+routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController().updatePedidos)
+//atualiza o pedido apartir do id
 
 
 //Buscanco informações do usuário

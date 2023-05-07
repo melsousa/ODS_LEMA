@@ -9,7 +9,7 @@ export class Pedido {
   readonly material: string;
   readonly prioridade: Prioridade
   readonly maquina: string;
-  readonly estado: Estado;
+  estado: Estado;
   readonly arquivo: Buffer
   readonly medida: string
   readonly id_horaDisponivel: HoraDisponivel
@@ -31,7 +31,8 @@ export class Pedido {
     this.id_horaDisponivel = id_horaDisponivel
     this.id_autorPedido = id_autorPedido
     this.id_autorAutorizador = id_autorAutorizador
-  }   
+  }
+
 
   public get Id() : number {
     return this.id_pedido
@@ -70,7 +71,7 @@ export class Pedido {
 }
 
 export enum Estado {
-  pendete= 'pendente',
+  pendete = 'pendente',
   aprovado = 'aprovado',
   concluido = 'concluido',
   reprovado = 'reprovado',

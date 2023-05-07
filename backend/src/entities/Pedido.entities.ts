@@ -24,7 +24,7 @@ export class Pedido {
   maquina: string;
 
   @Column({ type: "text", nullable: true })
-  estado: Estado;
+  estado: String;
   
   @Column({type: 'text', nullable:true})
   arquivo: Buffer
@@ -46,12 +46,6 @@ export class Pedido {
   
 }
 
-export enum Estado {
-  pendete,
-  aprovado,
-  concluido,
-  reprovado,
-}
 
 export enum Prioridade {
   baixa,
