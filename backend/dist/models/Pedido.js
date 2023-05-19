@@ -48,10 +48,10 @@ class Pedido {
 exports.Pedido = Pedido;
 var Estado;
 (function (Estado) {
-    Estado[Estado["pendete"] = 0] = "pendete";
-    Estado[Estado["aprovado"] = 1] = "aprovado";
-    Estado[Estado["concluido"] = 2] = "concluido";
-    Estado[Estado["reprovado"] = 3] = "reprovado";
+    Estado["pendete"] = "pendente";
+    Estado["aprovado"] = "aprovado";
+    Estado["concluido"] = "concluido";
+    Estado["reprovado"] = "reprovado";
 })(Estado = exports.Estado || (exports.Estado = {}));
 var Prioridade;
 (function (Prioridade) {

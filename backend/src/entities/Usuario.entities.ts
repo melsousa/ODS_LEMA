@@ -27,7 +27,7 @@ export class Usuario {
 
   @ManyToOne(() => Cargo, (cargo) => cargo.id_usuario)
   @JoinColumn({ name: "id_cargo" })
-  id_cargo: Cargo;
+  id_cargo: number;
 
 
   @OneToMany(() => Pedido, (pedido) => pedido.id_autorPedido)

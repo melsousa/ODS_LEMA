@@ -24,25 +24,25 @@ export class Pedido {
   maquina: string;
 
   @Column({ type: "text", nullable: true })
-  estado: String;
+  estado: string;
   
   @Column({type: 'text', nullable:true})
-  arquivo: Buffer
+  arquivo: string
   
   @Column({type:"text", nullable:true})
   medida: string
   
   @ManyToOne(() => HoraDisponivel, (horaDisponivel) => horaDisponivel.horas)
   @JoinColumn({name: "id_horaDisponivel"})
-  id_horaDisponivel: HoraDisponivel
+  id_horaDisponivel: number
 
   @ManyToOne(() => Usuario, (usuario) => usuario.autorPedido)
   @JoinColumn({name: "id_autorPedido"})
-  id_autorPedido: Usuario
+  id_autorPedido: number
   
   @ManyToOne(() => Usuario, (usuario) => usuario.autorAutorizador)
   @JoinColumn({ name: "id_autorAutorizador"})
-  id_autorAutorizador: Usuario;
+  id_autorAutorizador: number;
   
 }
 

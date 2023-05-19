@@ -10,6 +10,7 @@ require("dotenv/config");
 require("reflect-metadata");
 const typeorm_1 = require("typeorm");
 const _1679541259198_default_1 = require("./migrations/1679541259198-default");
+const _1683754239343_default_1 = require("./migrations/1683754239343-default");
 const port = process.env.DB_PORT;
 exports.AppDataSource = new typeorm_1.DataSource({
     type: "mysql",
@@ -19,7 +20,7 @@ exports.AppDataSource = new typeorm_1.DataSource({
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
     entities: [Cargo_entities_1.Cargo, HoraDisponivel_entities_1.HoraDisponivel, Pedido_entities_1.Pedido, Usuario_entities_1.Usuario, PedidoAnonimo_entites_1.PedidoAnonimo],
-    migrations: [_1679541259198_default_1.default1679541259198],
+    migrations: [_1679541259198_default_1.default1679541259198, _1683754239343_default_1.default1683754239343],
     subscribers: []
 });
 exports.AppDataSource.initialize();

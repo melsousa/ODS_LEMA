@@ -19,10 +19,11 @@ routes.post("/usuario", new UsuarioController().create);
 routes.use(autenticaoToken)
 //a partir daqui tds as rotas so sao acessadas apenas com a token
 
-routes.get("/adminPedidos/estado=:estado", new adminController().readPedidos)
+routes.get("/adminPedidos/estado_pedido=:estado", new adminController().readPedidos)
 //retornar os pedidos a partir do estado
 routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController().updatePedidos)
 //atualiza o pedido apartir do id
+routes.post("/adminPedidos", new adminController().user)
 
 
 //Buscanco informações do usuário
@@ -41,8 +42,7 @@ routes.post(
 );
 
 // Cadastro de pedido com login
-routes.post(
-  "/pedido/:id_autorPedido/create",
+routes.post( "/pedido/:id_autorPedido/create",
   new PedidoController().createPedido
 );
 

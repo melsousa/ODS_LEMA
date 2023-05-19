@@ -1,8 +1,8 @@
-import { Pedido } from "../entities/Pedido.entities";
+import { Pedido } from "../models/Pedido";
 import { pedidoRepository } from "./../repositories/PedidoRepository";
 import { Request, Response } from "express";
-import { BadRequestError } from "../helpers/api-erros";
-// import { Usuario } from "../entities/Usuario";
+import fs from 'fs'
+
 export class PedidoController {
   async createPedido(req: Request, res: Response) {
     // criar pedido
@@ -10,7 +10,6 @@ export class PedidoController {
       material,
       prioridade,
       maquina,
-      estado,
       arquivo,
       medida,
       id_horaDisponivel,
@@ -19,25 +18,17 @@ export class PedidoController {
 
     const { id_autorPedido } = req.params;
     
-      const pedido = await pedidoRepository.findOneBy({
-        id_pedido: Number(id_autorPedido),
-      });
+    
+    const pedido = new Pedido(material,
+      prioridade, 
+      maquina, 
+      arquivo, 
+      medida, 
+      id_horaDisponivel, 
+      Number(id_autorPedido), 
+      id_autorAutorizador)
 
-      if (!pedido) { 
-        throw new BadRequestError("Pedido não existe");
-      }
-
-      const novoPedido = pedidoRepository.create({
-        material,
-        prioridade,
-        maquina,
-        estado,
-        arquivo,
-        medida,
-        id_autorPedido: { id_usuario: Number(id_autorPedido) }, // corrigido aqui
-        id_autorAutorizador,
-        id_horaDisponivel: { id_hora: id_horaDisponivel }, // corrigido aqui
-      });
+      const novoPedido = pedidoRepository.create(pedido);
 
       await pedidoRepository.save(novoPedido);
 
