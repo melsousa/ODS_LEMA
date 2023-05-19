@@ -1,4 +1,6 @@
-import { GlobalStyle, Container, LoginContrainer, LoginWrap,  LoginTitle, TextTitle, Input, LoginButton, Text1, Text2, TextCenter, ForgotPassword, TextSenha} from './styles'
+import { GlobalStyle, Container, LoginContrainer, LoginWrap,  LoginTitle, 
+        TextTitle, Input, LoginButton, Text1, Text2, TextCenter, ForgotPassword, TextSenha} from './styles'
+
 export function SignIn(){
     return (
         <>
@@ -6,7 +8,7 @@ export function SignIn(){
         <Container>
             <LoginContrainer>
                 <LoginWrap>
-                    <TextTitle><LoginTitle>Login</LoginTitle></TextTitle>
+                    <TextTitle><LoginTitle>Sing In</LoginTitle></TextTitle>
                     <Input type="text" placeholder="Email ou Matricula" />
                     <TextSenha><ForgotPassword>Esqueceu sua senha?</ForgotPassword></TextSenha> 
                     <Input type="password" placeholder="Senha" />
