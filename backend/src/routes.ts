@@ -6,6 +6,7 @@ import { UsuarioController } from "./controllers/UsuarioController";
 import { Router } from "express";
 import { autenticaoToken } from './middlewares/autenticacaoToken';
 import { adminController } from './controllers/adminController';
+import { pedidoRepository } from './repositories/PedidoRepository';
 
 const routes = Router();
 
@@ -19,7 +20,11 @@ routes.post("/usuario", new UsuarioController().create);
 routes.use(autenticaoToken)
 //a partir daqui tds as rotas so sao acessadas apenas com a token
 
-routes.get("/adminPedidos/estado=:estado", new adminController().readPedidos)
+routes.get("/adminPedidos/estado_pedido=:estado", new adminController().readPedidos)
+//retornar os pedidos a partir do estado
+routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController().updatePedidos)
+//atualiza o pedido apartir do id
+routes.post("/adminPedidos", new adminController().user)
 
 
 //Buscanco informações do usuário
@@ -32,15 +37,12 @@ routes.post("/cargo", new CargoController().createCargo);
 routes.post("/horario", new HorarioController().createHorario);
 
 // Cadastro de pedido anônimo
-routes.post(
-  "/pedidoanonimo",
-  new PedidoAnonimoController().createPedidoAnonimo
-);
+routes.post("/pedidoanonimo", new PedidoAnonimoController().createPedidoAnonimo);
 
-// Cadastro de pedido com login
-routes.post(
-  "/pedido/:id_autorPedido/create",
-  new PedidoController().createPedido
-);
+// Cadastro de pedido
+routes.post( "/pedido", new PedidoController().createPedido);
+routes.get("/pedido", new PedidoController().readPedido)
+routes.put("/pedido", new PedidoController().updatePedido)
+routes.delete("/pedido", new PedidoController().deletePedido)
 
 export default routes;

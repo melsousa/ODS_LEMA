@@ -24,15 +24,15 @@ export const autenticaoToken = async (req: Request, res: Response, next: NextFun
       ) as jwt.JwtPayload;
   
       const user = await usuarioRepository.findOneBy({ id_usuario });
-  
+
+
       if (!user) {
         throw new UnauthorizedError("Não autorizado");
       }
-  
-      const { senha: _, ...loggedUser } = user;
-      //console.log(token);
+      //const { senha: _, ...loggedUser } = user;
+      
       next()
-      //return res.json(loggedUser);
+      
 
   
 }

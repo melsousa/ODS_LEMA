@@ -22,12 +22,7 @@ export class UsuarioController {
       throw new BadRequestError("Email já cadastrado ");
     }
 
-    let user = Usuario.create(nome, email, senha, id_cargo, null, null, null);
-
-    const salt = bcrypt.genSaltSync(12);
-    let senhaH = bcrypt.hashSync(senha, salt);
-
-    user.senha = senhaH;
+    let user = Usuario.create(nome, email, senha, id_cargo);
 
     const newUsuario = usuarioRepository.create(user);
 

@@ -1,41 +1,56 @@
-import { HoraDisponivel } from './HoraDisponivel';
-import { Usuario } from './Usuario';
-
-
-
 export class Pedido {
-
-  readonly id_pedido: number;
+  
+  readonly id_pedido:number
   readonly material: string;
   readonly prioridade: Prioridade
   readonly maquina: string;
-  readonly estado: Estado;
-  readonly arquivo: Buffer
+  estado: Estado;
+  readonly arquivo: string
   readonly medida: string
-  readonly id_horaDisponivel: HoraDisponivel
-  readonly id_autorPedido: Usuario
-  readonly id_autorAutorizador: Usuario;
+  readonly id_horaDisponivel: number
+  readonly id_autorPedido: number
+  readonly id_autorAutorizador: number;
   
   
-  constructor(id_pedido: number, material: string, prioridade: Prioridade, maquina: string,
-    estado: Estado, arquivo: Buffer, medida: string, id_horaDisponivel: HoraDisponivel, 
-    id_autorPedido: Usuario, id_autorAutorizador: Usuario) {
+  constructor( material: string, prioridade: Prioridade, maquina: string,
+    arquivo: string, medida: string, id_horaDisponivel: number, 
+    id_autorPedido: number, id_autorAutorizador: number) {
 
-    this.id_pedido = id_pedido
     this.material = material
     this.prioridade = prioridade
     this.maquina = maquina
-    this.estado = estado
+    this.estado = Estado.pendete
     this.arquivo = arquivo
     this.medida = medida
     this.id_horaDisponivel = id_horaDisponivel
     this.id_autorPedido = id_autorPedido
     this.id_autorAutorizador = id_autorAutorizador
-  }   
-
-  public get Id() : number {
-    return this.id_pedido
   }
+
+  
+  
+  
+  
+  public setEstado (estado: Estado) {
+    if(this.estado == Estado.pendete && estado == (Estado.aprovado || Estado.reprovado))  {
+      
+      this.estado = estado
+
+    } else if(this.estado == Estado.aprovado && estado == Estado.concluido) {
+
+      this.estado = estado
+
+    } else if(this.estado == Estado.concluido) {
+
+      throw("pedido ja concluido, nao pode ser alterado")
+
+    } else {
+      throw("escolha um estado valido")
+    }
+    
+  }
+
+  
   public get Material(): string {
     return this.material
   }
@@ -48,38 +63,38 @@ export class Pedido {
   public get Estado(): Estado {
     return this.estado
   }
-  public get Arquivo(): Buffer {
+  public get Arquivo(): string {
     return this.arquivo
   }
   public get Medida(): string {
     return this.medida
   }
 
-  public get Id_horaDisponivel() : HoraDisponivel {
+  public get Id_horaDisponivel() : number {
     return this.id_horaDisponivel
   }
 
-  public get Id_autorPedido() : Usuario {
+  public get Id_autorPedido() : number {
     return this.id_autorPedido
   }
 
-  public get Id_autorAutorizador() : Usuario {
+  public get Id_autorAutorizador() : number {
     return this.id_autorAutorizador
   }
 
 }
 
 export enum Estado {
-  pendete= 'pendente',
+  pendete = 'pendente',
   aprovado = 'aprovado',
   concluido = 'concluido',
   reprovado = 'reprovado',
 }
 
 export enum Prioridade {
-  baixa,
-  media,
-  alta
+  baixa = "baixa",
+  media = "media",
+  alta = "alta"
 
 }
 

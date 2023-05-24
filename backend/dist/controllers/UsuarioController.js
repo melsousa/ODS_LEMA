@@ -40,10 +40,7 @@ class UsuarioController {
         if (userExists) {
             throw new api_erros_1.BadRequestError("Email já cadastrado ");
         }
-        let user = Usuario_1.Usuario.create(nome, email, senha, id_cargo, null, null, null);
-        const salt = bcrypt.genSaltSync(12);
-        let senhaH = bcrypt.hashSync(senha, salt);
-        user.senha = senhaH;
+        let user = Usuario_1.Usuario.create(nome, email, senha, id_cargo);
         const newUsuario = UsuarioRepository_1.usuarioRepository.create(user);
         await UsuarioRepository_1.usuarioRepository.save(newUsuario);
         const { senha: _, ...userSemSenha } = newUsuario;
@@ -53,6 +50,7 @@ class UsuarioController {
         var _a;
         const { email, senha } = req.body;
         const user = await UsuarioRepository_1.usuarioRepository.findOneBy({ email });
+        console.log(email, senha, user);
         if (!user) {
             throw new api_erros_1.BadRequestError("E-mail ou senha inválidos ");
         }
@@ -85,8 +83,8 @@ class UsuarioController {
             throw new api_erros_1.UnauthorizedError("Não autorizado");
         }
         const { senha: _, ...loggedUser } = user;
-        return res.json(loggedUser);
         console.log(token);
+        return res.json(loggedUser);
     }
 }
 exports.UsuarioController = UsuarioController;
