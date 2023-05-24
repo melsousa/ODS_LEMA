@@ -28,6 +28,9 @@ routes.post("/cargo", new CargoController_1.CargoController().createCargo);
 routes.post("/horario", new HorarioController_1.HorarioController().createHorario);
 // Cadastro de pedido anônimo
 routes.post("/pedidoanonimo", new PedidoAnonimoController_1.PedidoAnonimoController().createPedidoAnonimo);
-// Cadastro de pedido com login
-routes.post("/pedido/:id_autorPedido/create", new PedidoController_1.PedidoController().createPedido);
+// Cadastro de pedido
+routes.post("/pedido", new PedidoController_1.PedidoController().createPedido);
+routes.get("/pedido", new PedidoController_1.PedidoController().readPedido);
+routes.put("/pedido", new PedidoController_1.PedidoController().updatePedido);
+routes.delete("/pedido", new PedidoController_1.PedidoController().deletePedido);
 exports.default = routes;

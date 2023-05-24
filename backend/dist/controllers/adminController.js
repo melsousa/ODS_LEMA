@@ -9,14 +9,14 @@ class adminController {
         const { estado } = req.params;
         console.log(estado);
         //retornar todos os pedidos
-        const pedidos = await PedidoRepository_1.pedidoRepository.find();
+        const pedidos = await PedidoRepository_1.pedidoRepository.find({
+            where: { estado: estado, }
+        });
         //nesse caso ele vai retornar toda a tabela
-        const pedidoFiltrado = pedidos.filter((item) => String(item.estado) == estado);
+        //const pedidoFiltrado = pedidos.filter((item) => String(item.estado) == estado)
         //e depois filtar apenas o que o usuario vai querer
-        console.log(pedidoFiltrado);
-        return res.status(200).json(pedidoFiltrado);
-        //OBS: essa nao e a forma mais performatica, porem e a mais legivel e limpa q eu consegui fazer
-        //att. gabriel!!
+        console.log(pedidos);
+        return res.status(200).json(pedidos);
     }
     async updatePedidos(req, res) {
         const { id_pedido } = req.params;

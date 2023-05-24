@@ -37,12 +37,10 @@ const autenticaoToken = async (req, res, next) => {
     // verificando se o token existe
     const { id_usuario } = jwt.verify(token, (_a = process.env.JWT_PASS) !== null && _a !== void 0 ? _a : "");
     const user = await UsuarioRepository_1.usuarioRepository.findOneBy({ id_usuario });
-    //console.log(`usuario :${JSON.stringify(user)}`)
     if (!user) {
         throw new api_erros_1.UnauthorizedError("Não autorizado");
     }
     //const { senha: _, ...loggedUser } = user;
     next();
-    //return res.json(loggedUser);
 };
 exports.autenticaoToken = autenticaoToken;

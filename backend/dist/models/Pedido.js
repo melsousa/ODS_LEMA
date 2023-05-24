@@ -2,20 +2,30 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Prioridade = exports.Estado = exports.Pedido = void 0;
 class Pedido {
-    constructor(id_pedido, material, prioridade, maquina, estado, arquivo, medida, id_horaDisponivel, id_autorPedido, id_autorAutorizador) {
-        this.id_pedido = id_pedido;
+    constructor(material, prioridade, maquina, arquivo, medida, id_horaDisponivel, id_autorPedido, id_autorAutorizador) {
         this.material = material;
         this.prioridade = prioridade;
         this.maquina = maquina;
-        this.estado = estado;
+        this.estado = Estado.pendete;
         this.arquivo = arquivo;
         this.medida = medida;
         this.id_horaDisponivel = id_horaDisponivel;
         this.id_autorPedido = id_autorPedido;
         this.id_autorAutorizador = id_autorAutorizador;
     }
-    get Id() {
-        return this.id_pedido;
+    setEstado(estado) {
+        if (this.estado == Estado.pendete && estado == (Estado.aprovado || Estado.reprovado)) {
+            this.estado = estado;
+        }
+        else if (this.estado == Estado.aprovado && estado == Estado.concluido) {
+            this.estado = estado;
+        }
+        else if (this.estado == Estado.concluido) {
+            throw ("pedido ja concluido, nao pode ser alterado");
+        }
+        else {
+            throw ("escolha um estado valido");
+        }
     }
     get Material() {
         return this.material;
@@ -55,7 +65,7 @@ var Estado;
 })(Estado = exports.Estado || (exports.Estado = {}));
 var Prioridade;
 (function (Prioridade) {
-    Prioridade[Prioridade["baixa"] = 0] = "baixa";
-    Prioridade[Prioridade["media"] = 1] = "media";
-    Prioridade[Prioridade["alta"] = 2] = "alta";
+    Prioridade["baixa"] = "baixa";
+    Prioridade["media"] = "media";
+    Prioridade["alta"] = "alta";
 })(Prioridade = exports.Prioridade || (exports.Prioridade = {}));

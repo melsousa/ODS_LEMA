@@ -41,9 +41,6 @@ class UsuarioController {
             throw new api_erros_1.BadRequestError("Email já cadastrado ");
         }
         let user = Usuario_1.Usuario.create(nome, email, senha, id_cargo);
-        const salt = bcrypt.genSaltSync(12);
-        let senhaH = bcrypt.hashSync(senha, salt);
-        user.senha = senhaH;
         const newUsuario = UsuarioRepository_1.usuarioRepository.create(user);
         await UsuarioRepository_1.usuarioRepository.save(newUsuario);
         const { senha: _, ...userSemSenha } = newUsuario;

@@ -37,7 +37,7 @@ __decorate([
 ], Pedido.prototype, "estado", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'text', nullable: true }),
-    __metadata("design:type", Buffer)
+    __metadata("design:type", String)
 ], Pedido.prototype, "arquivo", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: "text", nullable: true }),
@@ -46,17 +46,17 @@ __decorate([
 __decorate([
     (0, typeorm_1.ManyToOne)(() => HoraDisponivel_entities_1.HoraDisponivel, (horaDisponivel) => horaDisponivel.horas),
     (0, typeorm_1.JoinColumn)({ name: "id_horaDisponivel" }),
-    __metadata("design:type", HoraDisponivel_entities_1.HoraDisponivel)
+    __metadata("design:type", Number)
 ], Pedido.prototype, "id_horaDisponivel", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => Usuario_entities_1.Usuario, (usuario) => usuario.autorPedido),
     (0, typeorm_1.JoinColumn)({ name: "id_autorPedido" }),
-    __metadata("design:type", Usuario_entities_1.Usuario)
+    __metadata("design:type", Number)
 ], Pedido.prototype, "id_autorPedido", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => Usuario_entities_1.Usuario, (usuario) => usuario.autorAutorizador),
     (0, typeorm_1.JoinColumn)({ name: "id_autorAutorizador" }),
-    __metadata("design:type", Usuario_entities_1.Usuario)
+    __metadata("design:type", Number)
 ], Pedido.prototype, "id_autorAutorizador", void 0);
 Pedido = __decorate([
     (0, typeorm_1.Entity)("pedidos")
