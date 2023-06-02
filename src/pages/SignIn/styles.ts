@@ -16,8 +16,13 @@ export const LoginContrainer = styled.div `
   min-height: 100vh;
   display: flex;
   flex-wrap: wrap;
+<<<<<<< HEAD
   align-items: center;
   justify-content: center;
+=======
+  align-items: center; 
+  justify-content: center; 
+>>>>>>> e6d5cf6db8df745d17125bbb01a5d9e653101123
   padding: 15px;
   background-color: ${props => props.theme.colors["background-dark"]};
 `;
@@ -32,14 +37,23 @@ export const LoginWrap = styled.div`
   box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.2) ;
   display: flex;
   flex-wrap: wrap; 
+<<<<<<< HEAD
+=======
+  position: relative;
+>>>>>>> e6d5cf6db8df745d17125bbb01a5d9e653101123
   justify-content: center; 
   align-items: center;  
 `;
 
 export const LoginForm = styled.form`
   width: 100%;
+<<<<<<< HEAD
 
 `;
+=======
+`;
+
+>>>>>>> e6d5cf6db8df745d17125bbb01a5d9e653101123
 export const TextTitle = styled.div`
   width: 100%;
   display: flex;
@@ -106,6 +120,12 @@ export const TextCenter = styled.div`
   justify-content: center;
   align-items: center;
   /* margin-top: 5px; */
+<<<<<<< HEAD
+=======
+  justify-content: right;
+  align-items: right;
+  
+>>>>>>> e6d5cf6db8df745d17125bbb01a5d9e653101123
 `;
 
 export const Text1 = styled.span`
@@ -113,9 +133,17 @@ export const Text1 = styled.span`
   color:  ${props=>props.theme.colors["text-dark"]};
   line-height: 1.2;
   padding-right: 5px;
+<<<<<<< HEAD
   text-decoration: none;
 `;
 export const Text2 = styled.p`
+=======
+  /* position: absolute; */
+  text-decoration: none;
+`;
+export const Text2 = styled.p`
+  /* position: absolute; */
+>>>>>>> e6d5cf6db8df745d17125bbb01a5d9e653101123
   font-size: 16px;
   color:  ${props=>props.theme.colors["green-dark"]};
   line-height: 1.2;
@@ -129,12 +157,19 @@ export const TextSenha = styled.div`
 `; 
 
 export const ForgotPassword = styled.p`
+<<<<<<< HEAD
   position: absolute;
   top: 295px;
+=======
+  /* display: flex; */
+  position: absolute;
+  top: 16rem;
+>>>>>>> e6d5cf6db8df745d17125bbb01a5d9e653101123
   text-align: right;
   color: ${props=>props.theme.colors["text-dark"]};
   cursor: pointer;
 `;
+<<<<<<< HEAD
 /* export const TextoDireita = styled.span`
   text-align: right;
   color: ${props=>props.theme.colors["text-dark"]};
@@ -179,3 +214,5 @@ export const ForgotPassword = styled.p`
     padding: 70px 55px 33px 55px;
     box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.2) ; 
 `; */
+=======
+>>>>>>> e6d5cf6db8df745d17125bbb01a5d9e653101123

@@ -75,7 +75,11 @@ export const Input = styled.input`
 export const ButtonDrpDwon = styled.select`
   font-size: 15px;
   color: ${props=>props.theme.colors["text-dark"]};
+<<<<<<< HEAD
   margin-bottom: 15px;
+=======
+  /* margin-bottom: 15px; */
+>>>>>>> e6d5cf6db8df745d17125bbb01a5d9e653101123
   border: none;
   display: block;
   width: 100%;
@@ -85,7 +89,11 @@ export const ButtonDrpDwon = styled.select`
   border-radius: 5px;
   border-bottom:1px solid ${props => props.theme.colors["green-dark"]};
   padding-left: 10px;
+<<<<<<< HEAD
   outline: none
+=======
+  outline: none;
+>>>>>>> e6d5cf6db8df745d17125bbb01a5d9e653101123
   cursor: pointer;
 `;
 
