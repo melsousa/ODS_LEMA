@@ -21,19 +21,13 @@ routes.post("/login", new UsuarioController().login);
 routes.post("/usuario", new UsuarioController().create);
 
 
-// HORÁRIO
-
-// criar horário
-routes.post("/horario/create", new HorarioController().createHorario)
-// 
-routes.get("/horario/get", new HorarioController().listHorarios)
 
 // CARGO
 
 // criar cargo
 routes.post("/cargo", new CargoController().createCargo);
 
-
+//a partir daqui tds as rotas so sao acessadas apenas com a token
 routes.use(autenticaoToken)
 
 // USUÁRIO 
@@ -47,7 +41,13 @@ routes.put("/user/update", new UsuarioController().updateUser)
 // Deletar usuário
 routes.delete("/user/delete", new UsuarioController().deleteUser)
 
-//a partir daqui tds as rotas so sao acessadas apenas com a token
+// HORÁRIO
+
+// criar horário
+routes.post("/horario/create", new HorarioController().createHorario)
+// 
+routes.get("/horario/get", new HorarioController().listHorarios)
+
 
 // routes.get("/adminPedidos/estado_pedido=:estado", new adminController().readPedidos)
 // //retornar os pedidos a partir do estado
