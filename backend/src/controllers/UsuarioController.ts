@@ -1,4 +1,5 @@
 import { usuarioRepository } from "./../repositories/UsuarioRepository";
+import { cargoRepository } from "./../repositories/CargoRepository";
 import { Response, Request } from "express";
 import { Usuario } from "../models/Usuario";
 import { Usuario as User } from "../entities/Usuario.entities";
@@ -14,7 +15,7 @@ type JwtPayload = {
 export class UsuarioController {
   async create(req: Request, res: Response) {
     // criar usuário
-    const { nome, email, senha, id_cargo } = req.body;
+    const { nome, email, senha, cargo } = req.body;
 
     const userExists = await usuarioRepository.findOneBy({ email });
 
@@ -22,12 +23,14 @@ export class UsuarioController {
       throw new BadRequestError("Email já cadastrado ");
     }
 
-    let user = Usuario.create(nome, email, senha, id_cargo, null, null, null);
+    // Obtenha o objeto do cargo com base no nome fornecido
+    const cargoObj = await cargoRepository.findOneBy({ cargo });
 
-    const salt = bcrypt.genSaltSync(12);
-    let senhaH = bcrypt.hashSync(senha, salt);
+    if (!cargoObj) {
+      throw new BadRequestError("Cargo inválido");
+    }
 
-    user.senha = senhaH;
+    let user = Usuario.create(nome, email, senha, cargoObj.id_cargo);
 
     const newUsuario = usuarioRepository.create(user);
 
@@ -43,6 +46,7 @@ export class UsuarioController {
 
     const user = await usuarioRepository.findOneBy({ email });
 
+    console.log(email, senha, user);
     if (!user) {
       throw new BadRequestError("E-mail ou senha inválidos ");
     }
@@ -62,6 +66,8 @@ export class UsuarioController {
       }
     );
 
+    console.log("token", token);
+
     const { senha: _, ...userLogin } = user;
 
     return res.json({
@@ -78,15 +84,16 @@ export class UsuarioController {
       throw new UnauthorizedError("Não autorizado");
     }
 
-    const token = authorization.split(" ")[1];
-
     // verificando se o token existe
-    const { id_usuario } = jwt.verify(
-      token,
-      process.env.JWT_PASS ?? ""
-    ) as JwtPayload;
+    const token = authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, process.env.JWT_PASS ?? "") as {
+      id: number;
+    };
+    const { id } = decodedToken;
 
-    const user = await usuarioRepository.findOneBy({ id_usuario });
+    const user = await usuarioRepository.findOne({
+      where: { id_usuario: id },
+    });
 
     if (!user) {
       throw new UnauthorizedError("Não autorizado");
@@ -95,6 +102,67 @@ export class UsuarioController {
     const { senha: _, ...loggedUser } = user;
 
     return res.json(loggedUser);
-    console.log(token);
+  }
+
+  async updateUser(req: Request, res: Response) {
+    const { authorization } = req.headers;
+    const { nome, email, senha } = req.body;
+
+    if (!authorization) {
+      throw new UnauthorizedError("Não autorizado");
+    }
+
+    const token = authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, process.env.JWT_PASS ?? "") as {
+      id: number;
+    };
+
+    const { id } = decodedToken;
+
+    const user = await usuarioRepository.findOne({
+      where: { id_usuario: id },
+    });
+
+    if (!user) {
+      throw new UnauthorizedError("Não autorizado");
+    }
+
+    // Atualizar as informações do usuário
+
+    user.nome = nome || user.nome;
+    user.email = email || user.email;
+    user.senha = (await bcrypt.hash(senha, 10)) || user.senha;
+
+    await usuarioRepository.save(user);
+
+    const { senha: _, ...updatedUser } = user;
+    return res.json(updatedUser);
+  }
+
+  async deleteUser(req: Request, res: Response) {
+    const { authorization } = req.headers;
+
+    if (!authorization) {
+      throw new UnauthorizedError("Não autorizado");
+    }
+
+    const token = authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, process.env.JWT_PASS ?? "") as {
+      id: number;
+    };
+
+    const { id } = decodedToken;
+
+    const user = await usuarioRepository.findOne({
+      where: { id_usuario: id },
+    });
+
+    if (!user) {
+      throw new UnauthorizedError("Não autorizado");
+    }
+
+    await usuarioRepository.delete(user.id_usuario);
+
+    return res.json({ message: "Usuário excluído com sucesso" });
   }
 }

@@ -1,28 +1,28 @@
 import 'express-async-errors'
 import express from "express";
-import cors from "cors";
 import { AppDataSource } from "./data-source";
 import routes from "./routes";
+import cors from "cors";
 import { errorMiddleware } from './middlewares/error';
 import { ApiError, BadRequestError, NotFoundError, UnauthorizedError } from "./helpers/api-erros";
 
 AppDataSource.initialize().then( async () => {
   const app = express();
-  const cors = require('cors');
-  app.use(express.json());
 
+  app.use(express.json());
+  app.use(cors());
   app.use(routes);
 
-  app.use(errorMiddleware)
 
-  // Habilita CORS para todas as rotas
-  var corsOptions = {
-    origin: 'http://localhost/5432',
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-  }
-
-  
-  return app.listen(process.env.PORT);
+  return app.listen(process.env.PORT, ()=> {
+    console.log(`localhost:${process.env.PORT}`)
+  });
 });
 
+// const path = `${__dirname}/arquivo/item_2.STL`
+// const arquivo1 = fs.readFileSync(path, 'ascii')
+// console.log(arquivo1)
 
+// let pedido = new Pedido("PLA", Prioridade.baixa, "impressora1", arquivo1)
+
+// console.log(pedido)

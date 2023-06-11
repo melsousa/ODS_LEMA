@@ -1,5 +1,6 @@
-import { HoraDisponivel } from './HoraDisponivel.entities';
-import { Usuario } from './Usuario.entities';
+import { HoraDisponivel } from "./HoraDisponivel.entities";
+import { Usuario } from "./Usuario.entities";
+import { DeepPartial } from "typeorm";
 
 import {
   Column,
@@ -9,52 +10,52 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 
-@Entity("pedidos")
-export class Pedido {
-  @PrimaryGeneratedColumn()
-  id_pedido: number;
-
-  @Column({ type: "text", nullable:true })
-  material: string;
-  
-  @Column({type: "text"})
-  prioridade: Prioridade
-
-  @Column({ type: "text", nullable: true })
-  maquina: string;
-
-  @Column({ type: "text", nullable: true })
-  estado: Estado;
-  
-  @Column({type: 'text', nullable:true})
-  arquivo: Buffer
-  
-  @Column({type:"text", nullable:true})
-  medida: string
-  
-  @ManyToOne(() => HoraDisponivel, (horaDisponivel) => horaDisponivel.horas)
-  @JoinColumn({name: "id_horaDisponivel"})
-  id_horaDisponivel: HoraDisponivel
-
-  @ManyToOne(() => Usuario, (usuario) => usuario.autorPedido)
-  @JoinColumn({name: "id_autorPedido"})
-  id_autorPedido: Usuario
-  
-  @ManyToOne(() => Usuario, (usuario) => usuario.autorAutorizador)
-  @JoinColumn({ name: "id_autorAutorizador"})
-  id_autorAutorizador: Usuario;
-  
+export enum Prioridade {
+  baixa,
+  media,
+  alta,
 }
 
 export enum Estado {
-  pendete,
+  pendente,
   aprovado,
   concluido,
   reprovado,
 }
 
-export enum Prioridade {
-  baixa,
-  media,
-  alta
+@Entity("pedidos")
+export class Pedido {
+  @PrimaryGeneratedColumn()
+  id_pedido: number;
+
+  @Column({ type: "text", nullable: true })
+  material: string;
+
+  @Column({ type: "text" , enum: Prioridade})
+  prioridade: Prioridade;
+
+  @Column({ type: "text", nullable: true })
+  maquina: string;
+
+  @Column({ type: "text", enum: Estado})
+  estado: Estado;
+
+  @Column({ type: "longblob", nullable: true })
+  arquivo: DeepPartial<Buffer> | undefined;
+
+  @Column({ type: "text", nullable: true })
+  medida: string;
+
+  @ManyToOne(() => HoraDisponivel, (horaDisponivel) => horaDisponivel.horas)
+  @JoinColumn({ name: "id_horaDisponivel" })
+  id_horaDisponivel: number;
+
+  @ManyToOne(() => Usuario, (usuario) => usuario.autorPedido)
+  @JoinColumn({ name: "id_autorPedido" })
+  id_autorPedido: number;
+
+  @ManyToOne(() => Usuario, (usuario) => usuario.autorAutorizador)
+  @JoinColumn({ name: "id_autorAutorizador" })
+  id_autorAutorizador: number;
 }
+
