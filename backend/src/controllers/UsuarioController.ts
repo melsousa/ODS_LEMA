@@ -2,7 +2,6 @@ import { usuarioRepository } from "./../repositories/UsuarioRepository";
 import { cargoRepository } from "./../repositories/CargoRepository";
 import { Response, Request } from "express";
 import { Usuario } from "../models/Usuario";
-import { Usuario as User } from "../entities/Usuario.entities";
 import * as bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -81,7 +80,7 @@ export class UsuarioController {
     const { authorization } = req.headers;
 
     if (!authorization) {
-      throw new UnauthorizedError("Não autorizado");
+      throw new BadRequestError("Não autorizado");
     }
 
     // verificando se o token existe
@@ -96,7 +95,7 @@ export class UsuarioController {
     });
 
     if (!user) {
-      throw new UnauthorizedError("Não autorizado");
+      throw new BadRequestError("Não autorizado");
     }
 
     const { senha: _, ...loggedUser } = user;
@@ -109,7 +108,7 @@ export class UsuarioController {
     const { nome, email, senha } = req.body;
 
     if (!authorization) {
-      throw new UnauthorizedError("Não autorizado");
+      throw new BadRequestError("Não autorizado");
     }
 
     const token = authorization.split(" ")[1];
@@ -143,7 +142,7 @@ export class UsuarioController {
     const { authorization } = req.headers;
 
     if (!authorization) {
-      throw new UnauthorizedError("Não autorizado");
+      throw new BadRequestError("Não autorizado");
     }
 
     const token = authorization.split(" ")[1];
@@ -158,7 +157,7 @@ export class UsuarioController {
     });
 
     if (!user) {
-      throw new UnauthorizedError("Não autorizado");
+      throw new BadRequestError("Não autorizado");
     }
 
     await usuarioRepository.delete(user.id_usuario);
