@@ -42,9 +42,11 @@ export class adminController {
         const pedido = await pedidoRepository.createQueryBuilder().update(Pedido).set({estado: estado})
         .where({ id_pedido: id_pedido })
         .execute()
+
         //faz alteracao do estado
         pedidoRetornado = await pedidoRepository.findOneBy({id_pedido: Number(id_pedido)})
         //pedido ja alterado
+
         if(pedidoRetornado!=null)
         {
             pedido.generatedMaps = [Object(estado)]
@@ -57,10 +59,10 @@ export class adminController {
 
         return res.status(201).json(pedido)
     }
+    
     async user (req: Request, res: Response) {
 
         const user = await usuarioRepository.find()
-        console.log(user)
         return res.status(200).json(user)
     }
 

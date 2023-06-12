@@ -12,9 +12,9 @@ const routes = Router();
 
 // Login Usuario
 routes.post("/login", new UsuarioController().login);
-
-routes.post("/usuario", new UsuarioController().create);
 // Cadastro de usuário
+routes.post("/usuario", new UsuarioController().create);
+
 
 
 routes.use(autenticaoToken)
@@ -41,7 +41,7 @@ routes.get("/pedido", new PedidoController().readPedido) //pega
 routes.put("/pedido", new PedidoController().updatePedido) //modifica estado
 routes.delete("/pedido", new PedidoController().deletePedido) //exclui
 
-
+//rotas que sao acessadas pelo root
 routes.use(autenticacaoAdmin)
 
 routes.get("/adminPedidos/estado_pedido=:estado", new adminController().readPedidos)
