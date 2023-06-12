@@ -5,7 +5,7 @@ export class Pedido {
   readonly prioridade: Prioridade
   readonly maquina: string;
   estado: Estado;
-  readonly arquivo: string
+  readonly arquivo: Buffer
   readonly medida: string
   readonly id_horaDisponivel: number
   readonly id_autorPedido: number
@@ -13,7 +13,7 @@ export class Pedido {
   
   
   constructor( material: string, prioridade: Prioridade, maquina: string,
-    arquivo: string, medida: string, id_horaDisponivel: number, 
+    arquivo: Buffer, medida: string, id_horaDisponivel: number, 
     id_autorPedido: number, id_autorAutorizador: number) {
 
     this.material = material
@@ -63,7 +63,7 @@ export class Pedido {
   public get Estado(): Estado {
     return this.estado
   }
-  public get Arquivo(): string {
+  public get Arquivo(): Buffer{
     return this.arquivo
   }
   public get Medida(): string {

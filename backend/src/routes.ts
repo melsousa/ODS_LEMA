@@ -4,7 +4,7 @@ import { CargoController } from './controllers/CargoController';
 import { PedidoController } from './controllers/PedidoController';
 import { UsuarioController } from "./controllers/UsuarioController";
 import { Router } from "express";
-import { autenticaoToken } from './middlewares/autenticacaoToken';
+import { autenticacaoAdmin, autenticaoToken } from './middlewares/autenticacaoToken';
 import { adminController } from './controllers/adminController';
 import { pedidoRepository } from './repositories/PedidoRepository';
 
@@ -20,11 +20,7 @@ routes.post("/usuario", new UsuarioController().create);
 routes.use(autenticaoToken)
 //a partir daqui tds as rotas so sao acessadas apenas com a token
 
-routes.get("/adminPedidos/estado_pedido=:estado", new adminController().readPedidos)
-//retornar os pedidos a partir do estado
-routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController().updatePedidos)
-//atualiza o pedido apartir do id
-routes.post("/adminPedidos", new adminController().user)
+
 
 
 //Buscanco informações do usuário
@@ -40,9 +36,17 @@ routes.post("/horario", new HorarioController().createHorario);
 routes.post("/pedidoanonimo", new PedidoAnonimoController().createPedidoAnonimo);
 
 // Cadastro de pedido
-routes.post( "/pedido", new PedidoController().createPedido);
-routes.get("/pedido", new PedidoController().readPedido)
-routes.put("/pedido", new PedidoController().updatePedido)
-routes.delete("/pedido", new PedidoController().deletePedido)
+routes.post( "/pedido", new PedidoController().createPedido) //cria
+routes.get("/pedido", new PedidoController().readPedido) //pega
+routes.put("/pedido", new PedidoController().updatePedido) //modifica estado
+routes.delete("/pedido", new PedidoController().deletePedido) //exclui
 
+
+routes.use(autenticacaoAdmin)
+
+routes.get("/adminPedidos/estado_pedido=:estado", new adminController().readPedidos)
+//retornar os pedidos a partir do estado
+routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController().updatePedidos)
+//atualiza o pedido apartir do id
+routes.post("/adminPedidos", new adminController().user)
 export default routes;

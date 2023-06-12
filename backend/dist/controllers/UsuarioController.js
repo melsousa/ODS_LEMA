@@ -50,7 +50,7 @@ class UsuarioController {
         var _a;
         const { email, senha } = req.body;
         const user = await UsuarioRepository_1.usuarioRepository.findOneBy({ email });
-        console.log(email, senha, user);
+        //console.log(email, senha, user)
         if (!user) {
             throw new api_erros_1.BadRequestError("E-mail ou senha inválidos ");
         }
@@ -79,11 +79,11 @@ class UsuarioController {
         // verificando se o token existe
         const { id_usuario } = jsonwebtoken_1.default.verify(token, (_a = process.env.JWT_PASS) !== null && _a !== void 0 ? _a : "");
         const user = await UsuarioRepository_1.usuarioRepository.findOneBy({ id_usuario });
+        console.log();
         if (!user) {
             throw new api_erros_1.UnauthorizedError("Não autorizado");
         }
         const { senha: _, ...loggedUser } = user;
-        console.log(token);
         return res.json(loggedUser);
     }
 }
