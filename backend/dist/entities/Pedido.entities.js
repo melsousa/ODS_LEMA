@@ -36,8 +36,9 @@ __decorate([
     __metadata("design:type", String)
 ], Pedido.prototype, "estado", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'text', nullable: true }),
-    __metadata("design:type", String)
+    (0, typeorm_1.Column)({ type: 'blob', nullable: true }) //tipo para arquivo em mysql
+    ,
+    __metadata("design:type", Buffer)
 ], Pedido.prototype, "arquivo", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: "text", nullable: true }),

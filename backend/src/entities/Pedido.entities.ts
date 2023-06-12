@@ -26,8 +26,8 @@ export class Pedido {
   @Column({ type: "text", nullable: true })
   estado: string;
   
-  @Column({type: 'text', nullable:true})
-  arquivo: string
+  @Column({type: 'blob', nullable:true}) //tipo para arquivo em mysql
+  arquivo: Buffer
   
   @Column({type:"text", nullable:true})
   medida: string

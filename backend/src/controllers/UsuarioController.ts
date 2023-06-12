@@ -6,6 +6,7 @@ import * as bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 import { BadRequestError, UnauthorizedError } from "../helpers/api-erros";
+import { Cargo } from "../entities/Cargo.entities";
 
 type JwtPayload = {
   id_usuario: number;
@@ -21,7 +22,7 @@ export class UsuarioController {
     if (userExists) {
       throw new BadRequestError("Email já cadastrado ");
     }
-
+    
     let user = Usuario.create(nome, email, senha, id_cargo);
 
     const newUsuario = usuarioRepository.create(user);
@@ -38,7 +39,7 @@ export class UsuarioController {
 
     const user = await usuarioRepository.findOneBy({ email });
 
-    console.log(email, senha, user)
+    //console.log(email, senha, user)
     if (!user) {  
       throw new BadRequestError("E-mail ou senha inválidos ");
     }
@@ -82,14 +83,14 @@ export class UsuarioController {
       process.env.JWT_PASS ?? ""
     ) as JwtPayload;
 
-    const user = await usuarioRepository.findOneBy({ id_usuario });
-
-    if (!user) {
+    const user = await usuarioRepository.findOne({where: { id_usuario, }, relations: ['id_cargo']});
+    
+    if (user == null) {
       throw new UnauthorizedError("Não autorizado");
     }
 
     const { senha: _, ...loggedUser } = user;
-    console.log(token);
+    
     return res.json(loggedUser);
     
   }

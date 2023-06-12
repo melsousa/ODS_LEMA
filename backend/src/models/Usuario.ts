@@ -1,4 +1,5 @@
 import * as bcrypt from "bcrypt";
+import { Cargo } from "../entities/Cargo.entities";
 
 export class Usuario {
 
@@ -6,10 +7,10 @@ export class Usuario {
   readonly nome: string;
   readonly email: string;
   readonly senha: string;
-  readonly id_cargo: number;
+  readonly id_cargo: Cargo;
 
   
-  private constructor(nome: string, email: string, senha: string, id_cargo: number) {                
+  private constructor(nome: string, email: string, senha: string, id_cargo: Cargo) {                
     
     
     this.nome = nome
@@ -19,7 +20,7 @@ export class Usuario {
     
   }
 
-  static create(nome: string, email: string, senha: string, id_cargo: number) {
+  static create(nome: string, email: string, senha: string, id_cargo: Cargo) {
     return new Usuario(nome, email, senha, id_cargo)
   }
   

@@ -15,11 +15,6 @@ routes.post("/usuario", new UsuarioController_1.UsuarioController().create);
 // Cadastro de usuário
 routes.use(autenticacaoToken_1.autenticaoToken);
 //a partir daqui tds as rotas so sao acessadas apenas com a token
-routes.get("/adminPedidos/estado_pedido=:estado", new adminController_1.adminController().readPedidos);
-//retornar os pedidos a partir do estado
-routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController_1.adminController().updatePedidos);
-//atualiza o pedido apartir do id
-routes.post("/adminPedidos", new adminController_1.adminController().user);
 //Buscanco informações do usuário
 routes.get("/profile", new UsuarioController_1.UsuarioController().getProfile);
 // Cadastro de cargo
@@ -29,8 +24,14 @@ routes.post("/horario", new HorarioController_1.HorarioController().createHorari
 // Cadastro de pedido anônimo
 routes.post("/pedidoanonimo", new PedidoAnonimoController_1.PedidoAnonimoController().createPedidoAnonimo);
 // Cadastro de pedido
-routes.post("/pedido", new PedidoController_1.PedidoController().createPedido);
-routes.get("/pedido", new PedidoController_1.PedidoController().readPedido);
-routes.put("/pedido", new PedidoController_1.PedidoController().updatePedido);
-routes.delete("/pedido", new PedidoController_1.PedidoController().deletePedido);
+routes.post("/pedido", new PedidoController_1.PedidoController().createPedido); //cria
+routes.get("/pedido", new PedidoController_1.PedidoController().readPedido); //pega
+routes.put("/pedido", new PedidoController_1.PedidoController().updatePedido); //modifica estado
+routes.delete("/pedido", new PedidoController_1.PedidoController().deletePedido); //exclui
+routes.use(autenticacaoToken_1.autenticacaoAdmin);
+routes.get("/adminPedidos/estado_pedido=:estado", new adminController_1.adminController().readPedidos);
+//retornar os pedidos a partir do estado
+routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController_1.adminController().updatePedidos);
+//atualiza o pedido apartir do id
+routes.post("/adminPedidos", new adminController_1.adminController().user);
 exports.default = routes;
