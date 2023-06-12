@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Button, NavigationContainer, QtyDot } from "./styles";
+import { NavigationContainer} from "./styles";
 
 export function NavigationBar({...rest}) {
     return (

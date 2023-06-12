@@ -16,6 +16,8 @@ import { UserRejectedOrders } from "./pages/UserRejectedOrders";
 import { UserInAnalysisOrders } from "./pages/UserInAnalysisOrders";
 import { UserInProductionOrders } from "./pages/UserInProductionOrders";
 import { NonUserTheme } from "./layouts/NonUserTheme";
+import { RequireAuth } from "./context/RequireAuth";
+import { UserCreateOrders } from "./pages/UserCreateOrders";
 
 export function Router() {
     return (
@@ -36,12 +38,13 @@ export function Router() {
                 <Route path="/non-user/allOrders" element={<NoUserAllOrders/>} />
             </Route>
 
-            <Route path="/user"  element={<UserTheme/>}>
+            <Route path="/user"  element={<RequireAuth><UserTheme/></RequireAuth>}>
                 <Route path="/user/accepted" element={<UserAcceptedOrders/>} />
                 <Route path="/user/rejected" element={<UserRejectedOrders/>} />
                 <Route path="/user/analysis" element={<UserInAnalysisOrders/>} />
                 <Route path="/user/production" element={<UserInProductionOrders/>} />
                 <Route path="/user/allOrders" element={<UserAllOrders/>} />
+                <Route path="/user/createorder" element={<UserCreateOrders/>} />
             </Route>
         </Routes>
     );

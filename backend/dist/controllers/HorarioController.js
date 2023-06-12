@@ -6,13 +6,19 @@ const HorarioRepository_1 = require("./../repositories/HorarioRepository");
 class HorarioController {
     async createHorario(req, res) {
         const { dataInicio, dataFim, disponivel } = req.body;
-        const newHorario = HorarioRepository_1.horarioRepository.create({
-            dataInicio,
-            dataFim,
-            disponivel,
-        });
-        await HorarioRepository_1.horarioRepository.save(newHorario);
-        return res.status(201).json(newHorario);
+        try {
+            const newHorario = HorarioRepository_1.horarioRepository.create({
+                dataInicio,
+                dataFim,
+                disponivel
+            });
+            await HorarioRepository_1.horarioRepository.save(newHorario);
+            return res.status(201).json(newHorario);
+        }
+        catch (error) {
+            console.log(error);
+            return res.status(500).json({ message: "Internal Server Error" });
+        }
     }
 }
 exports.HorarioController = HorarioController;

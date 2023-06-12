@@ -13,5 +13,7 @@ export const Container = styled.button<ButtonProps>`
     font-size: 1.5rem;
     font-weight: 700;
     border-radius: 5px;
-    
+    :hover{
+            background-color: ${props =>props.buttonType === 'accept' ? (props.theme.colors["hover-green-dark"]):(props.theme.colors["background-red"])};
+        }
 `;

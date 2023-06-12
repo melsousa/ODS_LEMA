@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    height: calc(100% - 6.75rem);
+    height: calc(100% - 8.84%);
     width: 22.063rem;
     background-color: ${props => props.theme.colors["background-dark"]};
     position: absolute;
     right: 0;
-    top: 6.75rem;
+    top: 8.71%;
     @keyframes slideIn {
         from {
             width: 0rem;
