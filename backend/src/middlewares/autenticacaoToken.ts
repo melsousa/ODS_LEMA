@@ -53,12 +53,13 @@ export const autenticacaoAdmin =async (req: Request, res: Response, next: NextFu
     process.env.JWT_PASS ?? ""
   ) as jwt.JwtPayload;
 
-  const user = await usuarioRepository.findOneBy({ id_usuario });
-
+  const user = await usuarioRepository.findOne({where: { id_usuario, }, relations: ['id_cargo']});
+  
+  
   console.log(user)
-  if (!user) {
+  if (user?.id_cargo.id_cargo != 1) {
     throw new UnauthorizedError("Não autorizado");
   }  
   next()
-
+ 
 }

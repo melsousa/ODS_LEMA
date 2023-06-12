@@ -39,7 +39,13 @@ export class PedidoController {
   
 
   async updatePedido(req: Request, res: Response) {
-    const {id_pedido} = req.body
+    const {id_pedido, prioridade, maquina, material} = req.body
+
+    if((prioridade==null ) || (maquina == null) || (material == null)) {
+      return res.status(200).json("nada para atualizar aqui :)")
+    } else  {
+      
+    }
 
     try {
     } catch (error) {
@@ -48,6 +54,7 @@ export class PedidoController {
     }
   }
 
+  //busca todos os pedidos do usuario que ta logado
   async readPedido(req: Request, res: Response) {
     const {authorization} = req.headers
     if (!authorization) {
@@ -70,13 +77,14 @@ export class PedidoController {
 
   }
 
+  //vai deletar apartir do id do pedido e do id do usuario
   async deletePedido(req: Request, res: Response) {
     const {authorization} = req.headers
-    
+    const {id_pedido}= req.body
+
     if (!authorization) {
       throw new Error("Não autorizado");
     }
-
     const token = authorization.split(" ")[1]
     
     
@@ -85,11 +93,12 @@ export class PedidoController {
       process.env.JWT_PASS ?? ""
     ) as jwt.JwtPayload;
 
-    const pedidos = await pedidoRepository.delete(id_usuario)
-    if(pedidos) {
+    const pedidos = await pedidoRepository.delete({id_pedido: id_pedido, id_autorPedido: id_usuario})
+
+    if(pedidos.affected == 1) {
       return res.status(202).json("pedido deletado")
     } else {
-      return res.status(204).json("pedido nao deletado")
+      return res.status(202).json("pedido nao deletado")
     }
     
   }
