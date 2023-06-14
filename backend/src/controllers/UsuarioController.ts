@@ -29,13 +29,21 @@ export class UsuarioController {
       throw new BadRequestError("Cargo inválido");
     }
 
-    let user = Usuario.create(nome, email, senha, cargoObj.id_cargo);
+    
+    
+    let user = Usuario.create(nome, email, senha, cargo)
 
-    const newUsuario = usuarioRepository.create(user);
+    const newUsuario = usuarioRepository.create({
+      nome: user.nome,
+      email: user.email,
+      senha: user.senha,
+      id_cargo: { id_cargo: cargoObj.id_cargo }
+    });
+    
+    const { senha: _, ...userSemSenha } = newUsuario; 
 
     await usuarioRepository.save(newUsuario);
 
-    const { senha: _, ...userSemSenha } = newUsuario;
 
     return res.status(201).json(userSemSenha);
   }
