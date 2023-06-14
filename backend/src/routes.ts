@@ -3,8 +3,9 @@ import { HorarioController } from './controllers/HorarioController';
 import { CargoController } from './controllers/CargoController';
 import { PedidoController } from './controllers/PedidoController';
 import { UsuarioController } from "./controllers/UsuarioController";
+import { adminController } from './controllers/adminController';
 import { Router } from "express";
-import { autenticaoToken } from './middlewares/autenticacaoToken';
+import { autenticaoToken, autenticacaoAdmin } from './middlewares/autenticacaoToken';
 
 
 import { upload } from "./uploadMiddleware"; // Importar o middleware de upload de arquivos
@@ -14,7 +15,16 @@ const routes = Router();
 // PEDIDO ANÔNIMO
 
 // Cadastro de pedido anônimo
-routes.post("/pedidoanonimo", new PedidoAnonimoController().createPedidoAnonimo);
+routes.post("/pedidoanonimo/create", new PedidoAnonimoController().createPedidoAnonimo);
+// lista de todos os pedidos
+routes.get("/pedidoanonimo/get", new PedidoAnonimoController().listPedidosAnonimos)
+routes.get("/pedidoanonimo/geteste", new PedidoAnonimoController().listPedidosAnonimosT)
+// lista pelo código do pedido
+routes.get("/pedidoanonimo/getPedidoByCodigo/:codigo", new PedidoAnonimoController().getPedidoByCodigo)
+// update pedido pelo código
+routes.put("/pedidoanonimo/update/:codigo", new PedidoAnonimoController().updatePedido)
+// delete pedido pelo código
+routes.delete("/pedidoanonimo/delete/:codigo", new PedidoAnonimoController().deletePedido)
 
 // USUÁRIO
 
@@ -92,5 +102,14 @@ routes.put("/pedido/update/:id_pedido", new PedidoController().updatePedido) //*
 routes.delete("/pedido/delete/:id_pedido", new PedidoController().deletePedido)
 
 routes.get("/pedido/estado/:estado", new PedidoController().getPedidosByEstado);
+
+//rotas que sao acessadas pelo root
+routes.use(autenticacaoAdmin)
+
+routes.get("/adminPedidos/estado_pedido=:estado", new adminController().readPedidos)
+//retornar os pedidos a partir do estado
+routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController().updatePedidos)
+//atualiza o pedido apartir do id
+routes.post("/adminPedidos", new adminController().user)
 
 export default routes;
