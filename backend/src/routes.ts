@@ -48,5 +48,6 @@ routes.get("/adminPedidos/estado_pedido=:estado", new adminController().readPedi
 //retornar os pedidos a partir do estado
 routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController().updatePedidos)
 //atualiza o pedido apartir do id
-routes.post("/adminPedidos", new adminController().user)
+routes.get("/adminPedidos", new adminController().user)
+
 export default routes;
