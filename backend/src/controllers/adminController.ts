@@ -13,7 +13,7 @@ export class adminController {
         //retornar todos os pedidos
 
         const pedidos = await pedidoRepository.find({
-            where: {estado: estado,}
+            where: {estado: estado}
         })
         //nesse caso ele vai retornar toda a tabela
 
@@ -33,7 +33,7 @@ export class adminController {
     async updatePedidos (req: Request, res: Response) {
         const {id_pedido} = req.params
         //vai pegar o id
-        const estado:Estado = req.body
+        const estado = req.body
 
         //pega o estado que quer trocar
         let pedidoRetornado = await pedidoRepository.findOneBy({id_pedido: Number(id_pedido)})
