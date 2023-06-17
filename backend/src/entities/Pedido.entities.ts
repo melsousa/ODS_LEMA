@@ -41,7 +41,7 @@ export class Pedido {
   estado: Estado;
 
   @Column({ type: "longblob", nullable: true })
-  arquivo: DeepPartial<Buffer> | undefined;
+  arquivo: Buffer | null;
 
   @Column({ type: "text", nullable: true })
   medida: string;
