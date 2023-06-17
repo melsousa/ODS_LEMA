@@ -9,7 +9,7 @@ export class adminController {
     async readPedidos (req: Request, res: Response) {
         
         const {estado} = req.params
-        console.log(estado)
+        // console.log(estado)
         //retornar todos os pedidos
         const pedidos = Object.values(Estado).find(
             (enumEstado) => enumEstado.toLowerCase() === estado.toLowerCase()

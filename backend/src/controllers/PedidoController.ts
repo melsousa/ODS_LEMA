@@ -3,13 +3,26 @@ import { Pedido, Prioridade, Estado } from "../models/Pedido";
 import { pedidoRepository } from "./../repositories/PedidoRepository";
 import { Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
-import { usuarioRepository } from "../repositories/UsuarioRepository";
+// import { usuarioRepository } from "../repositories/UsuarioRepository";
 
 import { In } from "typeorm";
 import fs from "fs";
 
 export class PedidoController {
   async createPedido(req: Request, res: Response) {
+    const { authorization } = req.headers;
+
+    if (!authorization) {
+      throw new Error("Não autorizado");
+    }
+
+    // Verificando se o token existe e obtendo o ID do usuário
+    const token = authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, process.env.JWT_PASS ?? "") as {
+      id: number;
+    };
+    const { id } = decodedToken;
+
     // Dados do pedido
     const {
       material,
@@ -19,26 +32,24 @@ export class PedidoController {
       id_autorAutorizador,
     } = req.body;
 
-    const { id_autorPedido } = req.params;
-
     let prioridade: Prioridade = Prioridade.baixa;
     let estado: Estado = Estado.pendente;
     let arquivo: Buffer | undefined;
 
     if (req.file) {
-      arquivo = JSON.parse(fs.readFileSync(req.file.path, "utf-8"));
+      arquivo = fs.readFileSync(req.file.path);
     }
 
     const pedido = new Pedido(
       material,
+      prioridade,
       maquina,
-      Prioridade.baixa,
-      Estado.pendente,
+      estado,
+      arquivo || Buffer.alloc(0), // Verificação adicional para garantir que arquivo seja um Buffer
       medida,
-      arquivo ? arquivo.toString() : "", // Converte o Buffer para string
-      id_horaDisponivel,
-      Number(id_autorPedido),
-      id_autorAutorizador
+      Number(id_horaDisponivel),
+      id,
+      Number(id_autorAutorizador)
     );
 
     const novoPedido = pedidoRepository.create(pedido);
@@ -50,28 +61,29 @@ export class PedidoController {
 
   async getPedidosByUsuario(req: Request, res: Response) {
     const { authorization } = req.headers;
-  
+
     if (!authorization) {
       throw new Error("Não autorizado");
     }
-  
+
     // Verificando se o token existe e obtendo o ID do usuário
     const token = authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, process.env.JWT_PASS ?? "") as {
       id: number;
     };
     const { id } = decodedToken;
-    
-    
-    
+    console.log(id)
+
     // Obtendo os pedidos vinculados ao usuário logado
-    const pedidos = await pedidoRepository.findBy({ id_autorPedido: id });
-    
-    
+    const pedidos = await pedidoRepository
+    .createQueryBuilder("pedido")
+    .where("pedido.id_autorPedido = :id_autorPedido", { id_autorPedido: id })
+    .getMany();
+  
+
 
     return res.status(200).json(pedidos);
   }
-  
 
   async updatePedido(req: Request, res: Response) {
     const { authorization } = req.headers;
@@ -97,8 +109,10 @@ export class PedidoController {
       throw new Error("Pedido não encontrado");
     }
 
-    if (pedido.estado.toString().toLowerCase() !== Estado.pendente) { 
-      throw new Error("O pedido não pode ser excluído porque não está no estado 'pendente'");
+    if (pedido.estado.toString().toLowerCase() !== Estado.pendente) {
+      throw new Error(
+        "O pedido não pode ser excluído porque não está no estado 'pendente'"
+      );
     }
 
     pedido.material = material || pedido.material;
@@ -113,37 +127,38 @@ export class PedidoController {
   async deletePedido(req: Request, res: Response) {
     const { authorization } = req.headers;
     const { id_pedido } = req.params;
-  
+
     if (!authorization) {
       throw new Error("Não autorizado");
     }
-  
+
     // Verificando se o token existe e obtendo o ID do usuário
     const token = authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, process.env.JWT_PASS ?? "") as {
       id: number;
     };
     const { id } = decodedToken;
-  
+
     // Verificando se o pedido existe e se o estado é "pendente"
     const pedido = await pedidoRepository.findOne({
       where: { id_pedido: Number(id_pedido), id_autorPedido: id },
     });
-  
+
     if (!pedido) {
       throw new Error("Pedido não encontrado");
     }
-  
-    if (pedido.estado.toString().toLowerCase() !== Estado.pendente) { 
-      throw new Error("O pedido não pode ser atualizado porque não está no estado 'pendente'");
+
+    if (pedido.estado.toString().toLowerCase() !== Estado.pendente) {
+      throw new Error(
+        "O pedido não pode ser atualizado porque não está no estado 'pendente'"
+      );
     }
-  
+
     // Excluindo o pedido
     await pedidoRepository.delete(id_pedido);
-  
+
     return res.status(202).json("pedido deletado");
   }
-  
 
   async getPedidosByEstado(req: Request, res: Response) {
     const { estado } = req.params;

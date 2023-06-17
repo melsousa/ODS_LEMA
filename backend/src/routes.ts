@@ -69,30 +69,12 @@ routes.put("/horario/update/:id_horario", new HorarioController().updateHorario)
 //delete horário por id
 routes.delete("/horario/delete/:id_horario", new HorarioController().deleteHorario)
 
-// CARGO
-
-// criar cargo
-routes.post("/cargo/create", new CargoController().createCargo);
-
-// listar cargos
-routes.get("/cargo/get", new CargoController().listCargos)
-
-// listar cargo por id
-routes.get("/cargo/get/:id_cargo", new CargoController().getCargoById)
-
-// update cargo
-routes.put("/cargo/update/:id_cargo", new CargoController().updateCargo)
-
-routes.delete("/cargo/delete/:id_cargo", new CargoController().deleteCargo)
-
-
-
 
 
 // PEDIDO COM USUÁRIO
 
 // Cadastro de pedido
-routes.post("/pedido", upload.single("arquivo"), new PedidoController().createPedido);
+routes.post("/pedido/create", new PedidoController().createPedido)
 
 // routes.post( "/pedido", new PedidoController().createPedido);
 routes.get("/pedido/get", new PedidoController().getPedidosByUsuario)
@@ -111,5 +93,21 @@ routes.get("/adminPedidos/estado_pedido=:estado", new adminController().readPedi
 routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController().updatePedidos)
 //atualiza o pedido apartir do id
 routes.post("/adminPedidos", new adminController().user)
+
+// CARGO
+
+// criar cargo
+routes.post("/cargo/create", new CargoController().createCargo);
+
+// listar cargos
+routes.get("/cargo/get", new CargoController().listCargos)
+
+// listar cargo por id
+routes.get("/cargo/get/:id_cargo", new CargoController().getCargoById)
+
+// update cargo
+routes.put("/cargo/update/:id_cargo", new CargoController().updateCargo)
+3
+routes.delete("/cargo/delete/:id_cargo", new CargoController().deleteCargo)
 
 export default routes;
