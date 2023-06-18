@@ -9,14 +9,13 @@ export class adminController {
     async readPedidos (req: Request, res: Response) {
         
         const {estado} = req.params
-        // console.log(estado)
         //retornar todos os pedidos
-        const pedidos = Object.values(Estado).find(
-            (enumEstado) => enumEstado.toLowerCase() === estado.toLowerCase()
-        );
-        // const pedidos = await pedidoRepository.find({
-        //     where: {estado: estado,}
-        // })
+        // const pedidos = Object.values(Estado).find(
+        //     (enumEstado) => enumEstado.toLowerCase() === estado.toLowerCase()
+        // );
+        const pedidos = await pedidoRepository.find({
+            where: {estado: estado}
+        })
         //nesse caso ele vai retornar toda a tabela
 
         //const pedidoFiltrado = pedidos.filter((item) => String(item.estado) == estado)
