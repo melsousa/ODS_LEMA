@@ -3,7 +3,6 @@ import { pedidoRepository } from "../repositories/PedidoRepository";
 import { Pedido } from "../entities/Pedido.entities";
 import { Estado } from "../models/Pedido";
 import { usuarioRepository } from "../repositories/UsuarioRepository";
-
 export class adminController {
 
     async readPedidos (req: Request, res: Response) {
@@ -63,6 +62,7 @@ export class adminController {
     async user (req: Request, res: Response) {
 
         const user = await usuarioRepository.find()
+        console.log(user)
         return res.status(200).json(user)
     }
 

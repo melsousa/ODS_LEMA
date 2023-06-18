@@ -37,7 +37,7 @@ routes.post("/usuario", new UsuarioController().create);
 
 
 //a partir daqui tds as rotas so sao acessadas apenas com a token
-routes.use(autenticaoToken)
+//routes.use(autenticaoToken)
 
 // USUÁRIO 
 
@@ -86,13 +86,13 @@ routes.delete("/pedido/delete/:id_pedido", new PedidoController().deletePedido)
 routes.get("/pedido/estado/:estado", new PedidoController().getPedidosByEstado);
 
 //rotas que sao acessadas pelo root
-routes.use(autenticacaoAdmin)
+//routes.use(autenticacaoAdmin)
 
 routes.get("/adminPedidos/estado_pedido=:estado", new adminController().readPedidos)
 //retornar os pedidos a partir do estado
 routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController().updatePedidos)
 //atualiza o pedido apartir do id
-routes.post("/adminPedidos", new adminController().user)
+routes.get("/adminPedidos", new adminController().user)
 
 // CARGO
 
