@@ -17,10 +17,10 @@ export enum Prioridade {
 }
 
 export enum Estado {
-  pendente,
-  aprovado,
-  concluido,
-  reprovado,
+  pendente = "pendente",
+  aprovado = "aprovado",
+  concluido = "concluido",
+  reprovado = "reprovado",
 }
 
 @Entity("pedidos")
@@ -38,7 +38,7 @@ export class Pedido {
   maquina: string;
 
   @Column({ type: "text", enum: Estado})
-  estado: Estado;
+  estado: string;
 
   @Column({ type: "longblob", nullable: true })
   arquivo: Buffer | null;
