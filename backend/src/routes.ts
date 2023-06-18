@@ -50,11 +50,6 @@ routes.put("/user/update", new UsuarioController().updateUser)
 // Deletar usuário
 routes.delete("/user/delete", new UsuarioController().deleteUser)
 
-// routes.get("/adminPedidos/estado_pedido=:estado", new adminController().readPedidos)
-// //retornar os pedidos a partir do estado
-// routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController().updatePedidos)
-// //atualiza o pedido apartir do id
-// routes.post("/adminPedidos", new adminController().user)
 
 // HORÁRIO
 
@@ -75,15 +70,15 @@ routes.delete("/horario/delete/:id_horario", new HorarioController().deleteHorar
 
 // Cadastro de pedido
 routes.post("/pedido/create", new PedidoController().createPedido)
-
-// routes.post( "/pedido", new PedidoController().createPedido);
+// lista todos os pedidos do usuário
 routes.get("/pedido/get", new PedidoController().getPedidosByUsuario)
-
+// lista todos os pedidos do usuario por estado
+routes.get("/pedido/estado/:estado", new PedidoController().getPedidosByEstado);
+// atualiza o pedido por id
 routes.put("/pedido/update/:id_pedido", new PedidoController().updatePedido) //*
-
+// deleta o pedido por id
 routes.delete("/pedido/delete/:id_pedido", new PedidoController().deletePedido)
 
-routes.get("/pedido/estado/:estado", new PedidoController().getPedidosByEstado);
 
 //rotas que sao acessadas pelo root
 routes.use(autenticacaoAdmin)

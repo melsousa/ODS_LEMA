@@ -21,10 +21,11 @@ var Prioridade;
 })(Prioridade = exports.Prioridade || (exports.Prioridade = {}));
 var Estado;
 (function (Estado) {
-    Estado[Estado["pendete"] = 0] = "pendete";
+    Estado[Estado["pendente"] = 0] = "pendente";
     Estado[Estado["aprovado"] = 1] = "aprovado";
-    Estado[Estado["concluido"] = 2] = "concluido";
-    Estado[Estado["reprovado"] = 3] = "reprovado";
+    Estado[Estado["em_andamento"] = 2] = "em_andamento";
+    Estado[Estado["concluido"] = 3] = "concluido";
+    Estado[Estado["reprovado"] = 4] = "reprovado";
 })(Estado = exports.Estado || (exports.Estado = {}));
 let Pedido = class Pedido {
 };
@@ -34,7 +35,7 @@ __decorate([
 ], Pedido.prototype, "id_pedido", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: "text", nullable: true }),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], Pedido.prototype, "material", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: "text", enum: Prioridade }),
@@ -42,7 +43,7 @@ __decorate([
 ], Pedido.prototype, "prioridade", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: "text", nullable: true }),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], Pedido.prototype, "maquina", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: "text", enum: Estado }),
@@ -54,12 +55,20 @@ __decorate([
 ], Pedido.prototype, "arquivo", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: "text", nullable: true }),
-    __metadata("design:type", String)
-], Pedido.prototype, "medida", void 0);
+    __metadata("design:type", Object)
+], Pedido.prototype, "cor", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "text", nullable: true }),
+    __metadata("design:type", Object)
+], Pedido.prototype, "descricao", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "text", nullable: true }),
+    __metadata("design:type", Object)
+], Pedido.prototype, "comentario", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => HoraDisponivel_entities_1.HoraDisponivel, (horaDisponivel) => horaDisponivel.horas),
     (0, typeorm_1.JoinColumn)({ name: "id_horaDisponivel" }),
-    __metadata("design:type", Number)
+    __metadata("design:type", Object)
 ], Pedido.prototype, "id_horaDisponivel", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => Usuario_entities_1.Usuario, (usuario) => usuario.autorPedido),
@@ -69,7 +78,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.ManyToOne)(() => Usuario_entities_1.Usuario, (usuario) => usuario.autorAutorizador),
     (0, typeorm_1.JoinColumn)({ name: "id_autorAutorizador" }),
-    __metadata("design:type", Number)
+    __metadata("design:type", Object)
 ], Pedido.prototype, "id_autorAutorizador", void 0);
 Pedido = __decorate([
     (0, typeorm_1.Entity)("pedidos")

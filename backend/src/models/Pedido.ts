@@ -5,7 +5,9 @@ export class Pedido {
   readonly maquina: string;
   estado: Estado;
   arquivo: Buffer | null;
-  readonly medida: string;
+  readonly cor: string;
+  readonly descricao: string;
+  readonly comentario: string;
   readonly id_horaDisponivel: number;
   readonly id_autorPedido: number;
   readonly id_autorAutorizador: number;
@@ -16,7 +18,9 @@ export class Pedido {
     maquina: string,
     estado: Estado,
     arquivo: Buffer,
-    medida: string,
+    cor: string,
+    descricao: string,
+    comentario: string,
     id_horaDisponivel: number,
     id_autorPedido: number,
     id_autorAutorizador: number
@@ -26,7 +30,9 @@ export class Pedido {
     this.maquina = maquina;
     this.estado = estado;
     this.arquivo = arquivo;
-    this.medida = medida;
+    this.cor = cor;
+    this.descricao = descricao;
+    this.comentario = comentario;
     this.id_horaDisponivel = id_horaDisponivel;
     this.id_autorPedido = id_autorPedido;
     this.id_autorAutorizador = id_autorAutorizador;
@@ -59,12 +65,20 @@ export class Pedido {
   public get Estado(): Estado {
     return this.estado;
   }
-  public get Arquivo(): Buffer | null{
+  public get Arquivo(): Buffer | null {
     return this.arquivo;
   }
-  
-  public get Medida(): string {
-    return this.medida;
+
+  public get Cor(): string {
+    return this.cor;
+  }
+
+  public get Descricao(): string {
+    return this.descricao;
+  }
+
+  public get Comentario(): string {
+    return this.comentario;
   }
 
   public get Id_horaDisponivel(): number {
@@ -83,6 +97,7 @@ export class Pedido {
 export enum Estado {
   pendente = "pendente",
   aprovado = "aprovado",
+  produzindo = "produzindo",
   concluido = "concluido",
   reprovado = "reprovado",
 }
