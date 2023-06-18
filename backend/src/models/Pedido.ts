@@ -2,7 +2,7 @@ export class Pedido {
   
   readonly id_pedido:number
   readonly material: string;
-  readonly prioridade: Prioridade
+  prioridade: Prioridade;
   readonly maquina: string;
   estado: Estado;
   readonly arquivo: Buffer
@@ -19,7 +19,7 @@ export class Pedido {
     this.material = material
     this.prioridade = prioridade
     this.maquina = maquina
-    this.estado = Estado.pendete
+    this.estado = Estado.pendente
     this.arquivo = arquivo
     this.medida = medida
     this.id_horaDisponivel = id_horaDisponivel
@@ -32,7 +32,7 @@ export class Pedido {
   
   
   public setEstado (estado: Estado) {
-    if(this.estado == Estado.pendete && estado == (Estado.aprovado || Estado.reprovado))  {
+    if(this.estado == Estado.pendente && estado == (Estado.aprovado || Estado.reprovado))  {
       
       this.estado = estado
 
@@ -52,22 +52,23 @@ export class Pedido {
 
   
   public get Material(): string {
-    return this.material
+    return this.material;
   }
   public get Prioridade(): Prioridade {
-    return this.prioridade
+    return this.prioridade;
   }
   public get Maquina(): string {
-    return this.maquina
+    return this.maquina;
   }
   public get Estado(): Estado {
-    return this.estado
+    return this.estado;
   }
   public get Arquivo(): Buffer{
     return this.arquivo
   }
+  
   public get Medida(): string {
-    return this.medida
+    return this.medida;
   }
 
   public get Id_horaDisponivel() : number {
@@ -81,11 +82,10 @@ export class Pedido {
   public get Id_autorAutorizador() : number {
     return this.id_autorAutorizador
   }
-
 }
 
 export enum Estado {
-  pendete = 'pendente',
+  pendente = 'pendente',
   aprovado = 'aprovado',
   concluido = 'concluido',
   reprovado = 'reprovado',
@@ -97,4 +97,3 @@ export enum Prioridade {
   alta = "alta"
 
 }
-

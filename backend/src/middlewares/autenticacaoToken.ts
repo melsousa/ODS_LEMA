@@ -37,7 +37,7 @@ export const autenticaoToken = async (req: Request, res: Response, next: NextFun
   
 }
 
-export const autenticacaoAdmin =async (req: Request, res: Response, next: NextFunction) => {
+export const autenticacaoAdmin = async (req: Request, res: Response, next: NextFunction) => {
   
   const { authorization } = req.headers;
 
@@ -56,10 +56,9 @@ export const autenticacaoAdmin =async (req: Request, res: Response, next: NextFu
   const user = await usuarioRepository.findOne({where: { id_usuario, }, relations: ['id_cargo']});
   
   
-  console.log(user)
+  console.log(`autenticacao ${user}`)
   if (user?.id_cargo.id_cargo != 1) {
     throw new UnauthorizedError("Não autorizado");
   }  
   next()
- 
 }
