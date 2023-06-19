@@ -3,9 +3,7 @@ import * as jwt from "jsonwebtoken"
 import { UnauthorizedError } from "../helpers/api-erros";
 import { usuarioRepository } from "../repositories/UsuarioRepository";
 
-type JwtPayLoad ={
-    id: String
-}
+
 
 export const autenticaoToken = async (req: Request, res: Response, next: NextFunction) => {
 
@@ -37,7 +35,7 @@ export const autenticaoToken = async (req: Request, res: Response, next: NextFun
   
 }
 
-export const autenticacaoAdmin = async (req: Request, res: Response, next: NextFunction) => {
+export const adminAutenticacao = async (req: Request, res: Response, next: NextFunction) => {
   
   const { authorization } = req.headers;
 
@@ -48,15 +46,14 @@ export const autenticacaoAdmin = async (req: Request, res: Response, next: NextF
   const token = authorization.split(" ")[1];
 
   // verificando se o token existe
-  const { id_usuario } = jwt.verify(
-    token,
-    process.env.JWT_PASS ?? ""
-  ) as jwt.JwtPayload;
+  const decodedToken = jwt.verify(token, process.env.JWT_PASS ?? "") as {
+    id: number;
+  };
+  
+  const { id } = decodedToken;
+  const user = await usuarioRepository.findOne({where: { id_usuario: id }, relations: ['id_cargo']});
+  
 
-  const user = await usuarioRepository.findOne({where: { id_usuario, }, relations: ['id_cargo']});
-  
-  
-  console.log(`autenticacao ${user}`)
   if (user?.id_cargo.id_cargo != 1) {
     throw new UnauthorizedError("Não autorizado");
   }  
