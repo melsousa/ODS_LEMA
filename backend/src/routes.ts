@@ -18,7 +18,7 @@ const routes = Router();
 routes.post("/pedidoanonimo/create", new PedidoAnonimoController().createPedidoAnonimo);
 // lista de todos os pedidos
 routes.get("/pedidoanonimo/get", new PedidoAnonimoController().listPedidosAnonimos)
-routes.get("/pedidoanonimo/geteste", new PedidoAnonimoController().listPedidosAnonimosT)
+// routes.get("/pedidoanonimo/geteste", new PedidoAnonimoController().listPedidosAnonimosT)
 // lista pelo código do pedido
 routes.get("/pedidoanonimo/getPedidoByCodigo/:codigo", new PedidoAnonimoController().getPedidoByCodigo)
 // update pedido pelo código
@@ -51,21 +51,6 @@ routes.put("/user/update", new UsuarioController().updateUser)
 routes.delete("/user/delete", new UsuarioController().deleteUser)
 
 
-// HORÁRIO
-
-// criar horário
-routes.post("/horario/create", new HorarioController().createHorario)
-// lista todos os horários 
-routes.get("/horario/get", new HorarioController().listHorarios)
-// lista horario por id
-routes.get("/horario/getById/:id_horario", new HorarioController().getHorarioById)
-// update horário por id
-routes.put("/horario/update/:id_horario", new HorarioController().updateHorario)
-//delete horário por id
-routes.delete("/horario/delete/:id_horario", new HorarioController().deleteHorario)
-
-
-
 // PEDIDO COM USUÁRIO
 
 // Cadastro de pedido
@@ -93,16 +78,26 @@ routes.get("/adminPedidos", new adminController().user)
 
 // criar cargo
 routes.post("/cargo/create", new CargoController().createCargo);
-
 // listar cargos
 routes.get("/cargo/get", new CargoController().listCargos)
-
 // listar cargo por id
 routes.get("/cargo/get/:id_cargo", new CargoController().getCargoById)
-
 // update cargo
 routes.put("/cargo/update/:id_cargo", new CargoController().updateCargo)
-3
+// deletar cargo
 routes.delete("/cargo/delete/:id_cargo", new CargoController().deleteCargo)
+
+// HORÁRIO
+
+// criar horário
+routes.post("/horario/create", new HorarioController().createHorario)
+// lista todos os horários 
+routes.get("/horario/get", new HorarioController().listHorarios)
+// lista horario por id
+routes.get("/horario/getById/:id_horario", new HorarioController().getHorarioById)
+// update horário por id
+routes.put("/horario/update/:id_horario", new HorarioController().updateHorario)
+//delete horário por id
+routes.delete("/horario/delete/:id_horario", new HorarioController().deleteHorario)
 
 export default routes;
