@@ -5,7 +5,7 @@ import { PedidoController } from './controllers/PedidoController';
 import { UsuarioController } from "./controllers/UsuarioController";
 import { adminController } from './controllers/adminController';
 import { Router } from "express";
-import { autenticaoToken, autenticacaoAdmin } from './middlewares/autenticacaoToken';
+import { autenticaoToken, adminAutenticacao } from './middlewares/autenticacaoToken';
 
 
 import { upload } from "./uploadMiddleware"; // Importar o middleware de upload de arquivos
@@ -81,13 +81,13 @@ routes.delete("/pedido/delete/:id_pedido", new PedidoController().deletePedido)
 
 
 //rotas que sao acessadas pelo root
-routes.use(autenticacaoAdmin)
+routes.use(adminAutenticacao)
 
-routes.get("/adminPedidos/estado_pedido=:estado", new adminController().readPedidos)
+// routes.get("/adminPedidos/estado_pedido=:estado", new adminController().readPedidos)
 //retornar os pedidos a partir do estado
 routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController().updatePedidos)
 //atualiza o pedido apartir do id
-routes.post("/adminPedidos", new adminController().user)
+routes.get("/adminPedidos", new adminController().user)
 
 // CARGO
 

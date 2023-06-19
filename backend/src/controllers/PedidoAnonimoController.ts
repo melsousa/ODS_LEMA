@@ -1,43 +1,51 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import { pedidoAnonimoRepository } from "../repositories/PedidoAnonimoRepository";
-import { Estado } from "../models/PedidoAnonimo";
+import { PedidoAnonimo, Estado } from "../models/PedidoAnonimo";
+import fs from "fs";
+
 
 export class PedidoAnonimoController {
   async createPedidoAnonimo(req: Request, res: Response) {
     // criar pedido anônimo
     const {
       material,
-      prioridade,
       maquina,
-      estado,
-      arquivo,
-      medida,
-      codigo,
+      cor,
+      descricao,
+      comentario,
       id_horaDisponivel,
-      id_autorAutorizadorAnonimo,
     } = req.body;
 
-    try {
-      const novoPedido = pedidoAnonimoRepository.create({
+    let id_autorAutorizadorAnonimo = 1;
+    let estado: Estado = Estado.pendente;
+    let arquivo: Buffer | undefined;
+    let codigo = bcrypt.hashSync(Date.now().toString(), 10); // gerando um hash a partir do timestamp atual
+
+    if (req.file) {
+      arquivo = fs.readFileSync(req.file.path);
+    }
+    
+    const pedidoAnonimo = new PedidoAnonimo (
         material,
         maquina,
         estado,
-        arquivo,
-        medida,
-        codigo: bcrypt.hashSync(Date.now().toString(), 10), // gerando um hash a partir do timestamp atual
+        arquivo || Buffer.alloc(0),
+        cor,
+        descricao,
+        comentario,
+        codigo,
         id_horaDisponivel,
-        id_autorAutorizadorAnonimo,
-      });
+        Number(id_autorAutorizadorAnonimo),
+      );
 
-      await pedidoAnonimoRepository.save(novoPedido);
+      const novoPedidoAnonimo = pedidoAnonimoRepository.create(pedidoAnonimo)
+      await pedidoAnonimoRepository.save(novoPedidoAnonimo);
 
-      return res.status(201).json(novoPedido);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({ message: "Internal Server Error" });
+      return res.status(201).json(novoPedidoAnonimo);
+    
     }
-  }
+  
 
   async listPedidosAnonimos(req: Request, res: Response) {
     try {
@@ -106,7 +114,7 @@ export class PedidoAnonimoController {
 
     pedido.material = material || pedido.material;
     pedido.maquina = maquina || pedido.maquina;
-    pedido.medida = medida || pedido.medida;
+    // pedido.medida = medida || pedido.medida;
 
     await pedidoAnonimoRepository.save(pedido);
 

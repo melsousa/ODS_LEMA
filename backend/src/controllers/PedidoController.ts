@@ -1,5 +1,5 @@
 import { error } from "console";
-import { Pedido, Prioridade, Estado } from "../models/Pedido";
+import { Pedido, Estado } from "../models/Pedido";
 import { pedidoRepository } from "./../repositories/PedidoRepository";
 import { Request, Response } from "express";
 import * as jwt from "jsonwebtoken";

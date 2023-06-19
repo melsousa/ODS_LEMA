@@ -35,7 +35,7 @@ export const autenticaoToken = async (req: Request, res: Response, next: NextFun
       
 }
 
-export const autenticacaoAdmin =async (req: Request, res: Response, next: NextFunction) => {
+export const adminAutenticacao = async (req: Request, res: Response, next: NextFunction) => {
   
   const { authorization } = req.headers;
 
@@ -46,18 +46,16 @@ export const autenticacaoAdmin =async (req: Request, res: Response, next: NextFu
   const token = authorization.split(" ")[1];
 
   // verificando se o token existe
-  const { id_usuario } = jwt.verify(
-    token,
-    process.env.JWT_PASS ?? ""
-  ) as jwt.JwtPayload;
+  const decodedToken = jwt.verify(token, process.env.JWT_PASS ?? "") as {
+    id: number;
+  };
+  
+  const { id } = decodedToken;
+  const user = await usuarioRepository.findOne({where: { id_usuario: id }, relations: ['id_cargo']});
+  
 
-  const user = await usuarioRepository.findOne({where: { id_usuario, }, relations: ['id_cargo']});
-  
-  
-  console.log(user)
   if (user?.id_cargo.id_cargo != 1) {
     throw new UnauthorizedError("Não autorizado");
   }  
   next()
- 
 }
