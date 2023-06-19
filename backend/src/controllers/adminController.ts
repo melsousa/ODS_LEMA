@@ -8,10 +8,9 @@ export class adminController {
     async readPedidos (req: Request, res: Response) {
         
         const {estado} = req.params
+        console.log(estado)
         //retornar todos os pedidos
-        // const pedidos = Object.values(Estado).find(
-        //     (enumEstado) => enumEstado.toLowerCase() === estado.toLowerCase()
-        // );
+
         const pedidos = await pedidoRepository.find({
             where: {estado: estado}
         })
@@ -33,14 +32,15 @@ export class adminController {
     async updatePedidos (req: Request, res: Response) {
         const {id_pedido} = req.params
         //vai pegar o id
-        const {estado} = req.body
+        const estado = req.body
 
         //pega o estado que quer trocar
         let pedidoRetornado = await pedidoRepository.findOneBy({id_pedido: Number(id_pedido)})
        //pega a linha que vai ser alterada
 
-       const pedido = await pedidoRepository.createQueryBuilder().update(Pedido).set({ estado }).where({ id_pedido: Number(id_pedido) }).execute();
-        
+        const pedido = await pedidoRepository.createQueryBuilder().update(Pedido).set({estado: estado})
+        .where({ id_pedido: id_pedido })
+        .execute()
 
         //faz alteracao do estado
         pedidoRetornado = await pedidoRepository.findOneBy({id_pedido: Number(id_pedido)})
@@ -62,7 +62,6 @@ export class adminController {
     async user (req: Request, res: Response) {
 
         const user = await usuarioRepository.find()
-        console.log(user)
         return res.status(200).json(user)
     }
 

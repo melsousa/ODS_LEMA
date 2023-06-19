@@ -4,19 +4,19 @@ import { pedidoAnonimoRepository } from "../repositories/PedidoAnonimoRepository
 import { Estado } from "../models/PedidoAnonimo";
 
 export class PedidoAnonimoController {
-  async createPedidoAnonimo(req: Request, res: Response) {
-    // criar pedido anônimo
-    const {
-      material,
-      prioridade,
-      maquina,
-      estado,
-      arquivo,
-      medida,
-      codigo,
-      id_horaDisponivel,
-      id_autorAutorizadorAnonimo,
-    } = req.body;
+    async createPedidoAnonimo(req: Request, res: Response) {
+        // criar pedido anônimo
+        const {
+            material,
+            prioridade,
+            maquina,
+            estado,
+            arquivo,
+            medida,
+            codigo,
+            id_horaDisponivel,
+            id_autorAutorizadorAnonimo,
+        } = req.body;
 
     try {
       const novoPedido = pedidoAnonimoRepository.create({

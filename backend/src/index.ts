@@ -2,6 +2,7 @@ import 'express-async-errors'
 import express from "express";
 import { AppDataSource } from "./data-source";
 import routes from "./routes";
+
 import cors from "cors";
 import { errorMiddleware } from './middlewares/error';
 import { ApiError, BadRequestError, NotFoundError, UnauthorizedError } from "./helpers/api-erros";

@@ -42,20 +42,20 @@ export class Pedido {
 
   @Column({ type: "longblob", nullable: true })
   arquivo: Buffer | null;
-
-  @Column({ type: "text", nullable: true })
-  medida: string;
-
+  
+  @Column({type:"text", nullable:true})
+  medida: string
+  
   @ManyToOne(() => HoraDisponivel, (horaDisponivel) => horaDisponivel.horas)
-  @JoinColumn({ name: "id_horaDisponivel" })
-  id_horaDisponivel: number;
+  @JoinColumn({name: "id_horaDisponivel"})
+  id_horaDisponivel: number
 
   @ManyToOne(() => Usuario, (usuario) => usuario.autorPedido)
-  @JoinColumn({ name: "id_autorPedido" })
-  id_autorPedido: number;
-
+  @JoinColumn({name: "id_autorPedido"})
+  id_autorPedido: number
+  
   @ManyToOne(() => Usuario, (usuario) => usuario.autorAutorizador)
-  @JoinColumn({ name: "id_autorAutorizador" })
+  @JoinColumn({ name: "id_autorAutorizador"})
   id_autorAutorizador: number;
+  
 }
-
