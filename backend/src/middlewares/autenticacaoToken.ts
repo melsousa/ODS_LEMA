@@ -33,6 +33,29 @@ export const autenticaoToken = async (req: Request, res: Response, next: NextFun
       
       next()
       
+}
 
+export const adminAutenticacao = async (req: Request, res: Response, next: NextFunction) => {
   
+  const { authorization } = req.headers;
+
+  if (!authorization) {
+      throw new UnauthorizedError("Não autorizado");
+  }
+  
+  const token = authorization.split(" ")[1];
+
+  // verificando se o token existe
+  const decodedToken = jwt.verify(token, process.env.JWT_PASS ?? "") as {
+    id: number;
+  };
+  
+  const { id } = decodedToken;
+  const user = await usuarioRepository.findOne({where: { id_usuario: id }, relations: ['id_cargo']});
+  
+
+  if (user?.id_cargo.id_cargo != 1) {
+    throw new UnauthorizedError("Não autorizado");
+  }  
+  next()
 }
