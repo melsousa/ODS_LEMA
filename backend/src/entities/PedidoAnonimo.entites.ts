@@ -1,5 +1,6 @@
 import { HoraDisponivel } from "./HoraDisponivel.entities";
 import { Usuario } from "./Usuario.entities";
+import { DeepPartial } from "typeorm";
 
 import {
   Column,
@@ -8,6 +9,13 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
+
+export enum Estado {
+  pendente,
+  aprovado,
+  concluido,
+  reprovado,
+}
 
 @Entity("pedidosAnonimo")
 export class PedidoAnonimo {
@@ -20,18 +28,18 @@ export class PedidoAnonimo {
   @Column({ type: "text", nullable: true })
   maquina: string;
 
-  @Column({ type: "text", nullable: true })
+  @Column({ type: "text", enum: Estado })
   estado: string;
 
-  @Column({ type: "text", nullable: true })
-  arquivo: Buffer;
+  @Column({ type: "longblob", nullable: true }) // ainda não foi rodado no banco
+  arquivo: DeepPartial<Buffer> | undefined;
 
   @Column({ type: "text", nullable: true })
   medida: string;
 
   @Column({ type: "text", nullable: true })
   codigo: string;
-  
+
   @ManyToOne(() => HoraDisponivel, (horaDisponivel) => horaDisponivel.horas)
   @JoinColumn({ name: "id_horaDisponivel" })
   id_horaDisponivel: HoraDisponivel;

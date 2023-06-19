@@ -2,9 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Prioridade = exports.Estado = exports.Pedido = void 0;
 class Pedido {
+<<<<<<< HEAD
     constructor(material, prioridade, maquina, arquivo, medida, id_horaDisponivel, id_autorPedido, id_autorAutorizador) {
+=======
+    constructor(material, prioridade, maquina, estado, arquivo, medida, id_horaDisponivel, id_autorPedido, id_autorAutorizador) {
+>>>>>>> main
         this.material = material;
-        this.prioridade = prioridade;
+        this.prioridade = Prioridade.baixa;
         this.maquina = maquina;
         this.estado = Estado.pendete;
         this.arquivo = arquivo;

@@ -1,5 +1,6 @@
-import { HoraDisponivel } from './HoraDisponivel.entities';
-import { Usuario } from './Usuario.entities';
+import { HoraDisponivel } from "./HoraDisponivel.entities";
+import { Usuario } from "./Usuario.entities";
+import { DeepPartial } from "typeorm";
 
 import {
   Column,
@@ -9,25 +10,38 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 
+export enum Prioridade {
+  baixa,
+  media,
+  alta,
+}
+
+export enum Estado {
+  pendente = "pendente",
+  aprovado = "aprovado",
+  concluido = "concluido",
+  reprovado = "reprovado",
+}
+
 @Entity("pedidos")
 export class Pedido {
   @PrimaryGeneratedColumn()
   id_pedido: number;
 
-  @Column({ type: "text", nullable:true })
+  @Column({ type: "text", nullable: true })
   material: string;
-  
-  @Column({type: "text"})
-  prioridade: Prioridade
+
+  @Column({ type: "text" , enum: Prioridade})
+  prioridade: Prioridade;
 
   @Column({ type: "text", nullable: true })
   maquina: string;
 
-  @Column({ type: "text", nullable: true })
+  @Column({ type: "text", enum: Estado})
   estado: string;
-  
-  @Column({type: 'blob', nullable:true}) //tipo para arquivo em mysql
-  arquivo: Buffer
+
+  @Column({ type: "longblob", nullable: true })
+  arquivo: Buffer | null;
   
   @Column({type:"text", nullable:true})
   medida: string
@@ -44,11 +58,4 @@ export class Pedido {
   @JoinColumn({ name: "id_autorAutorizador"})
   id_autorAutorizador: number;
   
-}
-
-
-export enum Prioridade {
-  baixa,
-  media,
-  alta
 }
