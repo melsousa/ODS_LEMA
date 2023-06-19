@@ -13,7 +13,7 @@ export class CargoController {
 
     //validação básica
     if (!cargo) {
-      return res.status(400).json({ message: "O cargo é obrigatório" });
+      return res.status(400).json({message: "O cargo é obrigatório"});
     }
 
     try {

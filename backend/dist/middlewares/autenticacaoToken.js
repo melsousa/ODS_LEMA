@@ -23,7 +23,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+<<<<<<< HEAD
+exports.autenticacaoAdmin = exports.autenticaoToken = void 0;
+=======
 exports.autenticaoToken = void 0;
+>>>>>>> main
 const jwt = __importStar(require("jsonwebtoken"));
 const api_erros_1 = require("../helpers/api-erros");
 const UsuarioRepository_1 = require("../repositories/UsuarioRepository");
@@ -44,3 +48,23 @@ const autenticaoToken = async (req, res, next) => {
     next();
 };
 exports.autenticaoToken = autenticaoToken;
+<<<<<<< HEAD
+const autenticacaoAdmin = async (req, res, next) => {
+    var _a;
+    const { authorization } = req.headers;
+    if (!authorization) {
+        throw new api_erros_1.UnauthorizedError("Não autorizado");
+    }
+    const token = authorization.split(" ")[1];
+    // verificando se o token existe
+    const { id_usuario } = jwt.verify(token, (_a = process.env.JWT_PASS) !== null && _a !== void 0 ? _a : "");
+    const user = await UsuarioRepository_1.usuarioRepository.findOneBy({ id_usuario });
+    console.log(user);
+    if (!user) {
+        throw new api_erros_1.UnauthorizedError("Não autorizado");
+    }
+    next();
+};
+exports.autenticacaoAdmin = autenticacaoAdmin;
+=======
+>>>>>>> main

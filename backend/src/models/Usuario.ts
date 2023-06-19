@@ -1,4 +1,5 @@
 import * as bcrypt from "bcrypt";
+import { Cargo } from "../entities/Cargo.entities";
 
 export class Usuario {
 
@@ -6,20 +7,23 @@ export class Usuario {
   readonly nome: string;
   readonly email: string;
   readonly senha: string;
-  readonly id_cargo: number;
+  readonly id_cargo: Cargo;
 
   
-  private constructor(nome: string, email: string, senha: string, id_cargo: number) {                
+
+
+  
+  private constructor(nome: string, email: string, senha: string, id_cargo: Cargo) {                
     
     
     this.nome = nome
-    this.email = email
+    this.email = this.validateEmail(email)
     this.senha = this.validateSenha(senha)
     this.id_cargo = id_cargo
     
   }
 
-  static create(nome: string, email: string, senha: string, id_cargo: number) {
+  static create(nome: string, email: string, senha: string, id_cargo: Cargo) {
     return new Usuario(nome, email, senha, id_cargo)
   }
   
@@ -35,7 +39,7 @@ export class Usuario {
     return senhaH
   }
 
-  private validateEmail() {
+  private validateEmail(email: string) {
     
     
     const validateEmail = new RegExp("(([a-z]+\.?[a-z]+\.?[a-z]+[0-9]{2})+)(@aluno.ifce.edu.br)")
@@ -45,12 +49,13 @@ export class Usuario {
       throw new Error("nome é obrigatorio")
     }
 
-    if(this.email == "" || this.email == null ) { //validade se nao e nulo ou vazio
+    if(email == "" || email == null ) { //validade se nao e nulo ou vazio
       if(!(validateEmail.test(this.email)) || !(validateEmail1.test(this.email))) { //validade se o email é de aluno ou professor
         throw new Error("crie o email apartir do email institucional")
       }
       
     }
+    return email
     
     
     

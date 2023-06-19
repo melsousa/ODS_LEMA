@@ -5,12 +5,12 @@ import { PedidoController } from './controllers/PedidoController';
 import { UsuarioController } from "./controllers/UsuarioController";
 import { adminController } from './controllers/adminController';
 import { Router } from "express";
-import { autenticaoToken, autenticacaoAdmin } from './middlewares/autenticacaoToken';
-
-
-import { upload } from "./uploadMiddleware"; // Importar o middleware de upload de arquivos
+import { adminAutenticacao, autenticaoToken } from './middlewares/autenticacaoToken';
+import { pedidoRepository } from './repositories/PedidoRepository';
 
 const routes = Router();
+
+
 
 // PEDIDO ANÔNIMO
 
@@ -37,7 +37,7 @@ routes.post("/usuario", new UsuarioController().create);
 
 
 //a partir daqui tds as rotas so sao acessadas apenas com a token
-//routes.use(autenticaoToken)
+routes.use(autenticaoToken)
 
 // USUÁRIO 
 
@@ -49,12 +49,6 @@ routes.put("/user/update", new UsuarioController().updateUser)
 
 // Deletar usuário
 routes.delete("/user/delete", new UsuarioController().deleteUser)
-
-// routes.get("/adminPedidos/estado_pedido=:estado", new adminController().readPedidos)
-// //retornar os pedidos a partir do estado
-// routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController().updatePedidos)
-// //atualiza o pedido apartir do id
-// routes.post("/adminPedidos", new adminController().user)
 
 // HORÁRIO
 
@@ -79,20 +73,11 @@ routes.post("/pedido/create", new PedidoController().createPedido)
 // routes.post( "/pedido", new PedidoController().createPedido);
 routes.get("/pedido/get", new PedidoController().getPedidosByUsuario)
 
-routes.put("/pedido/update/:id_pedido", new PedidoController().updatePedido) //*
+routes.put("/pedido/update/:id_pedido", new PedidoController().updatePedido)
 
 routes.delete("/pedido/delete/:id_pedido", new PedidoController().deletePedido)
 
 routes.get("/pedido/estado/:estado", new PedidoController().getPedidosByEstado);
-
-//rotas que sao acessadas pelo root
-//routes.use(autenticacaoAdmin)
-
-routes.get("/adminPedidos/estado_pedido=:estado", new adminController().readPedidos)
-//retornar os pedidos a partir do estado
-routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController().updatePedidos)
-//atualiza o pedido apartir do id
-routes.get("/adminPedidos", new adminController().user)
 
 // CARGO
 
@@ -107,7 +92,15 @@ routes.get("/cargo/get/:id_cargo", new CargoController().getCargoById)
 
 // update cargo
 routes.put("/cargo/update/:id_cargo", new CargoController().updateCargo)
-3
 routes.delete("/cargo/delete/:id_cargo", new CargoController().deleteCargo)
+
+//rotas que sao acessadas pelo root
+routes.use(adminAutenticacao)
+
+routes.get("/adminPedidos/estado_pedido=:estado", new adminController().readPedidos)
+//retornar os pedidos a partir do estado
+routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController().updatePedidos)
+//atualiza o pedido apartir do id
+routes.get("/adminPedidos", new adminController().user)
 
 export default routes;

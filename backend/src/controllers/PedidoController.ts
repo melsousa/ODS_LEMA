@@ -1,13 +1,10 @@
 import { error } from "console";
-import { Pedido, Prioridade, Estado } from "../models/Pedido";
+import { Estado, Pedido } from "../models/Pedido";
 import { pedidoRepository } from "./../repositories/PedidoRepository";
 import { Request, Response } from "express";
-import * as jwt from "jsonwebtoken";
-// import { usuarioRepository } from "../repositories/UsuarioRepository";
-
+import * as jwt from "jsonwebtoken"
+import { usuarioRepository } from "../repositories/UsuarioRepository";
 import { In } from "typeorm";
-import fs from "fs";
-
 export class PedidoController {
   async createPedido(req: Request, res: Response) {
     const { authorization } = req.headers;
@@ -26,31 +23,27 @@ export class PedidoController {
     // Dados do pedido
     const {
       material,
+      prioridade,
       maquina,
+      arquivo,
       medida,
       id_horaDisponivel,
       id_autorAutorizador,
     } = req.body;
 
-    let prioridade: Prioridade = Prioridade.baixa;
-    let estado: Estado = Estado.pendente;
-    let arquivo: Buffer | undefined;
+    const { id_autorPedido } = req.params;
+    
+    
+    const pedido = new Pedido(material,
+      prioridade, 
+      maquina, 
+      arquivo, 
+      medida, 
+      id_horaDisponivel, 
+      Number(id_autorPedido), 
+      id_autorAutorizador)
 
-    if (req.file) {
-      arquivo = fs.readFileSync(req.file.path);
-    }
 
-    const pedido = new Pedido(
-      material,
-      prioridade,
-      maquina,
-      estado,
-      arquivo || Buffer.alloc(0), // Verificação adicional para garantir que arquivo seja um Buffer
-      medida,
-      Number(id_horaDisponivel),
-      id,
-      Number(id_autorAutorizador)
-    );
 
     const novoPedido = pedidoRepository.create(pedido);
 
@@ -155,7 +148,7 @@ export class PedidoController {
     }
 
     // Excluindo o pedido
-    await pedidoRepository.delete(id_pedido);
+    await pedidoRepository.delete({id_pedido: Number(id_pedido), id_autorPedido: id});
 
     return res.status(202).json("pedido deletado");
   }
@@ -183,4 +176,29 @@ export class PedidoController {
       return res.status(500).json({ message: "Internal Server Error" });
     }
   }
+
+  //busca todos os pedidos do usuario que ta logado
+  async readPedido(req: Request, res: Response) {
+    const {authorization} = req.headers
+    if (!authorization) {
+      throw new Error("Não autorizado");
+    }
+
+    const token = authorization.split(" ")[1]
+    
+    
+    const { id_usuario } = jwt.verify(
+      token,
+      process.env.JWT_PASS ?? ""
+    ) as jwt.JwtPayload;
+
+    const pedidos = await pedidoRepository.find({
+      where: {id_autorPedido: id_usuario}
+    })
+
+    return res.status(200).json(pedidos)
+
+  }
+
+
 }
