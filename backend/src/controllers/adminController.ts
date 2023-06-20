@@ -4,6 +4,7 @@ import { Pedido } from "../entities/Pedido.entities";
 import { Estado } from "../models/Pedido";
 import { usuarioRepository } from "../repositories/UsuarioRepository";
 import { Usuario } from "../models/Usuario";
+import { BadRequestError } from "../helpers/api-erros";
 export class adminController {
 
     async readPedidos (req: Request, res: Response) {
@@ -91,7 +92,11 @@ export class adminController {
         const {id_usuario} = req.params
         const {nome, email, senha, cargo} = req.body
 
-
+        const user = await usuarioRepository.findOneBy({id_usuario: Number(id_usuario)})
+        if(!user) {
+            throw new BadRequestError("usuario nao existe")
+        }
+        
         const useReturn = await usuarioRepository.createQueryBuilder()
         .update(Usuario)
         .set({nome: nome, email: email, senha: senha, id_cargo: cargo})

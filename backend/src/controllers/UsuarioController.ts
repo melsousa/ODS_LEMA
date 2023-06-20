@@ -38,7 +38,7 @@ export class UsuarioController {
   async login(req: Request, res: Response) {
     const { email, senha } = req.body;
 
-    const user = await usuarioRepository.findOneBy({ email });
+    const user = await usuarioRepository.findOne({ where: {email: email }, relations: ['id_cargo']});
 
     //console.log(email, senha, user)
     if (!user) {  
