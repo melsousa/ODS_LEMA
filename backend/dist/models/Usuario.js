@@ -28,7 +28,7 @@ const bcrypt = __importStar(require("bcrypt"));
 class Usuario {
     constructor(nome, email, senha, id_cargo) {
         this.nome = nome;
-        this.email = email;
+        this.email = this.validateEmail(email);
         this.senha = this.validateSenha(senha);
         this.id_cargo = id_cargo;
     }
@@ -44,17 +44,18 @@ class Usuario {
         let senhaH = bcrypt.hashSync(senha, salt);
         return senhaH;
     }
-    validateEmail() {
+    validateEmail(email) {
         const validateEmail = new RegExp("(([a-z]+\.?[a-z]+\.?[a-z]+[0-9]{2})+)(@aluno.ifce.edu.br)");
         const validateEmail1 = new RegExp("(([a-z]+\.?[a-z]+\.?[a-z])+)(@ifce.edu.br)");
         if (this.nome == "" || this.nome == null) {
             throw new Error("nome é obrigatorio");
         }
-        if (this.email == "" || this.email == null) { //validade se nao e nulo ou vazio
+        if (email == "" || email == null) { //validade se nao e nulo ou vazio
             if (!(validateEmail.test(this.email)) || !(validateEmail1.test(this.email))) { //validade se o email é de aluno ou professor
                 throw new Error("crie o email apartir do email institucional");
             }
         }
+        return email;
     }
     get Id_usuario() {
         return this.id_usuario;

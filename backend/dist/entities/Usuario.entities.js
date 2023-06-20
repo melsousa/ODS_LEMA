@@ -35,7 +35,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.ManyToOne)(() => Cargo_entities_1.Cargo, (cargo) => cargo.id_usuario),
     (0, typeorm_1.JoinColumn)({ name: "id_cargo" }),
-    __metadata("design:type", Number)
+    __metadata("design:type", Cargo_entities_1.Cargo)
 ], Usuario.prototype, "id_cargo", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => Pedido_entities_1.Pedido, (pedido) => pedido.id_autorPedido),

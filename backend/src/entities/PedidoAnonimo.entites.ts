@@ -1,5 +1,6 @@
 import { HoraDisponivel } from "./HoraDisponivel.entities";
 import { Usuario } from "./Usuario.entities";
+import { Estado } from "./Pedido.entities";
 import { DeepPartial } from "typeorm";
 
 import {
@@ -10,12 +11,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 
-export enum Estado {
-  pendente,
-  aprovado,
-  concluido,
-  reprovado,
-}
+
 
 @Entity("pedidosAnonimo")
 export class PedidoAnonimo {
@@ -28,8 +24,8 @@ export class PedidoAnonimo {
   @Column({ type: "text", nullable: true })
   maquina: string;
 
-  @Column({ type: "text", enum: Estado })
-  estado: string;
+  @Column({ type: "enum", enum: Estado})
+  estado: Estado;
 
   @Column({ type: "longblob", nullable: true }) // ainda não foi rodado no banco
   arquivo: DeepPartial<Buffer> | undefined;
