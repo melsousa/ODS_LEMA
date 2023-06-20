@@ -9,26 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-<<<<<<< HEAD
-exports.Prioridade = exports.Pedido = void 0;
-=======
 exports.Pedido = exports.Estado = exports.Prioridade = void 0;
->>>>>>> main
 const HoraDisponivel_entities_1 = require("./HoraDisponivel.entities");
 const Usuario_entities_1 = require("./Usuario.entities");
 const typeorm_1 = require("typeorm");
 var Prioridade;
 (function (Prioridade) {
-    Prioridade[Prioridade["baixa"] = 0] = "baixa";
-    Prioridade[Prioridade["media"] = 1] = "media";
-    Prioridade[Prioridade["alta"] = 2] = "alta";
+    Prioridade["baixa"] = "baixa";
+    Prioridade["media"] = "media";
+    Prioridade["alta"] = "alta";
 })(Prioridade = exports.Prioridade || (exports.Prioridade = {}));
 var Estado;
 (function (Estado) {
-    Estado[Estado["pendete"] = 0] = "pendete";
-    Estado[Estado["aprovado"] = 1] = "aprovado";
-    Estado[Estado["concluido"] = 2] = "concluido";
-    Estado[Estado["reprovado"] = 3] = "reprovado";
+    Estado["pendente"] = "pendente";
+    Estado["aprovado"] = "aprovado";
+    Estado["concluido"] = "concluido";
+    Estado["reprovado"] = "reprovado";
 })(Estado = exports.Estado || (exports.Estado = {}));
 let Pedido = class Pedido {
 };
@@ -41,30 +37,20 @@ __decorate([
     __metadata("design:type", String)
 ], Pedido.prototype, "material", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "text", enum: Prioridade }),
-    __metadata("design:type", Number)
+    (0, typeorm_1.Column)({ type: "enum", enum: Prioridade }),
+    __metadata("design:type", String)
 ], Pedido.prototype, "prioridade", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: "text", nullable: true }),
     __metadata("design:type", String)
 ], Pedido.prototype, "maquina", void 0);
 __decorate([
-<<<<<<< HEAD
-    (0, typeorm_1.Column)({ type: "text", nullable: true }),
+    (0, typeorm_1.Column)({ type: "enum", enum: Estado }),
     __metadata("design:type", String)
-], Pedido.prototype, "estado", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: 'blob', nullable: true }) //tipo para arquivo em mysql
-    ,
-    __metadata("design:type", Buffer)
-=======
-    (0, typeorm_1.Column)({ type: "text", enum: Estado }),
-    __metadata("design:type", Number)
 ], Pedido.prototype, "estado", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: "longblob", nullable: true }),
     __metadata("design:type", Object)
->>>>>>> main
 ], Pedido.prototype, "arquivo", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: "text", nullable: true }),
@@ -89,12 +75,3 @@ Pedido = __decorate([
     (0, typeorm_1.Entity)("pedidos")
 ], Pedido);
 exports.Pedido = Pedido;
-<<<<<<< HEAD
-var Prioridade;
-(function (Prioridade) {
-    Prioridade[Prioridade["baixa"] = 0] = "baixa";
-    Prioridade[Prioridade["media"] = 1] = "media";
-    Prioridade[Prioridade["alta"] = 2] = "alta";
-})(Prioridade = exports.Prioridade || (exports.Prioridade = {}));
-=======
->>>>>>> main

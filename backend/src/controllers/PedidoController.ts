@@ -5,6 +5,7 @@ import { Request, Response } from "express";
 import * as jwt from "jsonwebtoken"
 import { usuarioRepository } from "../repositories/UsuarioRepository";
 import { In } from "typeorm";
+
 export class PedidoController {
   async createPedido(req: Request, res: Response) {
     const { authorization } = req.headers;
@@ -28,7 +29,6 @@ export class PedidoController {
       arquivo,
       medida,
       id_horaDisponivel,
-      id_autorAutorizador,
     } = req.body;
 
     const { id_autorPedido } = req.params;
@@ -41,7 +41,7 @@ export class PedidoController {
       medida, 
       id_horaDisponivel, 
       Number(id_autorPedido), 
-      id_autorAutorizador)
+      null)
 
 
 
