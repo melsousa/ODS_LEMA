@@ -1,15 +1,11 @@
-import { horarioRepository } from "./../repositories/HorarioRepository";
-import { BadRequestError } from "../helpers/api-erros";
-import { Request, Response } from "express";
-import jwt from "jsonwebtoken";
+import { BadRequestError } from '../helpers/api-erros';
+import { horarioRepository } from './../repositories/HorarioRepository';
 
-type JwtPayload = {
-  id_usuario: number;
-};
-
+import { Request, Response } from 'express';
+// import {}
 export class HorarioController {
-  async createHorario(req: Request, res: Response) {
-    const { dataInicio, dataFim, disponivel } = req.body;
+    async createHorario(req: Request, res: Response){
+        const {dataInicio, dataFim, disponivel} = req.body
 
     try {
       const newHorario = horarioRepository.create({

@@ -7,10 +7,9 @@ import { adminController } from './controllers/adminController';
 import { Router } from "express";
 import { autenticaoToken, adminAutenticacao } from './middlewares/autenticacaoToken';
 
-
-import { upload } from "./uploadMiddleware"; // Importar o middleware de upload de arquivos
-
 const routes = Router();
+
+
 
 // PEDIDO ANÔNIMO
 
@@ -18,7 +17,6 @@ const routes = Router();
 routes.post("/pedidoanonimo/create", new PedidoAnonimoController().createPedidoAnonimo);
 // lista de todos os pedidos
 routes.get("/pedidoanonimo/get", new PedidoAnonimoController().listPedidosAnonimos)
-// routes.get("/pedidoanonimo/geteste", new PedidoAnonimoController().listPedidosAnonimosT)
 // lista pelo código do pedido
 routes.get("/pedidoanonimo/getPedidoByCodigo/:codigo", new PedidoAnonimoController().getPedidoByCodigo)
 // update pedido pelo código
@@ -67,12 +65,20 @@ routes.delete("/pedido/delete/:id_pedido", new PedidoController().deletePedido)
 
 //rotas que sao acessadas pelo root
 routes.use(adminAutenticacao)
+// listar usuários
+routes.get("/adminUser/listUser/", new adminController().listUser)
+// listar usuário por id
+routes.get("/adminUser/listUser/:id_usuario", new adminController().listUser)
+// atualizar usuário por id
+routes.put("/adminUser/update/:id_usuario", new adminController().updateUser)
+// deletar usuário por id
+routes.delete("/adminUser/delete/:id_usuario", new adminController().deleteUser)
 
-// routes.get("/adminPedidos/estado_pedido=:estado", new adminController().readPedidos)
 //retornar os pedidos a partir do estado
-routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController().updatePedidos)
+routes.get("/adminPedidos/estado_pedido=:estado", new adminController().readPedidos)
 //atualiza o pedido apartir do id
-routes.get("/adminPedidos", new adminController().user)
+routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController().updatePedidos)
+
 
 // CARGO
 

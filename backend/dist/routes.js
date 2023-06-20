@@ -8,6 +8,14 @@ const UsuarioController_1 = require("./controllers/UsuarioController");
 const adminController_1 = require("./controllers/adminController");
 const express_1 = require("express");
 const autenticacaoToken_1 = require("./middlewares/autenticacaoToken");
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+const adminController_1 = require("./controllers/adminController");
+=======
+const uploadMiddleware_1 = require("./uploadMiddleware"); // Importar o middleware de upload de arquivos
+>>>>>>> main
+>>>>>>> 1611ae6ded2549344d78a728c0fd2d6dcda83c77
 const routes = (0, express_1.Router)();
 // PEDIDO ANÔNIMO
 // Cadastro de pedido anônimo
@@ -25,7 +33,35 @@ routes.delete("/pedidoanonimo/delete/:codigo", new PedidoAnonimoController_1.Ped
 // Login Usuario
 routes.post("/login", new UsuarioController_1.UsuarioController().login);
 // Cadastro de usuário
+<<<<<<< HEAD
 routes.post("/usuario", new UsuarioController_1.UsuarioController().create);
+=======
+<<<<<<< HEAD
+routes.use(autenticacaoToken_1.autenticaoToken);
+//a partir daqui tds as rotas so sao acessadas apenas com a token
+//Buscanco informações do usuário
+routes.get("/profile", new UsuarioController_1.UsuarioController().getProfile);
+// Cadastro de cargo
+routes.post("/cargo", new CargoController_1.CargoController().createCargo);
+// Cadastro de horário
+routes.post("/horario", new HorarioController_1.HorarioController().createHorario);
+// Cadastro de pedido anônimo
+routes.post("/pedidoanonimo", new PedidoAnonimoController_1.PedidoAnonimoController().createPedidoAnonimo);
+// Cadastro de pedido
+routes.post("/pedido", new PedidoController_1.PedidoController().createPedido); //cria
+routes.get("/pedido", new PedidoController_1.PedidoController().readPedido); //pega
+routes.put("/pedido", new PedidoController_1.PedidoController().updatePedido); //modifica estado
+routes.delete("/pedido", new PedidoController_1.PedidoController().deletePedido); //exclui
+routes.use(autenticacaoToken_1.autenticacaoAdmin);
+routes.get("/adminPedidos/estado_pedido=:estado", new adminController_1.adminController().readPedidos);
+//retornar os pedidos a partir do estado
+routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController_1.adminController().updatePedidos);
+//atualiza o pedido apartir do id
+routes.post("/adminPedidos", new adminController_1.adminController().user);
+=======
+routes.post("/horario", new HorarioController_1.HorarioController().createHorario);
+routes.use(autenticacaoToken_1.autenticaoToken);
+>>>>>>> 1611ae6ded2549344d78a728c0fd2d6dcda83c77
 //a partir daqui tds as rotas so sao acessadas apenas com a token
 routes.use(autenticacaoToken_1.autenticaoToken);
 // USUÁRIO 
@@ -48,6 +84,7 @@ routes.put("/horario/update/:id_horario", new HorarioController_1.HorarioControl
 routes.delete("/horario/delete/:id_horario", new HorarioController_1.HorarioController().deleteHorario);
 // PEDIDO COM USUÁRIO
 // Cadastro de pedido
+<<<<<<< HEAD
 routes.post("/pedido/create", new PedidoController_1.PedidoController().createPedido);
 // lista todos os pedidos do usuário
 routes.get("/pedido/get", new PedidoController_1.PedidoController().getPedidosByUsuario);
@@ -75,4 +112,12 @@ routes.get("/cargo/get/:id_cargo", new CargoController_1.CargoController().getCa
 routes.put("/cargo/update/:id_cargo", new CargoController_1.CargoController().updateCargo);
 3;
 routes.delete("/cargo/delete/:id_cargo", new CargoController_1.CargoController().deleteCargo);
+=======
+routes.post("/pedido", uploadMiddleware_1.upload.single("arquivo"), new PedidoController_1.PedidoController().createPedido);
+// routes.post( "/pedido", new PedidoController().createPedido);
+routes.get("/pedido", new PedidoController_1.PedidoController().readPedido);
+routes.put("/pedido", new PedidoController_1.PedidoController().updatePedido);
+routes.delete("/pedido", new PedidoController_1.PedidoController().deletePedido);
+>>>>>>> main
+>>>>>>> 1611ae6ded2549344d78a728c0fd2d6dcda83c77
 exports.default = routes;
