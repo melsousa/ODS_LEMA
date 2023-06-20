@@ -2,15 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Prioridade = exports.Estado = exports.Pedido = void 0;
 class Pedido {
-<<<<<<< HEAD
     constructor(material, prioridade, maquina, arquivo, medida, id_horaDisponivel, id_autorPedido, id_autorAutorizador) {
-=======
-    constructor(material, prioridade, maquina, estado, arquivo, medida, id_horaDisponivel, id_autorPedido, id_autorAutorizador) {
->>>>>>> main
         this.material = material;
-        this.prioridade = Prioridade.baixa;
+        this.prioridade = prioridade;
         this.maquina = maquina;
-        this.estado = Estado.pendete;
+        this.estado = Estado.pendente;
         this.arquivo = arquivo;
         this.medida = medida;
         this.id_horaDisponivel = id_horaDisponivel;
@@ -18,7 +14,7 @@ class Pedido {
         this.id_autorAutorizador = id_autorAutorizador;
     }
     setEstado(estado) {
-        if (this.estado == Estado.pendete && estado == (Estado.aprovado || Estado.reprovado)) {
+        if (this.estado == Estado.pendente && estado == (Estado.aprovado || Estado.reprovado)) {
             this.estado = estado;
         }
         else if (this.estado == Estado.aprovado && estado == Estado.concluido) {
@@ -62,7 +58,7 @@ class Pedido {
 exports.Pedido = Pedido;
 var Estado;
 (function (Estado) {
-    Estado["pendete"] = "pendente";
+    Estado["pendente"] = "pendente";
     Estado["aprovado"] = "aprovado";
     Estado["concluido"] = "concluido";
     Estado["reprovado"] = "reprovado";
