@@ -74,7 +74,7 @@ export class adminController {
     }
 
     async deleteUser (req: Request, res: Response) {
-        const id_usuario = 11
+        const {id_usuario} = req.params
         console.log(id_usuario)
 
         const useReturn = await usuarioRepository.delete({id_usuario: Number(id_usuario)})
