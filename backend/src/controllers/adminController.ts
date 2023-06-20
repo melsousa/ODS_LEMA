@@ -2,44 +2,58 @@ import { Request, Response } from "express";
 import { pedidoRepository } from "../repositories/PedidoRepository";
 import { Pedido } from "../entities/Pedido.entities";
 import { Estado } from "../models/Pedido";
+import * as jwt from "jsonwebtoken"
 import { usuarioRepository } from "../repositories/UsuarioRepository";
 import { Usuario } from "../models/Usuario";
 import { BadRequestError } from "../helpers/api-erros";
+import { error } from "console";
 export class adminController {
 
     async readPedidos (req: Request, res: Response) {
         
         const {estado} = req.params
         console.log(estado)
-        //retornar todos os pedidos
-
-        const pedidos = await pedidoRepository.find({})
-        //nesse caso ele vai retornar toda a tabela
-
-        //const pedidoFiltrado = pedidos.filter((item) => String(item.estado) == estado)
-        //e depois filtar apenas o que o usuario vai querer
         
-        console.log(pedidos)
 
+        //se estiver estado ele retorna todos aqueles com estado que tiver
+        if(estado != null) {
+            //transforma string em enum
+            const estadoEnum: Estado = Estado[estado as keyof typeof Estado];
+            const pedidos = await pedidoRepository.find({where: {estado: estadoEnum}})
+            return res.status(200).json(pedidos)
 
-        return res.status(200).json(pedidos)
+        } else {
+
+            //caso nao tenha passado nada, ele vai retornar td a tabela de pedido
+            const pedidos = await pedidoRepository.find()
+            return res.status(200).json(pedidos)
+        }
         
         
-    
         
     }
 
     async updatePedidos (req: Request, res: Response) {
+        const { authorization } = req.headers;
         const {id_pedido} = req.params
         //vai pegar o id
-        const estado = req.body
+        const {estado} = req.body
 
+        if(!authorization) {
+            throw new BadRequestError("nao autorizado")
+        }
+        const token = authorization.split(" ")[1];
+        const decodedToken = jwt.verify(token, process.env.JWT_PASS ?? "") as {
+            id: number;
+        };
+
+        console.log(decodedToken, id_pedido, estado)
         //pega o estado que quer trocar
         let pedidoRetornado = await pedidoRepository.findOneBy({id_pedido: Number(id_pedido)})
        //pega a linha que vai ser alterada
 
         const pedido = await pedidoRepository.createQueryBuilder()
-        .update(Pedido).set({estado: estado})
+        .update(Pedido).set({estado: estado, id_autorAutorizador: decodedToken.id})
         .where({ id_pedido: id_pedido })
         .execute()
 

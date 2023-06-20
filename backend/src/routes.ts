@@ -97,9 +97,11 @@ routes.delete("/cargo/delete/:id_cargo", new CargoController().deleteCargo)
 //rotas que sao acessadas pelo root
 routes.use(adminAutenticacao)
 
-routes.get("/adminPedidos/estado_pedido=:estado", new adminController().readPedidos)
+routes.get("/adminPedidos/listPedido/", new adminController().readPedidos)
+routes.get("/adminPedidos/listPedido/:estado", new adminController().readPedidos)
+
 //retornar os pedidos a partir do estado
-routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController().updatePedidos)
+routes.put("/adminPedidos/update/:id_pedido", new adminController().updatePedidos)
 //atualiza o pedido apartir do id
 routes.get("/adminUser/listUser/", new adminController().listUser)
 routes.get("/adminUser/listUser/:id_usuario", new adminController().listUser)
