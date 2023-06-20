@@ -68,7 +68,7 @@ routes.delete("/horario/delete/:id_horario", new HorarioController().deleteHorar
 // PEDIDO COM USUÁRIO
 
 // Cadastro de pedido
-routes.post("/pedido/create", new PedidoController().createPedido)
+routes.post("/pedido/create/:id_autorPedido", new PedidoController().createPedido)
 
 // routes.post( "/pedido", new PedidoController().createPedido);
 routes.get("/pedido/get", new PedidoController().getPedidosByUsuario)
@@ -105,5 +105,5 @@ routes.get("/adminUser/listUser/", new adminController().listUser)
 routes.get("/adminUser/listUser/:id_usuario", new adminController().listUser)
 
 routes.delete("/adminUser/delete/:id_usuario", new adminController().deleteUser)
-//routes.put("adminUser/update/id_usuario")
+routes.put("/adminUser/update/:id_usuario", new adminController().updateUser)
 export default routes;
