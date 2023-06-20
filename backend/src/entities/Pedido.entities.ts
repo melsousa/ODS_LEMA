@@ -32,13 +32,13 @@ export class Pedido {
   @Column({ type: "text", nullable: true })
   material: string | null;
 
-  @Column({ type: "text", enum: Prioridade })
+  @Column({ type: "enum", enum: Prioridade })
   prioridade: Prioridade;
 
   @Column({ type: "text", nullable: true })
   maquina: string | null;
 
-  @Column({ type: "text", enum: Estado })
+  @Column({ type: "enum", enum: Estado })
   estado: Estado;
 
   @Column({ type: "longblob", nullable: true })
@@ -58,9 +58,9 @@ export class Pedido {
   id_horaDisponivel: number | null;
 
   @ManyToOne(() => Usuario, (usuario) => usuario.autorPedido)
-  @JoinColumn({ name: "id_autorPedido" })
-  id_autorPedido: number;
-
+  @JoinColumn({name: "id_autorPedido"})
+  id_autorPedido: number
+  
   @ManyToOne(() => Usuario, (usuario) => usuario.autorAutorizador)
   @JoinColumn({ name: "id_autorAutorizador" })
   id_autorAutorizador: number | null;

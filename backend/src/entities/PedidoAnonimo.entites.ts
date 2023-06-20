@@ -28,7 +28,7 @@ export class PedidoAnonimo {
   @Column({ type: "text", nullable: true })
   maquina: string;
 
-  @Column({ type: "text", enum: Estado })
+  @Column({ type: "enum", enum: Estado })
   estado: string;
 
   @Column({ type: "longblob", nullable: true })

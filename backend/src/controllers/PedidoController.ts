@@ -63,10 +63,9 @@ export class PedidoController {
     } catch (error) {
       return res
         .status(500)
-        .json({ error: "Ocorreu um erro ao criar o pedido anônimo" });
+        .json({ error: "Ocorreu um erro ao criar o pedido" });
     }
   }
-
   async getPedidosByUsuario(req: Request, res: Response) {
     try {
       const { authorization } = req.headers;
@@ -275,4 +274,29 @@ export class PedidoController {
       return res.status(500).json({ message: "Internal Server Error" });
     }
   }
+
+  //busca todos os pedidos do usuario que ta logado
+  async readPedido(req: Request, res: Response) {
+    const {authorization} = req.headers
+    if (!authorization) {
+      throw new Error("Não autorizado");
+    }
+
+    const token = authorization.split(" ")[1]
+    
+    
+    const { id_usuario } = jwt.verify(
+      token,
+      process.env.JWT_PASS ?? ""
+    ) as jwt.JwtPayload;
+
+    const pedidos = await pedidoRepository.find({
+      where: {id_autorPedido: id_usuario}
+    })
+
+    return res.status(200).json(pedidos)
+
+  }
+
+
 }

@@ -3,9 +3,7 @@ import * as jwt from "jsonwebtoken"
 import { UnauthorizedError } from "../helpers/api-erros";
 import { usuarioRepository } from "../repositories/UsuarioRepository";
 
-type JwtPayLoad ={
-    id: String
-}
+
 
 export const autenticaoToken = async (req: Request, res: Response, next: NextFunction) => {
 
@@ -33,6 +31,8 @@ export const autenticaoToken = async (req: Request, res: Response, next: NextFun
       
       next()
       
+
+  
 }
 
 export const adminAutenticacao = async (req: Request, res: Response, next: NextFunction) => {

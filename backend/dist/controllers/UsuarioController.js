@@ -61,7 +61,11 @@ class UsuarioController {
         var _a;
         const { email, senha } = req.body;
         const user = await UsuarioRepository_1.usuarioRepository.findOneBy({ email });
+<<<<<<< HEAD
+        //console.log(email, senha, user)
+=======
         console.log(email, senha, user);
+>>>>>>> main
         if (!user) {
             throw new api_erros_1.BadRequestError("E-mail ou senha inválidos ");
         }
@@ -88,16 +92,32 @@ class UsuarioController {
             throw new api_erros_1.BadRequestError("Não autorizado");
         }
         // verificando se o token existe
+<<<<<<< HEAD
         const token = authorization.split(" ")[1];
         const decodedToken = jsonwebtoken_1.default.verify(token, (_a = process.env.JWT_PASS) !== null && _a !== void 0 ? _a : "");
         const { id } = decodedToken;
         const user = await UsuarioRepository_1.usuarioRepository.findOne({
             where: { id_usuario: id },
         });
+=======
+        const { id_usuario } = jsonwebtoken_1.default.verify(token, (_a = process.env.JWT_PASS) !== null && _a !== void 0 ? _a : "");
+        const user = await UsuarioRepository_1.usuarioRepository.findOneBy({ id_usuario });
+<<<<<<< HEAD
+        console.log();
+=======
+>>>>>>> main
+>>>>>>> 1611ae6ded2549344d78a728c0fd2d6dcda83c77
         if (!user) {
             throw new api_erros_1.BadRequestError("Não autorizado");
         }
         const { senha: _, ...loggedUser } = user;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+        console.log(token);
+>>>>>>> main
+>>>>>>> 1611ae6ded2549344d78a728c0fd2d6dcda83c77
         return res.json(loggedUser);
     }
     async updateUser(req, res) {

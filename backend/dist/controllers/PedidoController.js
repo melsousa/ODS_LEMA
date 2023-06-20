@@ -22,14 +22,25 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+<<<<<<< HEAD
+=======
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+>>>>>>> main
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PedidoController = void 0;
 const Pedido_1 = require("../models/Pedido");
 const PedidoRepository_1 = require("./../repositories/PedidoRepository");
 const jwt = __importStar(require("jsonwebtoken"));
+<<<<<<< HEAD
+class PedidoController {
+    async createPedido(req, res) {
+        // criar pedido
+        const { material, prioridade, maquina, arquivo, medida, id_horaDisponivel, id_autorAutorizador, } = req.body;
+        const { id_autorPedido } = req.params;
+        const pedido = new Pedido_1.Pedido(material, prioridade, maquina, arquivo, medida, id_horaDisponivel, Number(id_autorPedido), id_autorAutorizador);
+=======
 const fs_1 = __importDefault(require("fs"));
 class PedidoController {
     async createPedido(req, res) {
@@ -50,8 +61,14 @@ class PedidoController {
         if (req.file) {
             arquivo = fs_1.default.readFileSync(req.file.path);
         }
+<<<<<<< HEAD
         const pedido = new Pedido_1.Pedido(material, prioridade, maquina, estado, arquivo || Buffer.alloc(0), // Verificação adicional para garantir que arquivo seja um Buffer
         cor, descricao, comentario, Number(id_horaDisponivel), id, Number(id_autorAutorizador));
+=======
+        const pedido = new Pedido_1.Pedido(material, maquina, Pedido_1.Prioridade.baixa, Pedido_1.Estado.pendete, medida, arquivo ? arquivo.toString() : '', // Converte o Buffer para string      
+        id_horaDisponivel, Number(id_autorPedido), id_autorAutorizador);
+>>>>>>> main
+>>>>>>> 1611ae6ded2549344d78a728c0fd2d6dcda83c77
         const novoPedido = PedidoRepository_1.pedidoRepository.create(pedido);
         await PedidoRepository_1.pedidoRepository.save(novoPedido);
         return res.status(201).json(novoPedido);
