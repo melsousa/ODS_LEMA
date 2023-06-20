@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PedidoAnonimo = void 0;
 const HoraDisponivel_entities_1 = require("./HoraDisponivel.entities");
 const Usuario_entities_1 = require("./Usuario.entities");
+const Pedido_entities_1 = require("./Pedido.entities");
 const typeorm_1 = require("typeorm");
 let PedidoAnonimo = class PedidoAnonimo {
 };
@@ -28,12 +29,13 @@ __decorate([
     __metadata("design:type", String)
 ], PedidoAnonimo.prototype, "maquina", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "text", nullable: true }),
+    (0, typeorm_1.Column)({ type: "enum", enum: Pedido_entities_1.Estado }),
     __metadata("design:type", String)
 ], PedidoAnonimo.prototype, "estado", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: "text", nullable: true }),
-    __metadata("design:type", Buffer)
+    (0, typeorm_1.Column)({ type: "longblob", nullable: true }) // ainda não foi rodado no banco
+    ,
+    __metadata("design:type", Object)
 ], PedidoAnonimo.prototype, "arquivo", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: "text", nullable: true }),

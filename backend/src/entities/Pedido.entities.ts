@@ -11,9 +11,9 @@ import {
 } from "typeorm";
 
 export enum Prioridade {
-  baixa,
-  media,
-  alta,
+  baixa = "baixa",
+  media = "media",
+  alta = "alta",
 }
 
 export enum Estado {
@@ -31,14 +31,14 @@ export class Pedido {
   @Column({ type: "text", nullable: true })
   material: string;
 
-  @Column({ type: "text" , enum: Prioridade})
+  @Column({ type: "enum" , enum: Prioridade})
   prioridade: Prioridade;
 
   @Column({ type: "text", nullable: true })
   maquina: string;
 
-  @Column({ type: "text", enum: Estado})
-  estado: string;
+  @Column({ type: "enum", enum: Estado})
+  estado: Estado;
 
   @Column({ type: "longblob", nullable: true })
   arquivo: Buffer | null;
@@ -56,6 +56,6 @@ export class Pedido {
   
   @ManyToOne(() => Usuario, (usuario) => usuario.autorAutorizador)
   @JoinColumn({ name: "id_autorAutorizador"})
-  id_autorAutorizador: number;
+  id_autorAutorizador: number | null;
   
 }

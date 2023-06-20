@@ -68,7 +68,7 @@ routes.delete("/horario/delete/:id_horario", new HorarioController().deleteHorar
 // PEDIDO COM USUÁRIO
 
 // Cadastro de pedido
-routes.post("/pedido/create", new PedidoController().createPedido)
+routes.post("/pedido/create/:id_autorPedido", new PedidoController().createPedido)
 
 // routes.post( "/pedido", new PedidoController().createPedido);
 routes.get("/pedido/get", new PedidoController().getPedidosByUsuario)
@@ -97,10 +97,15 @@ routes.delete("/cargo/delete/:id_cargo", new CargoController().deleteCargo)
 //rotas que sao acessadas pelo root
 routes.use(adminAutenticacao)
 
-routes.get("/adminPedidos/estado_pedido=:estado", new adminController().readPedidos)
-//retornar os pedidos a partir do estado
-routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController().updatePedidos)
-//atualiza o pedido apartir do id
-routes.get("/adminPedidos", new adminController().user)
+routes.get("/adminPedidos/listPedido/", new adminController().readPedidos)
+routes.get("/adminPedidos/listPedido/:estado", new adminController().readPedidos)
 
+//retornar os pedidos a partir do estado
+routes.put("/adminPedidos/update/:id_pedido", new adminController().updatePedidos)
+//atualiza o pedido apartir do id
+routes.get("/adminUser/listUser/", new adminController().listUser)
+routes.get("/adminUser/listUser/:id_usuario", new adminController().listUser)
+
+routes.delete("/adminUser/delete/:id_usuario", new adminController().deleteUser)
+routes.put("/adminUser/update/:id_usuario", new adminController().updateUser)
 export default routes;
