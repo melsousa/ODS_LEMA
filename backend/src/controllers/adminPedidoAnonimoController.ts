@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { pedidoAnonimoRepository } from "../repositories/PedidoAnonimoRepository";
 import { PedidoAnonimo, Estado } from "../models/PedidoAnonimo";
 import fs from "fs";
+import * as jwt from "jsonwebtoken";
 
 export class adminPedidoAnonimoController {
   async listPedidosAnonimos(req: Request, res: Response) {
@@ -53,6 +54,19 @@ export class adminPedidoAnonimoController {
     
     async updatePedido(req: Request, res: Response) {
         try {
+          const { authorization } = req.headers;
+
+          if (!authorization) {
+            throw new Error("Não autorizado");
+          }
+
+          // Verificando se o token existe e obtendo o ID do usuário
+          const token = authorization.split(" ")[1];
+          const decodedToken = jwt.verify(token, process.env.JWT_PASS ?? "") as {
+            id: number;
+          };
+          const { id } = decodedToken;
+
           const { codigo } = req.params;
           const {
             material,
@@ -61,7 +75,6 @@ export class adminPedidoAnonimoController {
             descricao,
             comentario,
             id_horaDisponivel,
-            id_autorAutorizadorAnonimo
           } = req.body;
     
           const pedido = await pedidoAnonimoRepository.findOne({
@@ -91,7 +104,7 @@ export class adminPedidoAnonimoController {
           pedido.comentario = comentario || comentario;
           pedido.id_horaDisponivel = Number(id_horaDisponivel) || id_horaDisponivel;
           pedido.arquivo = arquivo || Buffer.alloc(0); // Verificação adicional para garantir que arquivo seja um Buffer
-          pedido.id_autorAutorizadorAnonimo = id_autorAutorizadorAnonimo || id_autorAutorizadorAnonimo
+          pedido.id_autorAutorizadorAnonimo = id || id
 
           await pedidoAnonimoRepository.save(pedido);
     

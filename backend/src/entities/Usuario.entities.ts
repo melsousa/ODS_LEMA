@@ -25,6 +25,9 @@ export class Usuario {
   @Column({ type: "text"})
   senha: string;
 
+  @Column({ type: "longblob", nullable: true })
+  foto: Buffer | null;
+
   @ManyToOne(() => Cargo, (cargo) => cargo.id_usuario)
   @JoinColumn({ name: "id_cargo" })
   id_cargo: Cargo;

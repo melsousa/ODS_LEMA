@@ -8,23 +8,28 @@ export class Usuario {
   readonly email: string;
   readonly senha: string;
   readonly id_cargo: Cargo;
-
+  foto: Buffer | null
   
 
 
   
-  private constructor(nome: string, email: string, senha: string, id_cargo: Cargo) {                
+  private constructor(nome: string, 
+    email: string,
+     senha: string, 
+     foto: Buffer,
+     id_cargo: Cargo) {                
     
     
     this.nome = nome
     this.email = this.validateEmail(email)
     this.senha = this.validateSenha(senha)
+    this.foto = foto
     this.id_cargo = id_cargo
     
   }
 
-  static create(nome: string, email: string, senha: string, id_cargo: Cargo) {
-    return new Usuario(nome, email, senha, id_cargo)
+  static create(nome: string, email: string, senha: string,foto: Buffer, id_cargo: Cargo) {
+    return new Usuario(nome, email, senha, foto, id_cargo)
   }
   
   private validateSenha( senha: string) {
@@ -73,6 +78,10 @@ export class Usuario {
   }
   public get Senha() {
     return this.senha
+  }
+    
+  public get Foto(): Buffer | null {
+    return this.foto
   }
     
   public get Id_cargo(){

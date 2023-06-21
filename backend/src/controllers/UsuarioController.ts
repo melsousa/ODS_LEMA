@@ -4,6 +4,7 @@ import { Response, Request } from "express";
 import { Usuario } from "../models/Usuario";
 import * as bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import fs from "fs";
 
 import { BadRequestError, UnauthorizedError } from "../helpers/api-erros";
 
@@ -17,7 +18,12 @@ export class UsuarioController {
     try {
       // criar usuário
       const { nome, email, senha, cargo } = req.body;
+      
+      let foto: Buffer | undefined
 
+      if (req.file) {
+        foto = fs.readFileSync(req.file.path);
+      }
       const userExists = await usuarioRepository.findOneBy({ email });
 
       if (userExists) {
@@ -31,12 +37,18 @@ export class UsuarioController {
         throw new BadRequestError("Cargo inválido");
       }
 
-      let user = Usuario.create(nome, email, senha, cargo);
+      let user = Usuario.create(
+        nome, 
+        email, 
+        senha, 
+        foto || Buffer.alloc(0), // Verificação adicional para garantir que arquivo seja um Buffer, 
+        cargo);
 
       const newUsuario = usuarioRepository.create({
         nome: user.nome,
         email: user.email,
         senha: user.senha,
+        foto: user.Foto,
         id_cargo: { id_cargo: cargoObj.id_cargo },
       });
 
@@ -46,6 +58,7 @@ export class UsuarioController {
 
       return res.status(201).json(userSemSenha);
     } catch (error) {
+      console.log(error)
       return res
         .status(500)
         .json({ error: "Ocorreu um erro ao criar o usuário" });
@@ -133,6 +146,12 @@ export class UsuarioController {
       const { authorization } = req.headers;
       const { nome, email, senha } = req.body;
 
+      let foto: Buffer | undefined;
+
+      if (req.file){
+        foto = fs.readFileSync(req.file.path);
+      }
+
       if (!authorization) {
         throw new BadRequestError("Não autorizado");
       }
@@ -156,7 +175,8 @@ export class UsuarioController {
 
       user.nome = nome || user.nome;
       user.email = email || user.email;
-
+      user.foto = foto || Buffer.alloc(0);
+      
       if (senha) {
         user.senha = await bcrypt.hash(senha, 10);
       }
