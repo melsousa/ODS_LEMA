@@ -2,29 +2,52 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Prioridade = exports.Estado = exports.Pedido = void 0;
 class Pedido {
+<<<<<<< HEAD
     constructor(material, prioridade, maquina, arquivo, medida, id_horaDisponivel, id_autorPedido, id_autorAutorizador) {
         this.material = material;
         this.prioridade = prioridade;
         this.maquina = maquina;
         this.estado = Estado.pendente;
+=======
+<<<<<<< HEAD
+    constructor(material, prioridade, maquina, estado, arquivo, cor, descricao, comentario, id_horaDisponivel, id_autorPedido, id_autorAutorizador) {
+=======
+<<<<<<< HEAD
+    constructor(material, prioridade, maquina, arquivo, medida, id_horaDisponivel, id_autorPedido, id_autorAutorizador) {
+=======
+    constructor(material, prioridade, maquina, estado, arquivo, medida, id_horaDisponivel, id_autorPedido, id_autorAutorizador) {
+>>>>>>> main
+>>>>>>> 1611ae6ded2549344d78a728c0fd2d6dcda83c77
+        this.material = material;
+        this.prioridade = prioridade;
+        this.maquina = maquina;
+        this.estado = estado;
+>>>>>>> Melissa
         this.arquivo = arquivo;
-        this.medida = medida;
+        this.cor = cor;
+        this.descricao = descricao;
+        this.comentario = comentario;
         this.id_horaDisponivel = id_horaDisponivel;
         this.id_autorPedido = id_autorPedido;
         this.id_autorAutorizador = id_autorAutorizador;
     }
     setEstado(estado) {
+<<<<<<< HEAD
         if (this.estado == Estado.pendente && estado == (Estado.aprovado || Estado.reprovado)) {
+=======
+        if (this.estado == Estado.pendente &&
+            estado == (Estado.aprovado || Estado.reprovado)) {
+>>>>>>> Melissa
             this.estado = estado;
         }
         else if (this.estado == Estado.aprovado && estado == Estado.concluido) {
             this.estado = estado;
         }
         else if (this.estado == Estado.concluido) {
-            throw ("pedido ja concluido, nao pode ser alterado");
+            throw "pedido ja concluido, nao pode ser alterado";
         }
         else {
-            throw ("escolha um estado valido");
+            throw "escolha um estado valido";
         }
     }
     get Material() {
@@ -42,8 +65,14 @@ class Pedido {
     get Arquivo() {
         return this.arquivo;
     }
-    get Medida() {
-        return this.medida;
+    get Cor() {
+        return this.cor;
+    }
+    get Descricao() {
+        return this.descricao;
+    }
+    get Comentario() {
+        return this.comentario;
     }
     get Id_horaDisponivel() {
         return this.id_horaDisponivel;
@@ -60,6 +89,7 @@ var Estado;
 (function (Estado) {
     Estado["pendente"] = "pendente";
     Estado["aprovado"] = "aprovado";
+    Estado["em_andamento"] = "em andamento";
     Estado["concluido"] = "concluido";
     Estado["reprovado"] = "reprovado";
 })(Estado = exports.Estado || (exports.Estado = {}));

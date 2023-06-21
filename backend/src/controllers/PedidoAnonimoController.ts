@@ -1,43 +1,57 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import { pedidoAnonimoRepository } from "../repositories/PedidoAnonimoRepository";
-import { Estado } from "../models/PedidoAnonimo";
+import { PedidoAnonimo, Estado } from "../models/PedidoAnonimo";
+import fs from "fs";
+
 
 export class PedidoAnonimoController {
-    async createPedidoAnonimo(req: Request, res: Response) {
-        // criar pedido anônimo
-        const {
-            material,
-            prioridade,
-            maquina,
-            estado,
-            arquivo,
-            medida,
-            codigo,
-            id_horaDisponivel,
-            id_autorAutorizadorAnonimo,
-        } = req.body;
-
+  async createPedidoAnonimo(req: Request, res: Response) {
     try {
-      const novoPedido = pedidoAnonimoRepository.create({
+      // criar pedido anônimo
+      const {
         material,
         maquina,
-        estado,
-        arquivo,
-        medida,
-        codigo: bcrypt.hashSync(Date.now().toString(), 10), // gerando um hash a partir do timestamp atual
+        cor,
+        descricao,
+        comentario,
         id_horaDisponivel,
-        id_autorAutorizadorAnonimo,
-      });
-
-      await pedidoAnonimoRepository.save(novoPedido);
-
-      return res.status(201).json(novoPedido);
+      } = req.body;
+  
+      let id_autorAutorizadorAnonimo = 1;
+      let estado: Estado = Estado.pendente;
+      let arquivo: Buffer | undefined;
+      let codigo = bcrypt.hashSync(Date.now().toString(), 10); // gerando um hash a partir do timestamp atual
+  
+      if (req.file) {
+        arquivo = fs.readFileSync(req.file.path);
+      }
+      
+      const pedidoAnonimo = new PedidoAnonimo (
+          material,
+          maquina,
+          estado,
+          arquivo || Buffer.alloc(0),
+          cor,
+          descricao,
+          comentario,
+          codigo,
+          id_horaDisponivel,
+          Number(id_autorAutorizadorAnonimo),
+      );
+  
+      const novoPedidoAnonimo = pedidoAnonimoRepository.create(pedidoAnonimo);
+      await pedidoAnonimoRepository.save(novoPedidoAnonimo);
+  
+      return res.status(201).json(novoPedidoAnonimo);
     } catch (error) {
-      console.log(error);
-      return res.status(500).json({ message: "Internal Server Error" });
+      // Trate o erro aqui, você pode enviar uma resposta de erro personalizada ou executar outras ações necessárias
+      
+      return res.status(500).json({ error: "Ocorreu um erro ao criar o pedido anônimo" });
     }
   }
+  
+  
 
   async listPedidosAnonimos(req: Request, res: Response) {
     try {
@@ -50,21 +64,21 @@ export class PedidoAnonimoController {
     }
   }
 
-  async listPedidosAnonimosT(req: Request, res: Response) {
-    try {
-      const pedidos = await pedidoAnonimoRepository
-        .createQueryBuilder("pedidoAnonimo")
-        .leftJoinAndSelect("pedidoAnonimo.id_horaDisponivel", "horaDisponivel")
-        .leftJoinAndSelect("pedidoAnonimo.id_autorAutorizadorAnonimo", "autorAutorizadorAnonimo")
-        .leftJoinAndSelect("autorAutorizadorAnonimo.id_cargo", "cargo")
-        .getMany();
+  // async listPedidosAnonimosT(req: Request, res: Response) {
+  //   try {
+  //     const pedidos = await pedidoAnonimoRepository
+  //       .createQueryBuilder("pedidoAnonimo")
+  //       .leftJoinAndSelect("pedidoAnonimo.id_horaDisponivel", "horaDisponivel")
+  //       .leftJoinAndSelect("pedidoAnonimo.id_autorAutorizadorAnonimo", "autorAutorizadorAnonimo")
+  //       .leftJoinAndSelect("autorAutorizadorAnonimo.id_cargo", "cargo")
+  //       .getMany();
   
-      return res.status(200).json(pedidos);
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({ message: "Internal Server Error" });
-    }
-  }
+  //     return res.status(200).json(pedidos);
+  //   } catch (error) {
+  //     console.log(error);
+  //     return res.status(500).json({ message: "Internal Server Error" });
+  //   }
+  // }
   
 
   async getPedidoByCodigo(req: Request, res: Response) {
@@ -106,7 +120,7 @@ export class PedidoAnonimoController {
 
     pedido.material = material || pedido.material;
     pedido.maquina = maquina || pedido.maquina;
-    pedido.medida = medida || pedido.medida;
+    // pedido.medida = medida || pedido.medida;
 
     await pedidoAnonimoRepository.save(pedido);
 
@@ -127,9 +141,6 @@ export class PedidoAnonimoController {
       throw new Error("Pedido não encontrado");
     }
   
-    if (pedido.estado.toString().toLowerCase() !== Estado.pendente) { 
-      throw new Error("O pedido não pode ser atualizado porque não está no estado 'pendente'");
-    }
   
     // Excluindo o pedido
     await pedidoAnonimoRepository.delete({ codigo: codigo });

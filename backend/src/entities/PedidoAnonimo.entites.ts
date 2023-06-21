@@ -27,20 +27,26 @@ export class PedidoAnonimo {
   @Column({ type: "enum", enum: Estado})
   estado: Estado;
 
-  @Column({ type: "longblob", nullable: true }) // ainda não foi rodado no banco
-  arquivo: DeepPartial<Buffer> | undefined;
+  @Column({ type: "longblob", nullable: true })
+  arquivo: Buffer | null;
 
   @Column({ type: "text", nullable: true })
-  medida: string;
+  cor: string | null;
+
+  @Column({ type: "text", nullable: true })
+  descricao: string | null;
+
+  @Column({ type: "text", nullable: true })
+  comentario: string | null;
 
   @Column({ type: "text", nullable: true })
   codigo: string;
 
   @ManyToOne(() => HoraDisponivel, (horaDisponivel) => horaDisponivel.horas)
   @JoinColumn({ name: "id_horaDisponivel" })
-  id_horaDisponivel: HoraDisponivel;
+  id_horaDisponivel: number | null;
 
   @ManyToOne(() => Usuario, (usuario) => usuario.autorAutorizadorAnonimo)
   @JoinColumn({ name: "id_autorAutorizadorAnonimo" })
-  id_autorAutorizadorAnonimo: Usuario;
+  id_autorAutorizadorAnonimo: number | null;
 }

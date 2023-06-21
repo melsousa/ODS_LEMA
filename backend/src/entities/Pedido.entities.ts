@@ -1,3 +1,4 @@
+import { Estado } from "../models/Pedido";
 import { HoraDisponivel } from "./HoraDisponivel.entities";
 import { Usuario } from "./Usuario.entities";
 import { DeepPartial } from "typeorm";
@@ -16,12 +17,7 @@ export enum Prioridade {
   alta = "alta",
 }
 
-export enum Estado {
-  pendente = "pendente",
-  aprovado = "aprovado",
-  concluido = "concluido",
-  reprovado = "reprovado",
-}
+
 
 @Entity("pedidos")
 export class Pedido {
@@ -29,26 +25,32 @@ export class Pedido {
   id_pedido: number;
 
   @Column({ type: "text", nullable: true })
-  material: string;
+  material: string | null;
 
   @Column({ type: "enum" , enum: Prioridade})
   prioridade: Prioridade;
 
   @Column({ type: "text", nullable: true })
-  maquina: string;
+  maquina: string | null;
 
   @Column({ type: "enum", enum: Estado})
   estado: Estado;
 
   @Column({ type: "longblob", nullable: true })
   arquivo: Buffer | null;
-  
-  @Column({type:"text", nullable:true})
-  medida: string
-  
+
+  @Column({ type: "text", nullable: true })
+  cor: string | null;
+
+  @Column({ type: "text", nullable: true })
+  descricao: string | null;
+
+  @Column({ type: "text", nullable: true })
+  comentario: string | null;
+
   @ManyToOne(() => HoraDisponivel, (horaDisponivel) => horaDisponivel.horas)
-  @JoinColumn({name: "id_horaDisponivel"})
-  id_horaDisponivel: number
+  @JoinColumn({ name: "id_horaDisponivel" })
+  id_horaDisponivel: number | null;
 
   @ManyToOne(() => Usuario, (usuario) => usuario.autorPedido)
   @JoinColumn({name: "id_autorPedido"})
@@ -56,6 +58,8 @@ export class Pedido {
   
   @ManyToOne(() => Usuario, (usuario) => usuario.autorAutorizador)
   @JoinColumn({ name: "id_autorAutorizador"})
-  id_autorAutorizador: number;
+  id_autorAutorizador: number | null;
   
 }
+export { Estado };
+

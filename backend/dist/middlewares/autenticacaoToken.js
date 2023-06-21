@@ -23,7 +23,19 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+<<<<<<< HEAD
 exports.adminAutenticacao = exports.autenticaoToken = void 0;
+=======
+<<<<<<< HEAD
+exports.autenticacaoAdmin = exports.autenticaoToken = void 0;
+=======
+<<<<<<< HEAD
+exports.autenticacaoAdmin = exports.autenticaoToken = void 0;
+=======
+exports.autenticaoToken = void 0;
+>>>>>>> main
+>>>>>>> 1611ae6ded2549344d78a728c0fd2d6dcda83c77
+>>>>>>> Melissa
 const jwt = __importStar(require("jsonwebtoken"));
 const api_erros_1 = require("../helpers/api-erros");
 const UsuarioRepository_1 = require("../repositories/UsuarioRepository");
@@ -44,7 +56,15 @@ const autenticaoToken = async (req, res, next) => {
     next();
 };
 exports.autenticaoToken = autenticaoToken;
+<<<<<<< HEAD
 const adminAutenticacao = async (req, res, next) => {
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 1611ae6ded2549344d78a728c0fd2d6dcda83c77
+const autenticacaoAdmin = async (req, res, next) => {
+>>>>>>> Melissa
     var _a;
     const { authorization } = req.headers;
     if (!authorization) {
@@ -52,12 +72,34 @@ const adminAutenticacao = async (req, res, next) => {
     }
     const token = authorization.split(" ")[1];
     // verificando se o token existe
+<<<<<<< HEAD
     const decodedToken = jwt.verify(token, (_a = process.env.JWT_PASS) !== null && _a !== void 0 ? _a : "");
     const { id } = decodedToken;
     const user = await UsuarioRepository_1.usuarioRepository.findOne({ where: { id_usuario: id }, relations: ['id_cargo'] });
     if ((user === null || user === void 0 ? void 0 : user.id_cargo.id_cargo) != 1) {
+=======
+    const { id_usuario } = jwt.verify(token, (_a = process.env.JWT_PASS) !== null && _a !== void 0 ? _a : "");
+<<<<<<< HEAD
+    const user = await UsuarioRepository_1.usuarioRepository.findOne({ where: { id_usuario, }, relations: ['id_cargo'] });
+    console.log(user);
+    if ((user === null || user === void 0 ? void 0 : user.id_cargo.id_cargo) != 1) {
+=======
+    const user = await UsuarioRepository_1.usuarioRepository.findOneBy({ id_usuario });
+    console.log(user);
+    if (!user) {
+>>>>>>> 1611ae6ded2549344d78a728c0fd2d6dcda83c77
+>>>>>>> Melissa
         throw new api_erros_1.UnauthorizedError("Não autorizado");
     }
     next();
 };
+<<<<<<< HEAD
 exports.adminAutenticacao = adminAutenticacao;
+=======
+exports.autenticacaoAdmin = autenticacaoAdmin;
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> main
+>>>>>>> 1611ae6ded2549344d78a728c0fd2d6dcda83c77
+>>>>>>> Melissa
