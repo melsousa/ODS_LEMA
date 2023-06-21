@@ -5,16 +5,39 @@ import { PedidoAnonimo, Estado } from "../models/PedidoAnonimo";
 import fs from "fs";
 
 export class adminPedidoAnonimoController {
-    async listPedidosAnonimos(req: Request, res: Response) {
-        try {
-          const pedidos = await pedidoAnonimoRepository.find();
-    
-          return res.status(200).json(pedidos);
-        } catch (error) {
-          console.log(error);
-          return res.status(500).json({ message: "Internal Server Error" });
-        }
+  async listPedidosAnonimos(req: Request, res: Response) {
+    try {
+      // Obtendo os parâmetros de paginação da query string
+      const { page, pageSize } = req.query;
+      const pageNumber = parseInt(page as string, 10) || 1;
+      const pageSizeNumber = parseInt(pageSize as string, 10) || 10;
+
+      const [pedidos, totalCount] = await pedidoAnonimoRepository.findAndCount({
+        skip: (pageNumber - 1) * pageSizeNumber,
+        take: pageSizeNumber,
+      });
+
+      return res.status(200).json({
+        pedidos,
+        totalCount,
+        currentPage: pageNumber,
+        pageSize: pageSizeNumber,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: "Internal Server Error" });
     }
+  }
+    // async listPedidosAnonimos(req: Request, res: Response) {
+    //     try {
+    //       const pedidos = await pedidoAnonimoRepository.find();
+    
+    //       return res.status(200).json(pedidos);
+    //     } catch (error) {
+    //       console.log(error);
+    //       return res.status(500).json({ message: "Internal Server Error" });
+    //     }
+    // }
 
     async listPedidosAnonimosByCodigo(req: Request, res: Response) {
         try {

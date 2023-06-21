@@ -65,6 +65,8 @@ export class PedidoController {
         .json({ error: "Ocorreu um erro ao criar o pedido" });
     }
   }
+
+  
   async getPedidosByUsuario(req: Request, res: Response) {
     try {
       const { authorization } = req.headers;
@@ -81,19 +83,24 @@ export class PedidoController {
       const { id } = decodedToken;
       console.log(id);
 
-      // Obtendo os pedidos vinculados ao usuário logado
+      // Obtendo os parâmetros de paginação da query string
+      const { page, pageSize } = req.query;
+      const pageNumber = parseInt(page as string, 10) || 1;
+      const pageSizeNumber = parseInt(pageSize as string, 10) || 10;
+
+      // Obtendo os pedidos vinculados ao usuário logado com paginação
       const pedidos = await pedidoRepository
         .createQueryBuilder("pedido")
-        .where("pedido.id_autorPedido = :id_autorPedido", {
-          id_autorPedido: id,
-        })
+        .where("pedido.id_autorPedido = :id_autorPedido", { id_autorPedido: id })
+        .skip((pageNumber - 1) * pageSizeNumber)
+        .take(pageSizeNumber)
         .getMany();
 
       return res.status(200).json(pedidos);
     } catch (error) {
       return res
         .status(500)
-        .json({ error: "Ocorreu um erro ao criar o pedido anônimo" });
+        .json({ error: "Ocorreu um erro ao buscar os pedidos" });
     }
   }
 
@@ -215,12 +222,19 @@ export class PedidoController {
         throw new Error("Estado inválido");
       }
 
+      // Obtendo os parâmetros de paginação da query string
+      const { page, pageSize } = req.query;
+      const pageNumber = parseInt(page as string, 10) || 1;
+      const pageSizeNumber = parseInt(pageSize as string, 10) || 10;
+
       const pedidos = await pedidoRepository
         .createQueryBuilder("pedido")
         .where("pedido.id_autorPedido = :id_autorPedido", {
           id_autorPedido: id,
         })
         .andWhere("pedido.estado = :estado", { estado: estadoEnum })
+        .skip((pageNumber - 1) * pageSizeNumber)
+        .take(pageSizeNumber)
         .getMany();
 
       return res.status(200).json(pedidos);
@@ -228,31 +242,70 @@ export class PedidoController {
       return res.status(500).json({ message: "Internal Server Error" });
     }
   }
+  // async getPedidosByEstado(req: Request, res: Response) {
+  //   const { estado } = req.params;
+  //   const { authorization } = req.headers;
 
-  //busca todos os pedidos do usuario que ta logado
-  async readPedido(req: Request, res: Response) {
-    try {
-      const { authorization } = req.headers;
-      if (!authorization) {
-        throw new Error("Não autorizado");
-      }
+  //   if (!authorization) {
+  //     throw new Error("Não autorizado");
+  //   }
 
-      const token = authorization.split(" ")[1];
+  //   // Verificando se o token existe e obtendo o ID do usuário
+  //   const token = authorization.split(" ")[1];
+  //   const decodedToken = jwt.verify(token, process.env.JWT_PASS ?? "") as {
+  //     id: number;
+  //   };
+  //   const { id } = decodedToken;
 
-      const { id_usuario } = jwt.verify(
-        token,
-        process.env.JWT_PASS ?? ""
-      ) as jwt.JwtPayload;
+  //   try {
+  //     // Verifique se o estado fornecido é válido
+  //     const estadoEnum = Object.values(Estado).find(
+  //       (enumEstado) => enumEstado.toLowerCase() === estado.toLowerCase()
+  //     );
 
-      const pedidos = await pedidoRepository.find({
-        where: { id_autorPedido: id_usuario },
-      });
+  //     if (!estadoEnum) {
+  //       throw new Error("Estado inválido");
+  //     }
 
-      return res.status(200).json(pedidos);
-    } catch (error) {
-      return res
-        .status(500)
-        .json({ error: "Ocorreu um erro ao criar o pedido anônimo" });
-    }
-  }
+  //     const pedidos = await pedidoRepository
+  //       .createQueryBuilder("pedido")
+  //       .where("pedido.id_autorPedido = :id_autorPedido", {
+  //         id_autorPedido: id,
+  //       })
+  //       .andWhere("pedido.estado = :estado", { estado: estadoEnum })
+  //       .getMany();
+
+  //     return res.status(200).json(pedidos);
+  //   } catch (error) {
+  //     return res.status(500).json({ message: "Internal Server Error" });
+  //   }
+  // }
+
+  
+  // //busca todos os pedidos do usuario que ta logado
+  // async readPedido(req: Request, res: Response) {
+  //   try {
+  //     const { authorization } = req.headers;
+  //     if (!authorization) {
+  //       throw new Error("Não autorizado");
+  //     }
+
+  //     const token = authorization.split(" ")[1];
+
+  //     const { id_usuario } = jwt.verify(
+  //       token,
+  //       process.env.JWT_PASS ?? ""
+  //     ) as jwt.JwtPayload;
+
+  //     const pedidos = await pedidoRepository.find({
+  //       where: { id_autorPedido: id_usuario },
+  //     });
+
+  //     return res.status(200).json(pedidos);
+  //   } catch (error) {
+  //     return res
+  //       .status(500)
+  //       .json({ error: "Ocorreu um erro ao criar o pedido anônimo" });
+  //   }
+  // }
 }
