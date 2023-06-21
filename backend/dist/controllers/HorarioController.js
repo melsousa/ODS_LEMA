@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.HorarioController = void 0;
 const api_erros_1 = require("../helpers/api-erros");
 const HorarioRepository_1 = require("./../repositories/HorarioRepository");
-// import {}
+const api_erros_1 = require("../helpers/api-erros");
 class HorarioController {
     async createHorario(req, res) {
         const { dataInicio, dataFim, disponivel } = req.body;

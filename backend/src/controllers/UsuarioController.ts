@@ -16,16 +16,30 @@ export class UsuarioController {
   async create(req: Request, res: Response) {
     // criar usuário
     const { nome, email, senha, cargo } = req.body;
-    
+
     const userExists = await usuarioRepository.findOneBy({ email });
 
     if (userExists) {
       throw new BadRequestError("Email já cadastrado ");
     }
-    
-    let user = Usuario.create(nome, email, senha, cargo);
 
-    const newUsuario = usuarioRepository.create(user);
+    // Obtenha o objeto do cargo com base no nome fornecido
+    const cargoObj = await cargoRepository.findOneBy({ cargo });
+
+    if (!cargoObj) {
+      throw new BadRequestError("Cargo inválido");
+    }
+
+    
+    
+    let user = Usuario.create(nome, email, senha, cargo)
+
+    const newUsuario = usuarioRepository.create({
+      nome: user.nome,
+      email: user.email,
+      senha: user.senha,
+      id_cargo: { id_cargo: cargoObj.id_cargo }
+    });
     
     const { senha: _, ...userSemSenha } = newUsuario; 
 

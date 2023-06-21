@@ -28,6 +28,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsuarioController = void 0;
 const UsuarioRepository_1 = require("./../repositories/UsuarioRepository");
+const CargoRepository_1 = require("./../repositories/CargoRepository");
 const Usuario_1 = require("../models/Usuario");
 const bcrypt = __importStar(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -40,8 +41,23 @@ class UsuarioController {
         if (userExists) {
             throw new api_erros_1.BadRequestError("Email já cadastrado ");
         }
+<<<<<<< HEAD
         let user = Usuario_1.Usuario.create(nome, email, senha, cargo);
         const newUsuario = UsuarioRepository_1.usuarioRepository.create(user);
+=======
+        // Obtenha o objeto do cargo com base no nome fornecido
+        const cargoObj = await CargoRepository_1.cargoRepository.findOneBy({ cargo });
+        if (!cargoObj) {
+            throw new api_erros_1.BadRequestError("Cargo inválido");
+        }
+        let user = Usuario_1.Usuario.create(nome, email, senha, cargo);
+        const newUsuario = UsuarioRepository_1.usuarioRepository.create({
+            nome: user.nome,
+            email: user.email,
+            senha: user.senha,
+            id_cargo: { id_cargo: cargoObj.id_cargo }
+        });
+>>>>>>> Melissa
         const { senha: _, ...userSemSenha } = newUsuario;
         await UsuarioRepository_1.usuarioRepository.save(newUsuario);
         return res.status(201).json(userSemSenha);
@@ -77,6 +93,7 @@ class UsuarioController {
             throw new api_erros_1.BadRequestError("Não autorizado");
         }
         // verificando se o token existe
+<<<<<<< HEAD
         const token = authorization.split(" ")[1];
         const decodedToken = jsonwebtoken_1.default.verify(token, (_a = process.env.JWT_PASS) !== null && _a !== void 0 ? _a : "");
         const { id } = decodedToken;
@@ -85,6 +102,34 @@ class UsuarioController {
             throw new api_erros_1.UnauthorizedError("Não autorizado");
         }
         const { senha: _, ...loggedUser } = user;
+=======
+<<<<<<< HEAD
+        const token = authorization.split(" ")[1];
+        const decodedToken = jsonwebtoken_1.default.verify(token, (_a = process.env.JWT_PASS) !== null && _a !== void 0 ? _a : "");
+        const { id } = decodedToken;
+        const user = await UsuarioRepository_1.usuarioRepository.findOne({
+            where: { id_usuario: id },
+        });
+=======
+        const { id_usuario } = jsonwebtoken_1.default.verify(token, (_a = process.env.JWT_PASS) !== null && _a !== void 0 ? _a : "");
+        const user = await UsuarioRepository_1.usuarioRepository.findOneBy({ id_usuario });
+<<<<<<< HEAD
+        console.log();
+=======
+>>>>>>> main
+>>>>>>> 1611ae6ded2549344d78a728c0fd2d6dcda83c77
+        if (!user) {
+            throw new api_erros_1.BadRequestError("Não autorizado");
+        }
+        const { senha: _, ...loggedUser } = user;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+        console.log(token);
+>>>>>>> main
+>>>>>>> 1611ae6ded2549344d78a728c0fd2d6dcda83c77
+>>>>>>> Melissa
         return res.json(loggedUser);
     }
     async updateUser(req, res) {

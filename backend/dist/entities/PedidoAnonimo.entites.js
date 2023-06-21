@@ -9,11 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PedidoAnonimo = void 0;
+exports.PedidoAnonimo = exports.Estado = void 0;
 const HoraDisponivel_entities_1 = require("./HoraDisponivel.entities");
 const Usuario_entities_1 = require("./Usuario.entities");
 const Pedido_entities_1 = require("./Pedido.entities");
 const typeorm_1 = require("typeorm");
+var Estado;
+(function (Estado) {
+    Estado[Estado["pendente"] = 0] = "pendente";
+    Estado[Estado["aprovado"] = 1] = "aprovado";
+    Estado[Estado["concluido"] = 2] = "concluido";
+    Estado[Estado["reprovado"] = 3] = "reprovado";
+})(Estado = exports.Estado || (exports.Estado = {}));
 let PedidoAnonimo = class PedidoAnonimo {
 };
 __decorate([
@@ -29,7 +36,11 @@ __decorate([
     __metadata("design:type", String)
 ], PedidoAnonimo.prototype, "maquina", void 0);
 __decorate([
+<<<<<<< HEAD
     (0, typeorm_1.Column)({ type: "enum", enum: Pedido_entities_1.Estado }),
+=======
+    (0, typeorm_1.Column)({ type: "text", enum: Estado }),
+>>>>>>> Melissa
     __metadata("design:type", String)
 ], PedidoAnonimo.prototype, "estado", void 0);
 __decorate([
