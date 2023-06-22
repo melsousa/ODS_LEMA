@@ -1,3 +1,4 @@
+
 import { PedidoAnonimoController } from './controllers/PedidoAnonimoController';
 import { HorarioController } from './controllers/HorarioController';
 import { CargoController } from './controllers/CargoController';
@@ -7,17 +8,19 @@ import { adminController } from './controllers/adminController';
 import { Router } from "express";
 import { autenticaoToken, adminAutenticacao } from './middlewares/autenticacaoToken';
 import { adminPedidoAnonimoController } from './controllers/adminPedidoAnonimoController';
+import { adminUsuario } from './controllers/adminUsuario';
+import { adminPedidoController } from './controllers/adminPedidoController';
+
+import multer from 'multer';
 
 const routes = Router();
 
-
-
+const upload = multer({ dest: 'arquivo/' }); // Especifique o diretório onde os arquivos serão salvos
 // PEDIDO ANÔNIMO
 
 // Cadastro de pedido anônimo
 routes.post("/pedidoanonimo/create", new PedidoAnonimoController().createPedidoAnonimo);
-// lista de todos os pedidos
-// routes.get("/pedidoanonimo/get", new PedidoAnonimoController().listPedidosAnonimos)
+
 // lista pelo código do pedido
 routes.get("/pedidoanonimo/listPedidoByCodigo/:codigo", new PedidoAnonimoController().listPedidosAnonimosByCodigo)
 
@@ -33,7 +36,6 @@ routes.post("/login", new UsuarioController().login);
 
 // Cadastro de usuário
 routes.post("/usuario", new UsuarioController().create);
-
 
 
 //a partir daqui tds as rotas so sao acessadas apenas com a token
@@ -71,19 +73,24 @@ routes.use(adminAutenticacao)
 // ADMIN USUÁRIO
 
 // listar usuários
-routes.get("/adminUser/listUser/", new adminController().listUser)
+routes.get("/adminUser/listUser/", new adminUsuario().listUser)
 // listar usuário por id
-routes.get("/adminUser/listUser/:id_usuario", new adminController().listUser)
+routes.get("/adminUser/listUser/:id_usuario", new adminUsuario().listUser)
 // atualizar usuário por id
-routes.put("/adminUser/update/:id_usuario", new adminController().updateUser)
+routes.put("/adminUser/update/:id_usuario", new adminUsuario().updateUser)
 // deletar usuário por id
-routes.delete("/adminUser/delete/:id_usuario", new adminController().deleteUser)
+routes.delete("/adminUser/delete/:id_usuario", new adminUsuario().deleteUser)
 
 // ADMIN PEDIDO
-//retornar os pedidos a partir do estado
-routes.get("/adminPedidos/estado_pedido=:estado", new adminController().readPedidos)
-//atualiza o pedido apartir do id
-routes.put("/adminPedidos/id_pedido=:id_pedido", new adminController().updatePedidos)
+
+// lista todos
+routes.get("/adminPedidos/listPedido/", new adminPedidoController().readPedidos)
+// lista por estado
+routes.get("/adminPedidos/listPedido/:estado", new adminPedidoController().readPedidos)
+// atualizar pedido
+routes.put("/adminPedidos/update/:id_pedido", new adminPedidoController().updatePedidos)
+// deletar pedido
+routes.delete("/adminPedidos/delete/:id_pedido", new adminPedidoController().deletePedido)
 
 // ADMIN PEDIDO ANONIMO
 

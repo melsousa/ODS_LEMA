@@ -188,7 +188,7 @@ export class UsuarioController {
     } catch (error) {
       return res
         .status(500)
-        .json({ error: "Ocorreu um erro ao criar o usuário" });
+        .json({ error: "Ocorreu um erro ao atualizar o usuário" });
     }
   }
 

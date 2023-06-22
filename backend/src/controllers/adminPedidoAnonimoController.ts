@@ -121,7 +121,7 @@ export class adminPedidoAnonimoController {
         try {
           const { codigo } = req.params;
     
-          // Verificando se o pedido existe e se o estado é "pendente"
+          // Verificando se o pedido existe 
           const pedido = await pedidoAnonimoRepository.findOne({
             where: { codigo: codigo },
           });

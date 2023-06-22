@@ -3,8 +3,12 @@ import { Pedido, Estado } from "../models/Pedido";
 import { pedidoRepository } from "./../repositories/PedidoRepository";
 import { Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
-
+import { callbackify, promisify } from "util";
+import multer from 'multer';
+import path from "path";
 import fs from "fs";
+
+
 
 export class PedidoController {
   async createPedido(req: Request, res: Response) {
@@ -60,12 +64,12 @@ export class PedidoController {
 
       return res.status(201).json(novoPedido);
     } catch (error) {
+      console.log(error)
       return res
         .status(500)
         .json({ error: "Ocorreu um erro ao criar o pedido" });
     }
   }
-
   
   async getPedidosByUsuario(req: Request, res: Response) {
     try {
